@@ -1,0 +1,135 @@
+
+/* Sidebar Styles */
+.sidebar {
+  width: 250px;
+  background: linear-gradient(135deg, #2417df 0%, #2417df 100%);
+  color: white;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar-header {
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 20px 0;
+}
+
+.sidebar-nav li {
+  margin-bottom: 5px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-left-color: #fff;
+}
+
+.nav-link fa-icon {
+  margin-right: 10px;
+  width: 20px;
+}
+
+.profile {
+  text-align: center;
+  position: relative;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.level-circle {
+  position: absolute;
+  top: 76px;
+  right: 80px;
+  background-color: #6200ea;
+  color: white;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.role {
+  margin-top: 0.5rem;
+  font-weight: bold;
+}
+
+.xp-bar {
+  width: 80%; 
+  margin: 14px auto;
+
+  height: 5px;
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.xp-fill {
+  width: 50%;
+  height: 100%;
+  background-color: #6200ea;
+  border-radius: 3px;
+}
+
+.btn-logout {
+  background: linear-gradient(135deg, #5149E2, #4179FD);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
+}
+
+.btn-logout:hover {
+  background: linear-gradient(135deg, #c82333, #a71e2a);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+.btn-logout i {
+  font-size: 1rem;
+}
+
+.btn-logout span {
+  font-size: 0.9rem;
+}
+
+.btn-center {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem; 
+}

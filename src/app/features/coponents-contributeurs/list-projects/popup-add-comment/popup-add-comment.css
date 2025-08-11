@@ -1,0 +1,72 @@
+.popup-add-comment {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: #fff;
+  width: 400px;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.popup-header {
+  text-align: right;
+}
+
+.close-button {
+  background-color: #7f51eb;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+textarea {
+  width: 100%;
+  height: 120px;
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: none;
+  margin-top: 10px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.btn-cancel,
+.btn-send {
+  padding: 6px 14px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-cancel {
+  background-color: #ccc;
+  color: #333;
+}
+
+.btn-send {
+  background-color: #7f51eb;
+  color: white;
+}

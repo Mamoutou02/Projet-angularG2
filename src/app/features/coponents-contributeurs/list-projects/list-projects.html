@@ -1,0 +1,89 @@
+<div class="container">
+  <button class="btn-retour" [routerLink]="chemin">Retour</button>
+
+  <h2 class="title">La liste des Projets</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>N°</th>
+        <th>Titre</th>
+        <th>Statut</th>
+        <th>Coin</th>
+        <th>Débloqué</th>
+        <th>Voir</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let projet of projets; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ projet.titre }}</td>
+        <td class="statut">{{ projet.statut }}</td>
+        <td>{{ projet.coin }}</td>
+
+        <td>
+          <fa-icon [icon]="faUnlock" class="icon-lock" (click)="onUnlockClick(projet)"></fa-icon>
+        </td>
+        <td>
+          <span class="icon-actions">
+            <fa-icon
+              [icon]="faEye"
+              class="icon-eye"
+              (click)="openPopupDetail(projet)"
+            ></fa-icon>
+            <fa-icon
+              [icon]="faEllipsisV"
+              class="icon-menu"
+              (click)="onMenuClick(projet)"
+            ></fa-icon>
+          </span>
+
+          <!-- Popup des actions -->
+          <app-popup-actions
+            *ngIf="showActionMenu && projectForActions === projet"
+            [project]="projet"
+            (viewComments)="onViewComments($event)"
+            (addComment)="onAddComment($event)"
+            (close)="onCloseActions()"
+          ></app-popup-actions>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Le composant popup ne doit être présent que si showModal est true -->
+  <app-popup-eye
+    *ngIf="showModal"
+    [titreProjet]="selectedProject?.titre"
+    [niveau]="selectedProject?.niveau"
+    [description]="selectedProject?.description"
+    (closeModal)="closePopup()"
+  ></app-popup-eye>
+
+  <app-popup-comments
+    *ngIf="showCommentsModal"
+    [comments]="commentsForProject"
+    (close)="closeCommentsPopup()"
+  ></app-popup-comments>
+
+  <app-popup-add-comment
+    *ngIf="showAddCommentModal"
+    (close)="closeAddCommentPopup()"
+    (sendComment)="handleSendComment($event)"
+  ></app-popup-add-comment>
+
+
+  <!-- Nouveau composant -->
+
+  <!-- Popup Unlock -->
+  <app-popup-unlock
+    *ngIf="showUnlockPopup"
+    [projectTitle]="selectedProject?.titre"
+    [userCoins]="userCoins"
+    [requiredCoins]="selectedProject?.coin"
+    [hasAccessLevel]="selectedProject?.niveau === 'Débutant'"
+    (close)="closeUnlockPopup()"
+    (unlocked)="onProjectUnlocked()"
+  ></app-popup-unlock>
+
+</div>

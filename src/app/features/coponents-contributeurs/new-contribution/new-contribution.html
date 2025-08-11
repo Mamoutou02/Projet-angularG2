@@ -1,0 +1,40 @@
+<!-- contribution-modal.component.html -->
+<div class="modal">
+  <div class="modal-header">
+    <h1>Nouvelle Contributions</h1>
+    <button class="close-btn" (click)="closeModal()">×</button>
+  </div>
+
+  <form class="form" (ngSubmit)="onSubmit()">
+    <label for="fonctionnalite">Choisir une fonctionnalité</label>
+    <select [(ngModel)]="contribution.fonctionnalite" name="fonctionnalite">
+      <!-- options -->
+    </select>
+
+    <!-- Zone de téléversement séparée -->
+    <div class="file-upload-section">
+      <input #fileInput type="file" (change)="onFileSelected($event)" style="display: none">
+<button type="button" class="upload-btn" (click)="fileInput.click()">
+  Sélectionner un fichier
+</button>
+      <!-- Affichage du nom du fichier sélectionné et bouton de téléversement -->
+      <div *ngIf="contribution.fichier">
+        <p>Fichier sélectionné: {{ contribution.fichier?.name }}</p>
+        <button type="button" class="upload-btn" (click)="onFileUpload()" [disabled]="isUploading">
+          <span *ngIf="!isUploading">Téléverser</span>
+          <span *ngIf="isUploading">Téléversement en cours...</span>
+        </button>
+<!-- Affichage de la progression du téléversement -->
+        <div *ngIf="isUploading">
+          <progress [value]="uploadProgress" max="100"></progress>
+          {{ uploadProgress }}%
+        </div>
+      </div>
+    </div>
+<!-- Champ de saisie pour le titre -->
+    <div class="buttons">
+      <button type="button" class="cancel-btn" (click)="goBack()">Annuler</button>
+      <button type="submit" class="submit-btn">Envoyer la contribution</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,55 @@
+<div class="container">
+        <h1>Gestion des Badges</h1>
+    
+        <button (click)="addBadge()" class="add-button">Ajouter un Badge</button>
+    
+        <div *ngIf="showForm" class="form-container">
+            <h2>Ajouter un Nouveau Badge</h2>
+            <form (ngSubmit)="submitBadge()" #badgeForm="ngForm">
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" rows="3" required
+                              [(ngModel)]="newBadge.description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="image">Sélectionner une Image:</label>
+                    <input type="file" id="image" name="image" accept="image/*" required
+                           (change)="onFileSelected($event)">
+                </div>
+                <div class="form-group">
+                    <label for="coins">Coins pour débloquer:</label>
+                    <input type="number" id="coins" name="coins" min="0" required
+                           [(ngModel)]="newBadge.coins">
+                </div>
+                <div class="form-group">
+                    <label for="type">Type de Badge:</label>
+                    <select id="type" name="type" required [(ngModel)]="newBadge.type">
+                        <option value="">Sélectionner un type</option>
+                        <option *ngFor="let type of badgeTypes" [value]="type">{{type}}</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="submit-button">Créer Badge</button>
+                    <button type="button" (click)="cancelAdd()" class="cancel-button">Annuler</button>
+                </div>
+            </form>
+        </div>
+    
+        <div class="badge-list">
+            <div *ngFor="let badge of badges" class="badge-card">
+                <img [src]="badge.imageUrl" [alt]="badge.type">
+                <div class="card-content">
+                    <h2>{{badge.type.split('_').join(' ')}}</h2>
+                    <p>{{badge.description}}</p>
+                    <div class="badge-info">
+                        <span>{{badge.coins}} Coins</span>
+                        <span class="badge-type" [class]="getBadgeClass(badge.type)">{{badge.type}}</span>
+                    </div>
+                    <div class="card-actions">
+                        <button (click)="editBadge(badge)" class="edit-button">Modifier</button>
+                        <button (click)="deleteBadge(badge.id)" class="delete-button">Supprimer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

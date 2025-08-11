@@ -1,0 +1,45 @@
+<!-- Conteneur principal -->
+<div class="recompense-container">
+
+  <!-- Titre section Récompenses -->
+  <div class="section-title">
+    <fa-icon [icon]="faTrophy"></fa-icon>
+    <h2>Mes Récompenses</h2>
+  </div>
+
+  <!-- Carte qui affiche le total de coins gagnés -->
+  <div class="coins-card">
+    <fa-icon [icon]="faCoins" class="coin-icon"></fa-icon>
+    <div>
+      <p class="label">Total Coins Gagné</p>
+      <p class="value">{{ totalCoins }}</p> <!-- Affiche la variable totalCoins -->
+    </div>
+  </div>
+
+  <!-- Titre section Badges -->
+  <div class="section-title">
+    <fa-icon [icon]="faShield"></fa-icon>
+    <h2>Mes Badges</h2>
+  </div>
+
+  <!-- Grille de cartes de badges -->
+  <div class="badges-grid">
+    <!-- Pour chaque badge dans le tableau badges -->
+    <div class="badge-card" *ngFor="let badge of badges">
+     <!-- Titre avec icône intégrée -->
+   <h3 class="badge-title">
+  <fa-icon
+    [icon]="faMedal"
+    class="badge-icon"
+    [ngClass]="{
+      'bronze-i': badge.title === 'Bronze_I',
+      'bronze-ii': badge.title === 'Bronze_II',
+      'bronze-iii': badge.title === 'Bronze_III'
+    }">
+  </fa-icon>
+  {{ badge.title }}
+</h3>
+      <p>{{ badge.coins }} coins collectés</p> <!-- Montant requis -->
+      <p class="desc">{{ badge.description }}</p> <!-- Description du badge -->
+    </div>
+  </div>

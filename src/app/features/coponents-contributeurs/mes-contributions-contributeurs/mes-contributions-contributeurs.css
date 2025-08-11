@@ -1,0 +1,234 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff;
+  padding: 20px;
+  color: #333;
+}
+
+/* Top bar (onglets + retour) */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.tabs {
+  display: flex;
+  gap: 20px;
+}
+
+.tab {
+  padding: 10px 25px;
+  border: none;
+  background-color: #f1f1ff;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  color: #4b4b8c;
+  transition: all 0.3s ease;
+
+}
+
+.tab.active {
+  background-color: #7f56d9;
+  color: white;
+}
+
+.btn-retour {
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Ajout */
+.add-container {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.btn-ajouter {
+  background-color: #7f56d9;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-ajouter i {
+  margin-right: 8px;
+}
+
+/* Carte */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 0 5px rgba(130, 129, 255, 0.3);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 260px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.icon-circle {
+  background-color: #e4e2ff;
+  color: #4b4b8c;
+  border-radius: 50%;
+  padding: 10px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-title {
+  font-weight: bold;
+  text-transform: uppercase;
+  flex: 1;
+  margin-left: 10px;
+}
+
+.card-date {
+  font-size: 12px;
+  color: #999;
+}
+
+/* Corps */
+.card-body p {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* Statut */
+.card-status {
+  margin-top: auto;
+}
+
+.status {
+  padding: 5px 15px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.status.rejected {
+  background-color: #e3d6ff;
+  color: #673ab7;
+}
+
+/* Footer */
+.card-footer {
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+  margin-top: 15px;
+}
+
+.details-link {
+  font-size: 14px;
+  text-decoration: underline;
+  color: #4f46e5;
+  cursor: pointer;
+}
+
+/* Nouveaux styles pour les statuts */
+.status.approved {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status.pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+/* Amélioration existante pour .status.rejected */
+.status.rejected {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Style du conteneur du tableau Fonctionnalités */
+.fonctionnalites-table-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Style du tableau */
+.fonctionnalites-table-container table {
+  width: 80%;
+  border-collapse: collapse;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+  font-size: 17px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+/* En-tête */
+.fonctionnalites-table-container thead th {
+  background-color: #f2f2f2;
+  padding: 14px 10px;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: left;
+}
+
+/* Colonne ID */
+.fonctionnalites-table-container tbody th {
+  background-color: #D9D9D9;
+  padding: 12px 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Colonne description */
+.fonctionnalites-table-container tbody td {
+  background-color: white;
+  padding: 12px 10px;
+  text-align: left;
+  font-size: 17px;
+}
+
+/* Bordures */
+.fonctionnalites-table-container th,
+.fonctionnalites-table-container td {
+  border: 1px solid #e0e0e0;
+}
+
+/* Arrondi du haut */
+.fonctionnalites-table-container table {
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+}

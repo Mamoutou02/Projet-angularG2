@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="header">
+    <h2>Idée de Projets</h2>
+    <div class="actions">
+      <input type="text" placeholder="Rechercher projets, membres, fonctionnalités..." />
+      <button (click)="ouvrirFormulaire()">+ Ajouter</button>
+    </div>
+  </div>
+
+  <div class="project-list">
+    <div class="project-row" style="position: relative;" *ngFor="let ideeProjets of ideeProjet">
+     
+      <div class="project-description">{{ ideeProjets.description }}</div>
+      <div class="project-statut">{{ ideeProjets.statut }}</div>
+      <div class="project-niveau">{{ ideeProjets.niveau }}</div>
+      <div class="project-titre">{{ ideeProjets.titre }}</div>
+      <div class="project-leguer">{{ ideeProjets.leguer }}</div>
+      <div class="icon">
+        <button class="btn" (click)="ouvrirDetail(ideeProjets)">
+          <fa-icon [icon]="faEye"></fa-icon>
+        </button>
+        <div>
+          <button class="btn" (click)="ouvrirMenu(ideeProjets)">
+            <fa-icon [icon]="faEllipsisV"></fa-icon>
+          </button>
+          <!-- Popup menu (incorrectement placé) -->
+          <app-pup-popmenu class="pop-menu-positionne"
+                           *ngIf="selectedProjet === ideeProjets"
+                           (voirCommentaires)="voirCommentaires(ideeProjets)"
+                           (faireDemande)="faireDemande(ideeProjets)"
+                           (ajouterCommentaire)="ajouterCommentaire(ideeProjets)"
+                           (fermer)="fermerMenu()"
+          ></app-pup-popmenu>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Détail du projet affiché en dehors du *ngFor -->
+  <!-- Popup modale -->
+  <div class="modal-overlay" *ngIf="projetSelectionne" (click)="fermerDetail()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <app-detail-idee-projet [projet]="projetSelectionne"></app-detail-idee-projet>
+      <button class="close-btn" (click)="fermerDetail()">Fermer</button>
+    </div>
+  </div>
+  <!-- Afficher le composant formulaire uniquement si afficherFormulaire = true -->
+  <app-form-ajout-idee
+    *ngIf="afficherFormulaire"
+    (annuler)="fermerFormulaire()"
+    (projetCree)="ajouterProjetDepuisFormulaire($event)"
+  ></app-form-ajout-idee>
+
+</div>
+
+
+

@@ -1,0 +1,52 @@
+<div class="notification-container">
+  <h1>Paramétrer les Notifications</h1>
+
+  <!-- Lier le formulaire à notificationForm -->
+  <form [formGroup]="notificationForm" (ngSubmit)="onSubmit()" class="notification-form">
+
+    <div class="form-group">
+      <label for="notificationType">Type de Notification</label>
+      <select
+        id="notificationType"
+        formControlName="typeNotyf"
+        required>
+        <option value="">Sélectionnez un type</option>
+        <option *ngFor="let type of notificationTypes" [value]="type.value">
+          {{ type.label }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        formControlName="description"
+        rows="4"
+        placeholder="Entrez la description de la notification..."
+        required>
+      </textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="date">Date</label>
+      <input
+        id="date"
+        formControlName="date"
+        type="date"
+        required>
+    </div>
+
+    <button
+      type="submit"
+      class="send-button"
+      [disabled]="isSubmitting || notificationForm.invalid">
+      <span *ngIf="!isSubmitting">Envoyer</span>
+      <span *ngIf="isSubmitting">Envoi en cours...</span>
+    </button>
+  </form>
+
+  <div *ngIf="showSuccess" class="success-message">
+    Notification envoyée avec succès !
+  </div>
+</div>

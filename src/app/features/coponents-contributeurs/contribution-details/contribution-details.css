@@ -1,0 +1,388 @@
+/* Styles globaux */
+:host {
+  display: block;
+  background-color: #e8dede;
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Structure de la modal */
+.modal {
+  background-color: white;
+  width: 700px;
+  margin: 40px auto;
+  border-radius: 3px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  overflow: hidden;
+}
+
+/* En-tête */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #b3a7f5;
+  padding: 12px 20px;
+}
+
+.modal-header h1 {
+  font-size: 20px;
+  color: #3c3ca1;
+  margin: 0;
+}
+
+.close-btn {
+  background-color: #1f6de2;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  font-weight: bold;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.close-btn:hover {
+  background-color: #1554a8;
+}
+
+/* Corps de la modal */
+.modal-body {
+  padding: 20px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+
+.auteur {
+  color: black;
+  font-weight: 600;
+}
+
+.content-label {
+  margin: 20px 0 10px;
+  color: #555;
+}
+
+/* Bloc de code */
+.code-block {
+  border: 1px solid #ccc;
+  background-color: #fdfdfd;
+  padding: 15px;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+}
+
+.fonctionnalite {
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #3c3ca1;
+}
+
+pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+code {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modal {
+    width: 95%;
+    margin: 20px auto;
+  }
+
+  .info-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+/* Ajoutez ces styles à la fin du fichier */
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icon-circle {
+  background-color: #e4e2ff;
+  color: #4b4b8c;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.description {
+  margin-top: 20px;
+}
+
+.description h3 {
+  color: #4b4b8c;
+  margin-bottom: 10px;
+}
+
+.status {
+  padding: 5px 15px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.status.approved {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status.pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status.rejected {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.fa {
+  margin-right: 5px;
+}
+
+/* Ajoutez ces styles à votre fichier CSS existant */
+
+.tech-list {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.tech-list li {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.role-table {
+  margin-top: 15px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.role-header, .role-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  padding: 10px 15px;
+}
+
+.role-header {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+.role-row:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.additional-info, .deployment-info, .review-notes {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.additional-info h3, .deployment-info h3, .review-notes h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+:host {
+  display: block;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.modal {
+  background-color: white;
+  width: 700px;
+  margin: 40px auto;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  background-color: #7f56d9;
+  color: white;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icon-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #4b4b8c;
+}
+
+.modal-header h1 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.modal-body {
+  padding: 25px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #555;
+}
+
+.description-section {
+  margin-top: 20px;
+}
+
+.description-section h2 {
+  color: #4b4b8c;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tech-list {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.tech-list li {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.role-table {
+  margin-top: 15px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.role-header, .role-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  padding: 10px 15px;
+}
+
+.role-header {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+.role-row:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.additional-info, .review-notes {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.status-badge.approved {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-badge.rejected {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.status-badge.pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.fa {
+  margin-right: 5px;
+}
+
+@media (max-width: 768px) {
+  .modal {
+    width: 95%;
+    margin: 20px auto;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}

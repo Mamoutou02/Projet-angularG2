@@ -1,0 +1,23 @@
+<div class="frame" >
+  <div class="header">
+    <h2>Options</h2>
+    <button class="close-btn" (click)="close()">X</button>
+  </div>
+  <div class="options">
+    <button class="option-btn active" (click)="onVoirCommentaires()">Voir les Commentaires</button>
+    <button class="option-btn" (click)="onFaireDemande()">Faire une demande</button>
+    <a class="option-link" (click)="onAjouterCommentaire()">Ajouter un Commentaire</a>
+  </div>
+  <!-- Menu trois points -->
+  <div class="menu-action">
+    <button (click)="ouvrirFaireDemande()">Faire une demande</button>
+  </div>
+
+  <!-- Affichage conditionnel du formulaire de demande -->
+  <app-faire-demande-gestionnaire
+    *ngIf="popupFaireDemandeVisible"
+    (fermerPopup)="fermerFaireDemande()">
+  </app-faire-demande-gestionnaire>
+
+</div>
+

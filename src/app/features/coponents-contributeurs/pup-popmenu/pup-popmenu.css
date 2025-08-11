@@ -1,0 +1,126 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #d3d3d3;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.frame {
+  background-color: #ffffff;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  width: 300px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box; /* Inclut padding et border dans la largeur */
+  max-width: 100%; /* Limite la largeur maximale à 100% du conteneur parent */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+h2 {
+  color: #333;
+  font-size: 14px;
+  margin: 0;
+}
+
+.close-btn {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.close-btn:hover {
+  background-color: #0056b3;
+}
+
+.options {
+  text-align: center;
+}
+
+.option-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: none;
+  background-color: #e6e6fa;
+  color: #000;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.option-btn.active {
+  background-color: #d8bfd8;
+  font-weight: bold;
+}
+
+.option-btn:hover {
+  background-color: #d1c4e9;
+}
+
+.option-link {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  text-decoration: none;
+  color: #007BFF;
+  font-size: 14px;
+  text-align: center;
+}
+
+.option-link:hover {
+  text-decoration: underline;
+}
+
+/* Responsive pour tablettes (largeur max 768px) */
+@media screen and (max-width: 768px) {
+  .frame {
+    width: 250px; /* Réduit la largeur */
+    padding: 8px; /* Réduit le padding */
+  }
+  .close-btn {
+    padding: 4px 8px; /* Réduit le padding du bouton de fermeture */
+    font-size: 12px; /* Réduit la taille du texte */
+  }
+  .option-btn,
+  .option-link {
+    padding: 8px; /* Réduit le padding des boutons et liens */
+    font-size: 13px; /* Réduit la taille du texte */
+  }
+}
+
+/* Responsive pour téléphones (largeur max 480px) */
+@media screen and (max-width: 480px) {
+  .frame {
+    width: 200px; /* Réduit encore la largeur */
+    padding: 6px; /* Réduit davantage le padding */
+  }
+  .close-btn {
+    padding: 3px 6px; /* Réduit encore le padding */
+    font-size: 10px; /* Réduit davantage la taille du texte */
+  }
+  .option-btn,
+  .option-link {
+    padding: 6px; /* Réduit le padding */
+    font-size: 12px; /* Réduit la taille du texte */
+  }
+  h2 {
+    font-size: 12px; /* Réduit la taille du titre */
+  }
+}

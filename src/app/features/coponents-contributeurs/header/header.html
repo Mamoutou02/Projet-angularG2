@@ -1,0 +1,23 @@
+<!-- Header -->
+<header class="header" #header>
+  <div class="header-left">
+    <button class="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+  <div class="header-right">
+    <button class="notif-btn" aria-label="Notifications" #icon>
+      <a routerLink="/Notification"><fa-icon [icon]="faBell"></fa-icon></a>
+      <span class="notif-badge">3</span>
+    </button>
+
+    <button class="darkmode-btn" aria-label="Mode sombre" #btn>
+      <fa-icon [icon]="faMoon"></fa-icon>
+    </button>
+
+    <button class="btn btn-logout" id="logout-btn">
+      <i class="fas fa-sign-out-alt"></i>
+      <span>Se déconnecter</span>
+    </button>
+  </div>
+</header>

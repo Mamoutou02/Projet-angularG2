@@ -1,0 +1,13 @@
+<div class="comment-frame">
+  <div class="comment-header">
+    <h2>Ajouter Commentaire Idée Projet</h2>
+    <button class="close-btn" (click)="fermer()">X</button>
+  </div>
+  <textarea
+    class="comment-input"
+    [(ngModel)]="commentaire"
+    placeholder="Entrez votre commentaire..."
+  >
+  </textarea>
+  <button class="submit-btn" (click)="envoyer()">↑</button>
+</div>

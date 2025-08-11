@@ -1,0 +1,72 @@
+
+<div class="top-bar">
+  <div class="tabs">
+    <button
+      class="tab"
+      [class.active]="activeTab === 'contribution'"
+      (click)="switchTab('contribution')">
+      Contribution
+    </button>
+    <button
+      class="tab"
+      [class.active]="activeTab === 'features'"
+      (click)="switchTab('features')">
+      Fonctionnalités
+    </button>
+  </div>
+
+</div>
+
+<div class="content">
+  <div class="add-container">
+    <button class="btn-ajouter" (click)="addNew()">
+      <i class="fa fa-plus"></i> Ajouter
+    </button>
+  </div>
+
+  <div class="card-container" *ngIf="activeTab === 'contribution'">
+    <!-- Boucle sur les contributions -->
+    <div class="card" *ngFor="let item of contributions">
+      <div class="card-header">
+        <div class="icon-circle">
+          <i class="fa {{item.icon}}"></i>
+        </div>
+        <div class="card-title">{{item.title}}</div>
+        <div class="card-date">
+          <i class="fa fa-calendar"></i> {{item.date}}
+        </div>
+      </div>
+
+      <div class="card-body">
+        <p>{{item.description}}</p>
+        <div class="card-status">
+          <span class="status {{item.status}}">{{item.statusText}}</span>
+        </div>
+      </div>
+
+      <div class="card-footer">
+  <a class="details-link" (click)="openContributionDetails(item)">
+    Voir détails
+  </a>
+</div>
+    </div>
+  </div>
+
+  <div *ngIf="activeTab === 'features'" class="fonctionnalites-table-container">
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Fonctionnalités</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let feature of features">
+        <th scope="row">{{feature.id}}</th>
+        <td>{{feature.description}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+

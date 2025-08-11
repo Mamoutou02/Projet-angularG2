@@ -1,0 +1,159 @@
+.container {
+  max-width: 1100px;
+  margin: 30px auto;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  font-family: Inter, sans-serif;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.header h2 {
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.actions input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.actions button {
+  padding: 10px 16px;
+  background-color: #5c6bc0;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.actions button:hover {
+  background-color: #3f4a9d;
+}
+
+.project-list {
+  margin-top: 10px;
+}
+
+.project-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 2fr 1fr 60px;
+  align-items: center;
+  padding: 12px 8px;
+  border-bottom: 1px solid #e0e0e0;
+  gap: 10px;
+}
+
+.project-description,
+.project-statut,
+.project-niveau,
+.project-titre,
+.project-leguer {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.icon {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn:hover {
+  color: #5c6bc0;
+}
+
+/* Popup menu positionné par rapport au bouton */
+.pop-menu-positionne {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  z-index: 1000;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  width: 200px;
+}
+
+.pop-menu-positionne button {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 8px 15px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.pop-menu-positionne button:hover {
+  background-color: #f0f0f0;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 90%;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .project-row {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 5px;
+  }
+  
+  .icon {
+    justify-content: flex-start;
+  }
+}

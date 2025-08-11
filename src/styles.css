@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body.dark-theme {
+  background-color: #121212;
+  color: #f0f0f0;
+}
+
+body.dark-theme .header,
+body.dark-theme .sidebar {
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+}
+
+body.dark-theme .btn-logout {
+  background: linear-gradient(135deg, #8b0000, #a71e2a);
+}
+

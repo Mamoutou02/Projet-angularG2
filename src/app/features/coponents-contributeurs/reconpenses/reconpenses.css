@@ -1,0 +1,127 @@
+.recompense-container {
+  padding: 20px;
+}
+
+/* Titre des sections (Récompenses et Badges) */
+.recompense-container .section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+/* Carte des coins */
+.recompense-container .coins-card {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 15px 20px;
+  margin: 15px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  width: fit-content;
+}
+
+.recompense-container .coins-card .coin-icon {
+  font-size: 2rem;
+  color: #f4a742;
+  margin-right: 15px;
+}
+
+.recompense-container .coins-card .label {
+  font-size: 0.8rem;
+  color: gray;
+  margin: 0;
+}
+
+.recompense-container .coins-card .value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Grille des badges */
+.recompense-container .badges-grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.recompense-container .badges-grid .badge-card {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  width: 200px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.recompense-container .badges-grid .badge-card h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.recompense-container .badges-grid .badge-card .desc {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 10px;
+}
+
+/* Style du titre avec icône */
+.badge-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 5px 0;
+  font-size: 1.2rem;
+}
+
+
+/* Styles existants conservés */
+.badge-card {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  width: 200px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.badge-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.badge-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+.badge-coins {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 5px 0;
+}
+
+.desc {
+  font-size: 0.85rem;
+  color: #555;
+}
+.bronze-i {
+  opacity: 0.5;
+  color: #ffd700; /* Couleur or */
+  font-size: 1rem;
+}
+
+.bronze-ii {
+    color:  #e6c200; /* Couleur or */
+  font-size: 1rem;
+}
+
+.bronze-iii {
+   color:  #ccac00; /* Couleur or */
+  font-size: 1rem;
+}
+
