@@ -1,167 +1,103 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f5f5;
-  color: #333;
-  line-height: 1.6;
-}
-
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 1000px;
+  margin: 30px auto;
   padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-h1 {
+/* Titre */
+.container h1 {
   text-align: center;
-  color: #000000;
-  margin-bottom: 30px;
-  font-size: 2.5rem;
-  font-weight: 300;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 25px;
+  font-size: 2rem;
+  letter-spacing: 1px;
 }
 
-h3{
-    font-size: 1.2rem;
-    font-weight: 200;
-    color: black;
-    margin-bottom: 10%;
-    margin-left: 10%;
-    width: 120%;
-
-}
-
+/* Table */
 .data-table {
   width: 100%;
-  border-collapse: collapse;
-  background-color: white;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-collapse: separate;
+  border-spacing: 0 12px; /* Espacement entre les lignes */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
 }
 
-.data-table thead {
-  background-color: #ffffff;
-  color: rgb(0, 0, 0);
-}
-
-.data-table th,
-.data-table td {
-  padding: 15px 20px;
+/* En-tête */
+.data-table thead tr {
+  background: #0d47a1;
+  color: white;
   text-align: left;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.data-table th {
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(13, 71, 161, 0.3);
 }
 
+.data-table thead th {
+  padding: 14px 20px;
+  user-select: none;
+}
+
+/* Corps de table */
 .data-table tbody tr {
-  transition: background-color 0.3s ease;
+  background: #f9fafb;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 }
 
+/* Effet survol */
 .data-table tbody tr:hover {
-  background-color: #f8f9fa;
+  background: #e3f2fd;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(13, 71, 161, 0.25);
 }
 
-.data-table tbody tr:nth-child(even) {
-  background-color: #fafafa;
+/* Cellules */
+.data-table tbody td {
+  padding: 16px 20px;
+  color: #334155;
+  font-size: 0.95rem;
+  vertical-align: middle;
 }
 
-.data-table tbody tr:nth-child(even):hover {
-  background-color: #f0f0f0;
+/* Message "Aucun projet trouvé" */
+.container p {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #64748b;
+  margin-top: 40px;
+  font-style: italic;
 }
 
-.data-table td:first-child {
-  font-weight: 600;
-  color: #000000;
-}
-
-.data-table td:nth-child(2) {
-  font-weight: 500;
-  color: #000000;
-}
-
-.data-table td:nth-child(3) {
-  max-width: 300px;
-  word-wrap: break-word;
-}
-
-.delete-btn {
-  background-color: #e74c3c;
+button{
+  background-color: #ef4444;
   color: white;
   border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
+  padding: 10px 15px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
+  font-size: 1rem;
+  transition: background 0.3s ease;
 }
 
-.delete-btn:hover {
-  background-color: #c0392b;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(231, 76, 60, 0.3);
+button:hover {
+  background-color: darkred;
 }
 
-.delete-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 1px 2px rgba(231, 76, 60, 0.3);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
+/* Responsive : scroll horizontal si petit écran */
+@media (max-width: 720px) {
   .container {
-    padding: 10px;
+    padding: 15px;
   }
-
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-  }
-
   .data-table {
-    font-size: 0.9rem;
-  }
-
-  .data-table th,
-  .data-table td {
-    padding: 10px 8px;
-  }
-
-  .data-table td:nth-child(3) {
-    max-width: 200px;
-  }
-
-  .delete-btn {
-    padding: 6px 12px;
-    font-size: 0.8rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .data-table {
-    font-size: 0.8rem;
-  }
-
-  .data-table th,
-  .data-table td {
-    padding: 8px 4px;
-  }
-
-  .data-table td:nth-child(3) {
-    max-width: 150px;
-  }
-
-  h1 {
-    font-size: 1.5rem;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
   }
 }

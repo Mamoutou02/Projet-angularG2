@@ -1,158 +1,215 @@
 .container {
-  max-width: 1100px;
+  max-width: 900px;
   margin: 30px auto;
-  background: white;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-  font-family: Inter, sans-serif;
+  padding: 25px 30px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Header */
 .header {
   display: flex;
-  flex-direction: column;
-  gap: 15px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
 }
 
 .header h2 {
-  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1e293b;
 }
 
+/* Actions: input + button */
 .actions {
   display: flex;
   gap: 10px;
-  flex-wrap: wrap;
 }
 
-.actions input {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+.actions input[type="text"] {
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: 2px solid #0d47a1;
+  border-radius: 8px;
+  outline: none;
+  width: 280px;
+  transition: border-color 0.3s ease;
+}
+
+.actions input[type="text"]:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
 }
 
 .actions button {
-  padding: 10px 16px;
-  background-color: #5c6bc0;
-  color: white;
+  background: #007bff;
   border: none;
-  border-radius: 6px;
+  color: white;
+  padding: 0 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1.1rem;
   cursor: pointer;
-  font-weight: bold;
+  transition: background 0.3s ease;
 }
 
 .actions button:hover {
-  background-color: #3f4a9d;
+  background: #0056b3;
 }
 
+/* Liste des projets */
 .project-list {
-  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
+/* Chaque ligne de projet */
 .project-row {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 2fr 1fr 60px;
+  grid-template-columns: 2fr 1fr 1fr 2fr 1fr 100px;
   align-items: center;
-  padding: 12px 8px;
-  border-bottom: 1px solid #e0e0e0;
-  gap: 10px;
+  background: #f9fafb;
+  padding: 16px 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+  transition: box-shadow 0.3s ease, background 0.3s ease;
+  position: relative;
 }
 
+.project-row:hover {
+  background: #e3f2fd;
+  box-shadow: 0 6px 14px rgba(0, 123, 255, 0.3);
+}
+
+/* Colonnes du projet */
 .project-description,
 .project-statut,
 .project-niveau,
 .project-titre,
 .project-leguer {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 0.95rem;
+  color: #334155;
+  overflow-wrap: anywhere;
 }
 
+/* Colonne icônes */
 .icon {
   display: flex;
+  gap: 10px;
   justify-content: flex-end;
-  gap: 8px;
 }
 
+/* Boutons icônes */
 .btn {
-  background-color: transparent;
+  background: transparent;
   border: none;
   cursor: pointer;
-  font-size: 16px;
+  color: #0d47a1;
+  font-size: 1.2rem;
+  padding: 6px;
+  border-radius: 6px;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .btn:hover {
-  color: #5c6bc0;
+  background: #007bff;
+  color: white;
 }
 
-/* Popup menu positionné par rapport au bouton */
+/* Popup menu positionné */
 .pop-menu-positionne {
   position: absolute;
-  top: 35px;
+  top: 40px;
   right: 0;
-  z-index: 1000;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 8px 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  width: 200px;
+  z-index: 10;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  padding: 10px 15px;
+  min-width: 180px;
 }
 
-.pop-menu-positionne button {
-  width: 100%;
-  background: none;
-  border: none;
-  padding: 8px 15px;
-  text-align: left;
-  cursor: pointer;
-}
-
-.pop-menu-positionne button:hover {
-  background-color: #f0f0f0;
-}
-
-/* Modal */
+/* Modal overlay */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.5);
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 999;
+  align-items: center;
+  z-index: 9999;
 }
 
+/* Modal content */
 .modal-content {
   background: white;
-  padding: 2rem;
-  border-radius: 8px;
+  border-radius: 12px;
+  padding: 25px 30px;
   max-width: 600px;
   width: 90%;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   position: relative;
 }
 
+/* Bouton fermer modal */
 .close-btn {
   position: absolute;
-  top: 10px;
-  right: 12px;
-  background: transparent;
+  top: 15px;
+  right: 15px;
+  background: #f44336;
+  color: white;
   border: none;
-  font-size: 1.5rem;
+  border-radius: 50%;
+  font-weight: 700;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.close-btn:hover {
+  background: #d32f2f;
+}
+
+/* Composant formulaire - suppose que tu as un wrapper */
+app-form-ajout-idee {
+  display: block;
+  margin-top: 30px;
+  padding: 20px;
+  background: #f1f5f9;
+  border-radius: 12px;
+  box-shadow: inset 0 0 12px rgba(0,0,0,0.05);
 }
 
 /* Responsive */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
+  .container {
+    padding: 15px 20px;
+  }
+  .header {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .actions input[type="text"] {
+    width: 100%;
+  }
   .project-row {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto;
-    gap: 5px;
+    gap: 10px;
   }
-  
+  .project-description, 
+  .project-statut, 
+  .project-niveau, 
+  .project-titre, 
+  .project-leguer {
+    font-size: 0.9rem;
+  }
   .icon {
     justify-content: flex-start;
   }

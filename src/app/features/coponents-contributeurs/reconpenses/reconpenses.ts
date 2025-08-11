@@ -2,36 +2,69 @@ import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrophy, faShield, faCoins, faMedal } from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { HttpClient } from '@angular/common/http';
 
 interface Badge {
-  title: string;
-  coins: number;
+  nom: string;
   description: string;
-  icon: IconProp;        // Typage FontAwesome
-  iconColor?: string;    // Optionnel si vous utilisez les couleurs
+  image: string;
+  nombre: number;
 }
+
+interface Coin {
+  idCoin: number;
+  nombreCoins: number;
+  // autres champs si besoin
+}
+
 @Component({
   selector: 'app-recompenses',
   standalone: true,
   imports: [FontAwesomeModule, CommonModule],
   templateUrl: './reconpenses.html',
-  styleUrl: './reconpenses.css'
+  styleUrls: ['./reconpenses.css']
 })
 export class Reconpenses {
-  // Déclaration des icônes (elles satisfont l'interface IconProp)
   faTrophy = faTrophy;
   faShield = faShield;
   faCoins = faCoins;
   faMedal = faMedal;
 
-  // Autres propriétés avec leurs types explicites
+  badgess: Badge[] = [];
+  coins: Coin[] = [];
   totalCoins: number = 0;
 
-    badges = [
-    { title: 'Bronze_I', coins: 100, description: 'Pour avoir collecté 100 coins' },
-    { title: 'Bronze_II', coins: 200, description: 'Pour avoir collecté 200 coins' },
-    { title: 'Bronze_III', coins: 300, description: 'Pour avoir collecté 300 coins' },
-  ];
+  constructor(private http: HttpClient) {}
 
+  ngOnInit(): void {
+    // Charger les badges
+    const apiUrl = `http://localhost:8080/api/badges/contributeur/${2}`;
+    this.http.get<Badge[]>(apiUrl).subscribe({
+      next: (res) => {
+        this.badgess = res;
+        console.log('Badges reçus :', this.badgess);
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des badges', err);
+      }
+    });
+
+    // Charger les coins
+    const coinsApiUrl = `http://localhost:8080/api/coins`;  
+    this.http.get<Coin[]>(coinsApiUrl).subscribe({
+      next: (res) => {
+        this.coins = res;
+        console.log("coins =", this.coins);
+        console.log("est-ce un tableau ?", Array.isArray(this.coins));
+        console.log("length =", this.coins.length);
+
+        // Calcul du total
+        this.totalCoins = this.coins.reduce((acc, coin) => acc + coin.nombreCoins, 0);
+        console.log("Total coins =", this.totalCoins);
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des coins', err);
+      }
+    });
+  }
 }

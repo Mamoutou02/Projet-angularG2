@@ -12,9 +12,10 @@
     <fa-icon [icon]="faCoins" class="coin-icon"></fa-icon>
     <div>
       <p class="label">Total Coins Gagné</p>
-      <p class="value">{{ totalCoins }}</p> <!-- Affiche la variable totalCoins -->
+      <p class="value">{{ coins.length }}</p> <!-- Affiche la variable totalCoins -->
     </div>
   </div>
+
 
   <!-- Titre section Badges -->
   <div class="section-title">
@@ -25,21 +26,17 @@
   <!-- Grille de cartes de badges -->
   <div class="badges-grid">
     <!-- Pour chaque badge dans le tableau badges -->
-    <div class="badge-card" *ngFor="let badge of badges">
+    <div class="badge-card" *ngFor="let badge of badgess">
      <!-- Titre avec icône intégrée -->
    <h3 class="badge-title">
   <fa-icon
     [icon]="faMedal"
     class="badge-icon"
-    [ngClass]="{
-      'bronze-i': badge.title === 'Bronze_I',
-      'bronze-ii': badge.title === 'Bronze_II',
-      'bronze-iii': badge.title === 'Bronze_III'
-    }">
+    >
   </fa-icon>
-  {{ badge.title }}
+  {{ badge.nom }}
 </h3>
-      <p>{{ badge.coins }} coins collectés</p> <!-- Montant requis -->
+      <p>{{ badgess.length }} Badges collectés</p> <!-- Montant requis -->
       <p class="desc">{{ badge.description }}</p> <!-- Description du badge -->
     </div>
   </div>
