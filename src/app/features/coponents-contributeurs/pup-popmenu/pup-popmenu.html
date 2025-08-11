@@ -8,16 +8,6 @@
     <button class="option-btn" (click)="onFaireDemande()">Faire une demande</button>
     <a class="option-link" (click)="onAjouterCommentaire()">Ajouter un Commentaire</a>
   </div>
-  <!-- Menu trois points -->
-  <div class="menu-action">
-    <button (click)="ouvrirFaireDemande()">Faire une demande</button>
-  </div>
-
-  <!-- Affichage conditionnel du formulaire de demande -->
-  <app-faire-demande-gestionnaire
-    *ngIf="popupFaireDemandeVisible"
-    (fermerPopup)="fermerFaireDemande()">
-  </app-faire-demande-gestionnaire>
 
 </div>
 
