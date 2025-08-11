@@ -1,29 +1,70 @@
-<!-- Sidebar -->
 <aside class="sidebar">
   <div class="sidebar-header">
     <h2><fa-icon [icon]="faCog"></fa-icon> Admin Panel</h2>
   </div>
   <nav class="sidebar-nav">
     <ul>
-      <li><a routerLink="/AdminDashboard" class="nav-link active" data-section="dashboard">
-        <fa-icon [icon]="faHome"></fa-icon> Tableau de bord Contributeurs
-      </a></li>
-      <li><a routerLink="/ideeProjet" class="nav-link" data-section="ideeProjet">
-        <fa-icon [icon]="faLightbulb"></fa-icon>Idées de Projets
-      </a></li>
-      <li><a routerLink="/ParametrerBadge" class="nav-link" data-section="Parametrerbadges">
-        <fa-icon [icon]="faMedal"></fa-icon> Paramétrer les Badges
-      </a></li>
-      <li><a routerLink="/Domaines" class="nav-link" data-section="domaines">
-        <fa-icon [icon]="faLayerGroup"></fa-icon> Domaines
-      </a></li>
-      <li><a routerLink="/Projet" class="nav-link" data-section="projets">
-        <fa-icon [icon]="faList"></fa-icon> Projets
-      </a></li>
-      <li><a routerLink="/ParemtrerNotication" class="nav-link" data-section="parametrerNotications">
-        <fa-icon [icon]="faGear"></fa-icon> Paramètrer Notifications
-      </a></li>
+      <li>
+        <a 
+          routerLink="/AdminDashboard" 
+          routerLinkActive="active" 
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-link"
+          data-section="dashboard"
+        >
+          <fa-icon [icon]="faHome"></fa-icon> Tableau de bord Contributeurs
+        </a>
+      </li>
+      <li>
+        <a 
+          routerLink="/ideeProjet" 
+          routerLinkActive="active" 
+          class="nav-link"
+          data-section="ideeProjet"
+        >
+          <fa-icon [icon]="faLightbulb"></fa-icon> Idées de Projets
+        </a>
+      </li>
+      <li>
+        <a 
+          routerLink="/ParametrerBadge" 
+          routerLinkActive="active" 
+          class="nav-link"
+          data-section="Parametrerbadges"
+        >
+          <fa-icon [icon]="faMedal"></fa-icon> Paramétrer les Badges
+        </a>
+      </li>
+      <li>
+        <a 
+          routerLink="/Domaines" 
+          routerLinkActive="active" 
+          class="nav-link"
+          data-section="domaines"
+        >
+          <fa-icon [icon]="faLayerGroup"></fa-icon> Domaines
+        </a>
+      </li>
+      <li>
+        <a 
+          routerLink="/Projet" 
+          routerLinkActive="active" 
+          class="nav-link"
+          data-section="projets"
+        >
+          <fa-icon [icon]="faList"></fa-icon> Projets
+        </a>
+      </li>
+      <li>
+        <a 
+          routerLink="/ParemtrerNotication" 
+          routerLinkActive="active" 
+          class="nav-link"
+          data-section="parametrerNotications"
+        >
+          <fa-icon [icon]="faGear"></fa-icon> Paramètrer Notifications
+        </a>
+      </li>
     </ul>
   </nav>
 </aside>
-

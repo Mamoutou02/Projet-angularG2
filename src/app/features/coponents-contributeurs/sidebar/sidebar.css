@@ -1,29 +1,90 @@
-
-/* Sidebar Styles */
+/* ===== Sidebar Moderne ===== */
 .sidebar {
   width: 250px;
-  background: linear-gradient(135deg, #2417df 0%, #2417df 100%);
+  background: linear-gradient(180deg, #1e3a8a 0%, #312e81 100%);
   color: white;
   position: fixed;
   height: 100vh;
   overflow-y: auto;
   transition: transform 0.3s ease;
   z-index: 1000;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
 }
 
+/* ===== Header ===== */
 .sidebar-header {
   padding: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
 }
 
 .sidebar-header h2 {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
+/* ===== Profil ===== */
+.profile {
+  text-align: center;
+  padding: 20px 10px;
+  position: relative;
+}
+
+.avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  object-fit: cover;
+}
+
+.level-circle {
+  position: absolute;
+  top: 85px;
+  right: 90px;
+  background: linear-gradient(135deg, #facc15, #f59e0b);
+  color: white;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  font-weight: bold;
+  font-size: 0.8rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.role {
+  margin-top: 0.6rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.xp-bar {
+  width: 80%;
+  margin: 14px auto;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.xp-fill {
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  border-radius: 3px;
+}
+
+/* ===== Navigation ===== */
 .sidebar-nav ul {
   list-style: none;
-  padding: 20px 0;
+  padding: 10px 0;
 }
 
 .sidebar-nav li {
@@ -33,103 +94,57 @@
 .nav-link {
   display: flex;
   align-items: center;
-  padding: 15px 20px;
-  color: rgba(255, 255, 255, 0.8);
+  padding: 12px 20px;
+  color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
   border-left: 3px solid transparent;
-}
-
-.nav-link:hover,
-.nav-link.active {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
-  border-left-color: #fff;
+  font-size: 0.9rem;
 }
 
 .nav-link fa-icon {
-  margin-right: 10px;
-  width: 20px;
+  margin-right: 12px;
+  font-size: 1.05rem;
 }
 
-.profile {
-  text-align: center;
-  position: relative;
-}
-
-.avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-}
-
-.level-circle {
-  position: absolute;
-  top: 76px;
-  right: 80px;
-  background-color: #6200ea;
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-left-color: #3b82f6;
   color: white;
-  border-radius: 50%;
-  width: 28px;
-  height: 28px;
-  line-height: 28px;
-  font-weight: bold;
-  font-size: 14px;
 }
 
-.role {
-  margin-top: 0.5rem;
-  font-weight: bold;
+.nav-link.active {
+  background-color: rgba(255, 255, 255, 0.18);
+  border-left-color: #3b82f6;
+  font-weight: 600;
+  color: white;
 }
 
-.xp-bar {
-  width: 80%; 
-  margin: 14px auto;
-
-  height: 5px;
-  background: #ccc;
-  border-radius: 3px;
-}
-
-.xp-fill {
-  width: 50%;
-  height: 100%;
-  background-color: #6200ea;
-  border-radius: 3px;
+/* ===== Bouton Voir tous les projets ===== */
+.btn-center {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem; 
 }
 
 .btn-logout {
-  background: linear-gradient(135deg, #5149E2, #4179FD);
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
   color: white;
   border: none;
-  padding: 8px 16px;
-  border-radius: 8px;
+  padding: 8px 18px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
   display: flex;
   align-items: center;
   gap: 8px;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
+  box-shadow: 0 2px 5px rgba(37, 99, 235, 0.3);
 }
 
 .btn-logout:hover {
-  background: linear-gradient(135deg, #c82333, #a71e2a);
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
-}
-
-.btn-logout i {
-  font-size: 1rem;
-}
-
-.btn-logout span {
-  font-size: 0.9rem;
-}
-
-.btn-center {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem; 
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4);
 }

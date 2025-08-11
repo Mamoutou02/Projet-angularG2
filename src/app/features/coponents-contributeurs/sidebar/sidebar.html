@@ -1,4 +1,3 @@
-<!-- Sidebar -->
 <aside class="sidebar">
 
   <div class="sidebar-header">
@@ -8,7 +7,7 @@
   <div class="profile">
     <!-- <fa-icon [icon]="faUserCircle" class="avatar"></fa-icon> -->
      <img src="/assets/userFig.jpg" alt="" class="avatar">
-    <div class="level-circle">24</div>
+    
     <div class="role">Développeur Fullstack</div>
     <div class="xp-bar">
       <div class="xp-fill"></div>
@@ -17,32 +16,49 @@
 
   <nav class="sidebar-nav">
     <ul>
-      <li><a routerLink="/TableauContributeur" class="nav-link active" data-section="dashboard">
-        <fa-icon [icon]="faHome"></fa-icon> Tableau de bord Contributeurs
-      </a></li>
-      <li><a routerLink="/ProjetsContributeurs" class="nav-link" data-section="ideeProjet">
-        <fa-icon [icon]="githubIcon"></fa-icon>Mes projets
-      </a></li>
-      <li><a routerLink="/ideeProjetContributeur" class="nav-link" data-section="Parametrerbadges">
-        <fa-icon [icon]="faLightbulb"></fa-icon> Idee de projet
-      </a></li>
-      <li><a routerLink="/MesContributionsContributeurs" class="nav-link" data-section="MesContributionsContributeurs">
-        <fa-icon [icon]="githubIcon" flip="horizontal"></fa-icon> Contributions
-      </a></li>
-      <li><a routerLink="/Recompenses" class="nav-link" data-section="Recompenses">
-        <fa-icon [icon]="faReward"></fa-icon> Récompenses
-      </a></li>
+      <li>
+        <a routerLink="/TableauContributeur" 
+           routerLinkActive="active" 
+           [routerLinkActiveOptions]="{ exact: true }" 
+           class="nav-link" data-section="dashboard">
+          <fa-icon [icon]="faHome"></fa-icon> Tableau de bord Contributeurs
+        </a>
+      </li>
+      <li>
+        <a routerLink="/ProjetsContributeurs" 
+           routerLinkActive="active" 
+           class="nav-link" data-section="ideeProjet">
+          <fa-icon [icon]="githubIcon"></fa-icon> Mes projets
+        </a>
+      </li>
+      <li>
+        <a routerLink="/ideeProjetContributeur" 
+           routerLinkActive="active" 
+           class="nav-link" data-section="Parametrerbadges">
+          <fa-icon [icon]="faLightbulb"></fa-icon> Idee de projet
+        </a>
+      </li>
+      <li>
+        <a routerLink="/MesContributionsContributeurs" 
+           routerLinkActive="active" 
+           class="nav-link" data-section="MesContributionsContributeurs">
+          <fa-icon [icon]="githubIcon" flip="horizontal"></fa-icon> Contributions
+        </a>
+      </li>
+      <li>
+        <a routerLink="/Recompenses" 
+           routerLinkActive="active" 
+           class="nav-link" data-section="Recompenses">
+          <fa-icon [icon]="faReward"></fa-icon> Récompenses
+        </a>
+      </li>
     </ul>
   </nav>
-  <!-- Voir tous les projets
-  <div class="btn-container">
-    <button class="see-all-btn">Voir tous les projets</button>
-  </div> -->
+
   <div class="btn-center">
     <button class="btn btn-logout" id="logout-btn" routerLink="/projects">
       <span>Voir tous les projets</span>
     </button>
   </div>
-
 
 </aside>

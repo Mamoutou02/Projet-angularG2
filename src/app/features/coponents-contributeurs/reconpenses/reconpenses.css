@@ -1,127 +1,142 @@
+/* ===== Conteneur principal ===== */
 .recompense-container {
-  padding: 20px;
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 25px 30px;
+  background: #f9fafb;
+  border-radius: 16px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Titre des sections (Récompenses et Badges) */
-.recompense-container .section-title {
+/* ===== Titres de section ===== */
+.section-title {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-top: 20px;
+  gap: 12px;
+  margin: 25px 0 15px;
+  color: #1e293b;
 }
 
-/* Carte des coins */
-.recompense-container .coins-card {
+.section-title fa-icon {
+  font-size: 1.8rem;
+  color: #fbbf24; /* Jaune doré pour trophées */
+  filter: drop-shadow(0 2px 4px rgba(251, 191, 36, 0.5));
+}
+
+.section-title h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* ===== Carte coins ===== */
+.coins-card {
   display: flex;
   align-items: center;
-  background: #fff;
-  padding: 15px 20px;
-  margin: 15px 0;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  width: fit-content;
+  gap: 15px;
+  background: linear-gradient(135deg, #fcd34d, #f59e0b);
+  padding: 18px 24px;
+  border-radius: 14px;
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.3);
+  margin-bottom: 25px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.recompense-container .coins-card .coin-icon {
-  font-size: 2rem;
-  color: #f4a742;
-  margin-right: 15px;
+.coins-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(245, 158, 11, 0.45);
 }
 
-.recompense-container .coins-card .label {
-  font-size: 0.8rem;
-  color: gray;
-  margin: 0;
+.coin-icon {
+  font-size: 2.5rem;
 }
 
-.recompense-container .coins-card .value {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin: 0;
-}
-
-/* Grille des badges */
-.recompense-container .badges-grid {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-top: 20px;
-}
-
-.recompense-container .badges-grid .badge-card {
-  background: #fff;
-  padding: 15px;
-  border-radius: 10px;
-  width: 200px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.recompense-container .badges-grid .badge-card h3 {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: bold;
-}
-
-.recompense-container .badges-grid .badge-card .desc {
+.coins-card .label {
   font-size: 0.9rem;
-  color: #555;
-  margin-top: 10px;
+  opacity: 0.9;
 }
 
-/* Style du titre avec icône */
+.coins-card .value {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+/* ===== Grille badges ===== */
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+  margin-top: 15px;
+}
+
+/* ===== Carte badge ===== */
+.badge-card {
+  background: white;
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border: 2px solid transparent;
+}
+
+.badge-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
+  border-color: #6366f1; /* Violet moderne */
+}
+
+/* ===== Titre badge ===== */
 .badge-title {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin: 0 0 5px 0;
   font-size: 1.2rem;
+  font-weight: 600;
+  color: #374151;
 }
 
-
-/* Styles existants conservés */
-.badge-card {
-  background: #fff;
-  padding: 15px;
-  border-radius: 10px;
-  width: 200px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-.badge-card {
-  transition: all 0.3s ease;
-  cursor: pointer;
+.badge-icon {
+  font-size: 1.4rem;
+  color: #facc15; /* Or */
 }
 
-.badge-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-}
-
-
-.badge-coins {
-  color: #666;
-  font-size: 0.9rem;
+/* ===== Description badge ===== */
+.badge-card p {
   margin: 5px 0;
+  color: #4b5563;
 }
 
-.desc {
+.badge-card .desc {
   font-size: 0.85rem;
-  color: #555;
-}
-.bronze-i {
-  opacity: 0.5;
-  color: #ffd700; /* Couleur or */
-  font-size: 1rem;
+  color: #6b7280;
+  line-height: 1.4;
 }
 
-.bronze-ii {
-    color:  #e6c200; /* Couleur or */
-  font-size: 1rem;
+/* ===== Animation apparition ===== */
+.badge-card, .coins-card {
+  animation: fadeInUp 0.6s ease both;
 }
 
-.bronze-iii {
-   color:  #ccac00; /* Couleur or */
-  font-size: 1rem;
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .coins-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  .section-title {
+    justify-content: center;
+  }
+}

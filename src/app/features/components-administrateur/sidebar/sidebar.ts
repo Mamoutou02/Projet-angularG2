@@ -12,10 +12,10 @@ import {
   faMedal,
   fas, faUser
 } from '@fortawesome/free-solid-svg-icons';
-import {RouterLink} from '@angular/router';
+import {RouterLink, RouterLinkActive} from '@angular/router';
 @Component({
   selector: 'app-sidebar',
-  imports: [FontAwesomeModule, RouterLink],
+  imports: [FontAwesomeModule, RouterLink, RouterLinkActive],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css'
 })
