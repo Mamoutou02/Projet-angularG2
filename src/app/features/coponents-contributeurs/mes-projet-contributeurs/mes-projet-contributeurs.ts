@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faEye, faUser, faCrown, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { HttpClient } from '@angular/common/http';
+import {DashboardGestionnaire} from '../dashboard-gestionnaire/dashboard-gestionnaire';
 
 interface Project {
   name: string;
@@ -14,7 +15,7 @@ interface Project {
 @Component({
   selector: 'app-mes-projet-contributeurs',
   standalone: true,
-  imports: [CommonModule, FaIconComponent],
+  imports: [CommonModule, FaIconComponent, DashboardGestionnaire],
   templateUrl: './mes-projet-contributeurs.html',
   styleUrls: ['./mes-projet-contributeurs.css']
 })
@@ -92,11 +93,11 @@ export class MesProjetContributeurs {
 
 
   projets: any[] = [];
-  
-    constructor(private http: HttpClient) {}
 
-   ngOnInit(): void {
-    const id_contributeur = 2;  
+  constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    const id_contributeur = 2;
     const apiUrl = `http://localhost:8080/api/projets/recupere/${id_contributeur}`;
     this.http.get<any[]>(apiUrl).subscribe({
       next: (res) => {
@@ -109,19 +110,32 @@ export class MesProjetContributeurs {
     });
   }
 
-   deleteProject(idProjet: number, idAdmin: number) {
-  if (confirm('Voulez-vous vraiment supprimer ce projet ?')) {
-    this.http.delete(`http://localhost:8080/api/projets/supprime/${idAdmin}?id=${idProjet}`, { responseType: 'text' })
-      .subscribe({
-        next: (res) => {
-          this.projets = this.projets.filter(p => p.idProjet !== idProjet);
-          alert('Projet supprimé avec succès');
-        },
-        error: (err) => {
-          console.error('Erreur lors de la suppression', err);
-          alert('Erreur lors de la suppression du projet');
-        }
-      });
+  deleteProject(idProjet: number, idAdmin: number) {
+    if (confirm('Voulez-vous vraiment supprimer ce projet ?')) {
+      this.http.delete(`http://localhost:8080/api/projets/supprime/${idAdmin}?id=${idProjet}`, { responseType: 'text' })
+        .subscribe({
+          next: (res) => {
+            this.projets = this.projets.filter(p => p.idProjet !== idProjet);
+            alert('Projet supprimé avec succès');
+          },
+          error: (err) => {
+            console.error('Erreur lors de la suppression', err);
+            alert('Erreur lors de la suppression du projet');
+          }
+        });
+    }
   }
-}
+  projetSelectionne: any = null;
+
+  // cas du formulaire d'affichage du detail du projet
+  dashboardOuvert = false;
+
+  ouvrirDashboard(projet: any) {
+    this.projetSelectionne = projet;
+    this.dashboardOuvert = true;
+  }
+
+  fermerDashboard() {
+    this.dashboardOuvert = false;
+  }
 }

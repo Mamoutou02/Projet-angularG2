@@ -4,30 +4,37 @@
 
   <table class="data-table" *ngIf="projets.length > 0; else noProjects">
     <thead>
-      <tr>
-        <th>ID</th>
-        <th>Titre</th>
-        <th>Description</th>
-        <th>Date de création</th>
-       <!-- <th>Actions</th> -->
-      </tr>
+    <tr>
+      <th>ID</th>
+      <th>Titre</th>
+      <th>Description</th>
+      <th>Date de création</th>
+      <th>Voir</th>
+      <!-- <th>Actions</th> -->
+    </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let projet of projets">
-        <td>{{ projet.idProjet }}</td>
-        <td>{{ projet.titre }}</td>
-        <td>{{ projet.description }}</td>
-        <td>{{ projet.dateCreation }}</td>
-       <!-- <td>
-         <button class="delete-btn" (click)="deleteProject(projet.idProjet, 1)">Supprimer</button>
-        </td>-->
-      </tr>
+    <tr *ngFor="let projet of projets">
+      <td>{{ projet.idProjet }}</td>
+      <td>{{ projet.titre }}</td>
+      <td>{{ projet.description }}</td>
+      <td>{{ projet.dateCreation }}</td>
+      <td>
+        <button class="detail-btn"(click)=" ouvrirDashboard(projet)"><fa-icon [icon]="faEye"></fa-icon></button>
+      </td>
+    </tr>
     </tbody>
   </table>
 
   <ng-template #noProjects>
     <p>Aucun projet trouvé.</p>
   </ng-template>
+  <!-- Dashboard -->
+  <div *ngIf="projetSelectionne">
+    <!-- Dashboard -->
+    <!-- inclusion conditionnelle du dashboard enfant -->
+    <app-dashboard-gestionnaire
+      *ngIf="dashboardOuvert"
+      (fermer)="fermerDashboard()">
+    </app-dashboard-gestionnaire>
 </div>
-
-
