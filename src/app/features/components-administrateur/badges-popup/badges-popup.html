@@ -1,0 +1,39 @@
+<div class="popup-overlay">
+  <div class="popup-content">
+    <button class="close-button" (click)="close()">X</button>
+
+    <h2>Ajouter un Nouveau Badge</h2>
+
+    <form (ngSubmit)="onSubmit()" #badgeForm="ngForm" enctype="multipart/form-data" novalidate>
+
+      <div class="form-group">
+        <label for="name">Nom du Badge :</label>
+        <input type="text" id="name" name="name" [(ngModel)]="badgeData.nom" required />
+      </div>
+
+      <div class="form-group">
+        <label for="image">Image du Badge :</label>
+        <input type="file" id="image" name="image" [(ngModel)]="badgeData.image" required />
+      </div>
+
+      <div *ngIf="imagePreview" class="image-preview">
+        <img [src]="imagePreview" alt="Preview image" />
+      </div>
+
+      <div class="form-group">
+        <label for="nombre">Nombre :</label>
+        <input type="number" id="nombre" name="nombre" [(ngModel)]="badgeData.nombre" min="0" required />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description :</label>
+        <textarea id="description" name="description" rows="3" [(ngModel)]="badgeData.description" required></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" [disabled]="badgeForm.invalid">Soumettre</button>
+      </div>
+
+    </form>
+  </div>
+</div>

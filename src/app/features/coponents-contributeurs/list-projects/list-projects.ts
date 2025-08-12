@@ -10,12 +10,13 @@ import { PopupAddComment } from './popup-add-comment/popup-add-comment';
 import { RouterLink, RouterModule } from '@angular/router';
 import { PopupUnlock } from './popup-unlock/popup-unlock';
 import { faUnlock } from '@fortawesome/free-solid-svg-icons/faUnlock';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-list-projects',
   imports: [CommonModule, RouterModule, FontAwesomeModule, PopupUnlock, PopupComments,PopupAddComment, PopupEye, PopupActions],
   templateUrl: './list-projects.html',
-  styleUrl: './list-projects.css'
+  styleUrls: ['./list-projects.css']
 })
 export class ListProjects {
   
@@ -30,11 +31,7 @@ export class ListProjects {
     { id: 2, titre: 'Système de distribution', statut: 'En cours', coin: 500, debloque: false },
     { id: 3, titre: 'Application de chat temps réel', statut: 'Terminé', coin: 1000, debloque: false },
     { id: 4, titre: 'Site e-commerce avec gestion de stock, panier, et suivi .......', statut: 'Débuté', coin: 750, debloque: false },
-    { id: 5, titre: 'Système de suivi des ventes et statistiques (tableaux de bord).', statut: 'Terminé', coin: 1500, debloque: false },
-    { id: 6, titre: 'Application de domotique pour gérer lumières, température...', statut: 'Terminé', coin: 13000, debloque: false },
-    { id: 7, titre: 'Capteurs connectés pour la surveillance agricole', statut: 'Ecours', coin: 8500, debloque: false },
-    { id: 8, titre: 'Plateforme d’e-learning avec quiz interactifs et suivi des progrès.', statut: 'Débuté', coin: 15000, debloque: false },
-    { id: 9, titre: 'Application de quiz multijoueur en temps réel.', statut: 'Débuté', coin: 6000, debloque: false },
+
   ];
 
   selectedProject: any = null;
@@ -42,6 +39,7 @@ export class ListProjects {
 
   showActionMenu: boolean = false;
   projectForActions: any = null;
+  
 
   openPopupDetail(projet: any) {
     this.selectedProject = {
@@ -154,6 +152,66 @@ export class ListProjects {
       this.userCoins -= this.selectedProject.coin;
     }
   }
+
+
+    projects: any[] = [];
+  
+    constructor(private http: HttpClient) {}
+  
+   ngOnInit(): void {
+    const contributeurId = 2; // L'id du contributeur dont tu veux afficher les projets
+  
+    this.http.get<any[]>('http://localhost:8080/api/projets').subscribe({
+      next: (res) => {
+        // Filtrer les projets liés au contributeurId
+        this.projects = res.filter(projet => {
+          // Si la liste des contributeurs est dans projet.contributeurs (tableau)
+          if (projet.contributeurs && Array.isArray(projet.contributeurs)) {
+            return projet.contributeurs.some((c: any) => c.id === contributeurId);
+          }
+  
+          // Sinon, si le contributeur est le gestionnaire (par exemple)
+          if (projet.gestionnaire && projet.gestionnaire.id === contributeurId) {
+            return true;
+          }
+  
+          return false; // sinon on exclut
+        });
+        this.getAllProjets();
+  
+        console.log('Projets filtrés:', this.projets);
+        console.log('Tous les projets reçus:', res);
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des projets', err);
+      }
+    });
+  }
+  
+  
+  
+  getAllProjets() {
+    this.http.get<any[]>('http://localhost:8080/api/projets')
+      .subscribe({
+        next: (res) => {
+          this.projects = res;
+          console.log('Projets reçus :', res);
+          
+        },
+        error: (err) => {
+          console.error('Erreur lors du chargement des projets', err);
+        }
+      });
+  }
+
+
+
+  
+  
+  
+ 
+
+
 
 
 

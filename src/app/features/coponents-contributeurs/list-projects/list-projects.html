@@ -15,11 +15,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let projet of projets; let i = index">
+      <tr *ngFor="let projet of projects; let i = index">
         <td>{{ i + 1 }}</td>
         <td>{{ projet.titre }}</td>
         <td class="statut">{{ projet.statut }}</td>
-        <td>{{ projet.coin }}</td>
+        <td>{{ 100 + 100 }}</td>
 
         <td>
           <fa-icon [icon]="faUnlock" class="icon-lock" (click)="onUnlockClick(projet)"></fa-icon>

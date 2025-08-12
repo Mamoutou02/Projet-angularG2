@@ -1,125 +1,50 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import {AuthService} from "../../../services/auth-service";
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Badge, BadgeService } from '../../../services/badges';
-
-
+import { BadgesPopup } from '../badges-popup/badges-popup';
 
 @Component({
   selector: 'app-parametrer-les-badges',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, HttpClientModule, BadgesPopup],
   templateUrl: './parametrer-les-badges.html',
   styleUrls: ['./parametrer-les-badges.css']
 })
 export class ParametrerLesBadges implements OnInit {
-  showForm = false;
-  badges: Badge[] = [];
-  newBadge = {
-    description: '',
-    image: null as File | null,
-    coins: 0,
-    type: ''
-  };
 
-  badgeTypes = [
-    'BRONZE_I', 'BRONZE_II', 'BRONZE_III',
-    'ARGENT_I', 'ARGENT_II', 'ARGENT_III',
-    'OR_I', 'OR_II', 'OR_III',
-    'DIAMOND'
-  ];
+  showPopup = false;
+  badges: any[] = [];
 
-  currentAdminId: number = 1; // À remplacer par l'ID réel de l'admin connecté
-
-  constructor(
-      private badgeService: BadgeService,
-      private authService: AuthService
-  ) {}
-
-  ngOnInit(): void {
-    this.loadBadges();
-    // this.currentAdminId = this.authService.getCurrentAdminId(); // À implémenter
-  }
-
-  loadBadges(): void {
-    this.badgeService.getAllBadges().subscribe({
-      next: (data) => this.badges = data,
-      error: (error) => console.error('Erreur lors du chargement des badges:', error)
-    });
-  }
-
-  onFileSelected(event: any): void {
-    this.newBadge.image = event.target.files[0];
-  }
+  constructor(private http: HttpClient) {}
 
   addBadge(): void {
-    this.showForm = true;
+    this.showPopup = true;
   }
 
-  cancelAdd(): void {
-    this.showForm = false;
-    this.resetForm();
+  closePopup(): void {
+    this.showPopup = false;
   }
 
-  submitBadge(): void {
-    if (!this.newBadge.image) {
-      alert('Veuillez sélectionner une image');
-      return;
-    }
+  onBadgeSubmitted(badgeData: any) {
+    console.log('Données du badge reçues:', badgeData);
+    this.badges.push(badgeData);
+  }
 
-    const formData = new FormData();
-    formData.append('description', this.newBadge.description);
-    formData.append('imageFile', this.newBadge.image);
-    formData.append('coins', this.newBadge.coins.toString());
-    formData.append('type', this.newBadge.type);
-    formData.append('administrateurId', this.currentAdminId.toString());
 
-    this.badgeService.createBadge(formData, this.currentAdminId).subscribe({
-      next: () => {
-        this.loadBadges();
-        this.showForm = false;
-        this.resetForm();
+
+
+  ngOnInit(): void {
+    const apiUrl = 'http://localhost:8080/api/badges';
+    this.http.get<any[]>(apiUrl).subscribe({
+      next: (response) => {
+        console.log('Badges récupérés avec succès', response);
+        this.badges = response;
       },
       error: (error) => {
-        console.error('Erreur lors de la création du badge:', error);
-        alert('Erreur lors de la création du badge');
+        console.error('Erreur lors de la récupération des badges', error);
       }
     });
-  }
-
-  editBadge(badge: Badge): void {
-    // À implémenter selon vos besoins
-    console.log('Modification du badge:', badge);
-  }
-
-  deleteBadge(badgeId: number): void {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce badge ?')) {
-      this.badgeService.deleteBadge(badgeId).subscribe({
-        next: () => this.loadBadges(),
-        error: (error) => {
-          console.error('Erreur lors de la suppression du badge:', error);
-          alert('Erreur lors de la suppression du badge');
-        }
-      });
-    }
-  }
-
-  private resetForm(): void {
-    this.newBadge = {
-      description: '',
-      image: null,
-      coins: 0,
-      type: ''
-    };
-  }
-
-  getBadgeClass(type: string): string {
-    if (type.includes('BRONZE')) return 'bronze';
-    if (type.includes('ARGENT')) return 'argent';
-    if (type.includes('OR')) return 'or';
-    if (type.includes('DIAMOND')) return 'diamond';
-    return '';
   }
 }
