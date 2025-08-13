@@ -98,7 +98,7 @@ export class MesProjetContributeurs {
 
   ngOnInit(): void {
     const id_contributeur = 2;
-    const apiUrl = `http://localhost:8080/api/projets/recupere/${id_contributeur}`;
+    const apiUrl = `http://localhost:8080/api/projets/recupere/id_contributeur/${id_contributeur}`;
     this.http.get<any[]>(apiUrl).subscribe({
       next: (res) => {
         this.projets = res;
@@ -109,17 +109,7 @@ export class MesProjetContributeurs {
       }
     });
 
-    const apiUrls = `http://localhost:8080/api/projets`;
-
-    this.http.get<any[]>(apiUrls).subscribe({
-      next: (res) => {
-        this.projets = res;
-        console.log('Projets reçus :', this.projets);
-      },
-      error: (err) => {
-        console.error('Erreur lors du chargement des projets', err);
-      }
-    });
+    
   }
 
   deleteProject(idProjet: number, idAdmin: number) {
