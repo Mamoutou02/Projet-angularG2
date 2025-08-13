@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
@@ -20,8 +20,9 @@ export class InscriptionComponent {
     niveau:'',
     password: ''
   };
+  router: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, router: Router) {}
 
   onSubmit() {
     const apiUrl = 'http://localhost:8080/api/contributeurs/inscription';
@@ -30,6 +31,8 @@ export class InscriptionComponent {
       next: (res) => {
         console.log('Inscription réussie', res);
         alert('Inscription réussie ');
+        // Redirection vers la page de login après inscription réussie
+        this.router.navigate(['/login']);
       },
       error: (err) => {
         console.error('Erreur', err);
