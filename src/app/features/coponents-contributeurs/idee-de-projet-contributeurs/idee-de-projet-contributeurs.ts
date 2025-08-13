@@ -7,6 +7,7 @@ import {PupPopmenu} from '../pup-popmenu/pup-popmenu';
 import {FaireDemandeGestionnaire} from '../faire-demande-gestionnaire/faire-demande-gestionnaire';
 import {FormAjoutIdee} from '../form-ajout-idee/form-ajout-idee';
 import { HttpClient } from '@angular/common/http';
+import {AjouterCommentaires} from '../ajouter-commentaires/ajouter-commentaires';
 
 
 
@@ -14,7 +15,7 @@ import { HttpClient } from '@angular/common/http';
   selector: 'app-idee-de-projet-contributeurs',
   standalone: true,
   templateUrl: './idee-de-projet-contributeurs.html',
-  imports: [CommonModule, FaIconComponent, DetailIdeeProjet, PupPopmenu, FaireDemandeGestionnaire, FormAjoutIdee],
+  imports: [CommonModule, FaIconComponent, DetailIdeeProjet, PupPopmenu, FaireDemandeGestionnaire, FormAjoutIdee, AjouterCommentaires],
   styleUrl: './idee-de-projet-contributeurs.css'
 })
 export class IdeeDeProjetContributeursComponent {
@@ -27,7 +28,7 @@ export class IdeeDeProjetContributeursComponent {
 
 
   ngOnInit(): void {
-     
+
     const apiUrl = `http://localhost:8080/api/ideeProjets`;
     this.http.get<any[]>(apiUrl).subscribe({
       next: (res) => {
@@ -63,10 +64,29 @@ export class IdeeDeProjetContributeursComponent {
     this.closeMenu();
   }
 
+  // cas du formulaire ajouter d'un commentaire
+
+  afficherFormulaireCommentaire = false;
+  projetPourCommentaire: any = null;
+
   ajouterCommentaire(projet: any) {
-    console.log("Ajouter un commentaire à :", projet);
+    this.projetPourCommentaire = projet;
+    this.afficherFormulaireCommentaire = true;
     this.closeMenu();
   }
+
+  fermerFormulaireCommentaire() {
+    this.afficherFormulaireCommentaire = false;
+    this.projetPourCommentaire = null;
+  }
+
+  gererCommentaireSoumis(data: { nom: string; commentaire: string }) {
+    console.log('Commentaire soumis pour projet', this.projetPourCommentaire, data);
+    // Ici tu peux envoyer la data à ton backend, ou mettre à jour la liste, etc.
+    this.fermerFormulaireCommentaire();
+  }
+  // cas du menu pop avec les différents options
+
   ouvrirMenu(projet: any) {
     this.selectedProjet = projet;
   }

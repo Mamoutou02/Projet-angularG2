@@ -1,0 +1,178 @@
+/* Corps de page - à adapter selon ton contexte global */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f4f8;
+  margin: 0;
+  padding: 10px; /* ou 0 si le dashboard gère son propre padding */
+  /* Supprimé flex centering */
+}
+
+/* Conteneur principal */
+.container {
+  width: 100%;       /* prend toute la largeur dispo */
+  max-width: none;   /* désactive max-width */
+  background-color: #fff;
+  border: 2px solid #a3b1c6;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  box-sizing: border-box; /* important pour que padding ne dépasse pas */
+}
+
+/* En-tête : titre + bouton */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Titre */
+.title {
+  color: #3b5998;
+  font-size: 1.5em;
+  margin: 0;
+}
+
+/* Bouton Ajouter */
+.btn-add {
+  background-color: #7b8de6;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Conteneur de la table avec scroll horizontal si besoin */
+.table-container {
+  overflow-x: auto;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 1px solid #ddd;
+}
+
+/* En-tête de table */
+thead th {
+  background-color: #e0e9f1;
+  color: #2b395d;
+  text-align: left;
+  padding: 12px;
+  border-bottom: 2px solid #a3b1c6;
+  font-weight: bold;
+}
+
+/* Cellules du corps */
+tbody td {
+  padding: 12px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* Ligne paire : couleur de fond différente */
+tbody tr:nth-child(even) {
+  background-color: #f9fbfd;
+}
+
+/* Survol ligne */
+tbody tr:hover {
+  background-color: #e6f0ff;
+}
+
+/* Gestion du retour à la ligne dans les cellules */
+th, td {
+  word-wrap: break-word;
+}
+
+/* Largeur des colonnes */
+th:nth-child(1),
+td:nth-child(1) {
+  width: 5%;
+  text-align: center;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+  width: 55%;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+  width: 20%;
+  text-align: center;
+}
+
+th:nth-child(4),
+td:nth-child(4) {
+  width: 20%;
+  text-align: center;
+}
+
+/* Responsivité */
+
+/* Tablette et petits écrans */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  body {
+    padding: 10px;
+  }
+
+  .container {
+    width: 100%;
+    border-radius: 0;
+    border: none;
+  }
+
+  .title {
+    font-size: 1.2em;
+  }
+
+  /* Table scrollable horizontalement */
+  .table-container {
+    overflow-x: scroll;
+  }
+
+  table {
+    min-width: 500px;
+    table-layout: auto;
+  }
+
+  /* Colonnes adaptées aux petits écrans */
+  th:nth-child(1),
+  td:nth-child(1) {
+    width: 40px;
+  }
+
+  th:nth-child(2),
+  td:nth-child(2) {
+    width: 200px;
+  }
+
+  th:nth-child(3),
+  td:nth-child(3) {
+    width: 100px;
+  }
+
+  th:nth-child(4),
+  td:nth-child(4) {
+    width: 80px;
+  }
+}

@@ -1,0 +1,30 @@
+<div class="container">
+  <header>
+    <h2 class="title">Liste de toutes les fonctionnalités du projet</h2>
+    <button class="btn-add" (click)="ouvrirFormulaire()">+ Ajouter</button>
+  </header>
+  <div class="table-container">
+    <table>
+      <thead>
+      <tr>
+        <th>N°</th>
+        <th>Description</th>
+        <th>Statut</th>
+        <th>Point</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let f of fonctionnalites">
+        <td>{{ f.id }}</td>
+        <td>{{ f.description }}</td>
+        <td>{{ f.statut }}</td>
+        <td>{{ f.point ?? '-' }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- Affichage conditionnel du modal -->
+  <app-form-ajout-fonctionnalites *ngIf="afficherFormulaireAjout"
+                                  (close)="fermerFormulaire()">
+  </app-form-ajout-fonctionnalites>
+</div>

@@ -1,12 +1,14 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {FaireDemandeGestionnaire} from '../faire-demande-gestionnaire/faire-demande-gestionnaire';
 import {NgIf} from '@angular/common';
+import {AjouterCommentaires} from '../ajouter-commentaires/ajouter-commentaires';
 
 @Component({
   selector: 'app-pup-popmenu',
   imports: [
     FaireDemandeGestionnaire,
-    NgIf
+    NgIf,
+    AjouterCommentaires
   ],
   templateUrl: './pup-popmenu.html',
   standalone: true,
@@ -35,10 +37,6 @@ export class PupPopmenu {
 
   onAjouterCommentaire() {
     this.ajouterCommentaire.emit();
-  }
-
-  ouvrirFaireDemande() {
-    this.popupFaireDemandeVisible = true;
   }
 
   fermerFaireDemande() {

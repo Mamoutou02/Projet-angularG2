@@ -1,0 +1,51 @@
+<div class="container">
+  <header>
+    <nav class="navbar">
+      <a href="#"
+         class="nav-item"
+         [class.active]="ongletActif === 'contributions'"
+         (click)="changerOnglet('contributions'); $event.preventDefault()">
+        Contributions
+      </a>
+      <a href="#"
+         class="nav-item"
+         [class.active]="ongletActif === 'fonctionnalites'"
+         (click)="changerOnglet('fonctionnalites'); $event.preventDefault()">
+        Fonctionnalités
+      </a>
+      <a href="#"
+         class="nav-item"
+         [class.active]="ongletActif === 'demandes'"
+         (click)="changerOnglet('demandes'); $event.preventDefault()">
+        Demandes
+      </a>
+      <a href="#"
+         class="nav-item"
+         [class.active]="ongletActif === 'coins'"
+         (click)="changerOnglet('coins'); $event.preventDefault()">
+        Coins
+      </a>
+      <a class="btn-retour" (click)="fermerDashboard()">Retour</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Onglet Contributions -->
+    <section *ngIf="ongletActif === 'contributions'">
+      <app-page-contributions-gestionnaires></app-page-contributions-gestionnaires>
+    </section>
+
+    <!-- Onglet Fonctionnalités -->
+    <section *ngIf="ongletActif === 'fonctionnalites'">
+      <app-page-fonctionnalite-gestionnaire></app-page-fonctionnalite-gestionnaire>
+    </section>
+
+    <!-- Onglets Demandes et Coins à compléter ... -->
+    <section *ngIf="ongletActif === 'demandes'">
+      <app-page-demandes-gestionnaires></app-page-demandes-gestionnaires>
+    </section>
+    <section *ngIf="ongletActif === 'coins'">
+      <app-page-coins-gestionnaires></app-page-coins-gestionnaires>
+    </section>
+  </main>
+</div>
