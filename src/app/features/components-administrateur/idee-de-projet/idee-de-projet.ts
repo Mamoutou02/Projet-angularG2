@@ -4,10 +4,11 @@ import {Sidebar} from "../sidebar/sidebar";
 import {Header} from "../header/header";
 import { HttpClient } from '@angular/common/http';
 import id from '@angular/common/locales/extra/id';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-idee-de-projet',
-  imports: [CommonModule, Sidebar, Header],
+  imports: [CommonModule, Sidebar, Header, FormsModule],
   templateUrl: './idee-de-projet.html',
   styleUrls: ['./idee-de-projet.css']
 })
@@ -22,21 +23,21 @@ export class IdeeDeProjet {
   }
 
   getAllIdeeProjet(){
-    this.http.get<any[]>('http://localhost:8080/api/ideeProjets')
-      .subscribe({
-        next: (res) => {
-          this.idees = res;
-          console.log("Idées de projet reçues", res);
-        },
-        error: (err) => {
-          console.error('Erreur lors du chargement des idées de projet', err);
-        }
-      });
+    const apiUrl = `http://localhost:8080/api/idee-projets`;
+    this.http.get<any[]>(apiUrl).subscribe({
+      next: (res) => {
+        this.idees = res;
+        console.log('Projets reçus :', this.idees);
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des projets', err);
+      }
+    });
   }
 
   deleteIdeeProjet(id: number) {
   if (confirm('Voulez-vous vraiment supprimer ce projet ?')) {
-    this.http.delete(`http://localhost:8080/api/ideeProjets/${id}`, { responseType: 'text' })
+    this.http.delete(`http://localhost:8080/api/idee-projets/${id}`, { responseType: 'text' })
       .subscribe({
         next: () => {
           

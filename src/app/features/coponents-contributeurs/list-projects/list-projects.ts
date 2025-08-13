@@ -159,39 +159,16 @@ export class ListProjects {
     constructor(private http: HttpClient) {}
   
    ngOnInit(): void {
-    const contributeurId = 2; // L'id du contributeur dont tu veux afficher les projets
+
+   this.getAllProjets();
+    
   
-    this.http.get<any[]>('http://localhost:8080/api/projets').subscribe({
-      next: (res) => {
-        // Filtrer les projets liés au contributeurId
-        this.projects = res.filter(projet => {
-          // Si la liste des contributeurs est dans projet.contributeurs (tableau)
-          if (projet.contributeurs && Array.isArray(projet.contributeurs)) {
-            return projet.contributeurs.some((c: any) => c.id === contributeurId);
-          }
-  
-          // Sinon, si le contributeur est le gestionnaire (par exemple)
-          if (projet.gestionnaire && projet.gestionnaire.id === contributeurId) {
-            return true;
-          }
-  
-          return false; // sinon on exclut
-        });
-        this.getAllProjets();
-  
-        console.log('Projets filtrés:', this.projets);
-        console.log('Tous les projets reçus:', res);
-      },
-      error: (err) => {
-        console.error('Erreur lors du chargement des projets', err);
-      }
-    });
   }
   
   
   
   getAllProjets() {
-    this.http.get<any[]>('http://localhost:8080/api/projets')
+    this.http.get<any[]>('http://localhost:8080/api/projets/allprojets')
       .subscribe({
         next: (res) => {
           this.projects = res;

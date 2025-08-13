@@ -19,24 +19,34 @@ export class ConnexionComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  onSubmit() {
-   this.authService.login(this.formData.email, this.formData.password).subscribe({
-  next: (res) => {
-    localStorage.setItem('token', res.token);
-    localStorage.setItem('role', res.role);
+onSubmit() {
+  this.authService.login(this.formData.email, this.formData.password)
+    .subscribe({
+      next: (res) => {
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('id', res.id.toString());
+        localStorage.setItem('roles', JSON.stringify(res.roles));
+        console.log('Connexion réussie', res);
 
-    if (res.role === 'Administrateur') {
-      this.router.navigate(['/AdminDashboard']);
-    } else if (res.role === 'Contributeur') {
-      this.router.navigate(['/dashboardContributeur']);
-    }
-  },
-  error: () => {
-    alert("Identifiants incorrects");
-  }
-});
+        // Redirection selon le rôle
+        if (res.roles.includes('Administrateur')) {
+          this.router.navigate(['/AdminDashboard']);
+        } else if (res.roles.includes('Gestionnaire')) {
+          this.router.navigate(['/dashboardContributeur']);
+        } else if (res.roles.includes('Contributeur')) {
+          this.router.navigate(['/dashboardContributeur']);
+        } else {
+          // cas par défaut si rôle inconnu
+          this.router.navigate(['/Connexion']);
+        }
+      },
+      error: (err) => {
+        alert(err.error.message || "Identifiants incorrects");
+      }
+    });
+}
 
-  }
+
 
 
 }

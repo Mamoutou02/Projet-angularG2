@@ -36,7 +36,7 @@ export class StatsCards {
  
 
 getAllProjets() {
-  this.http.get<any[]>('http://localhost:8080/api/projets')
+  this.http.get<any[]>('http://localhost:8080/api/projets/allprojets')
     .subscribe({
       next: (res) => {
         this.projetsActifs = res.filter(projet => projet.statut === 'EN_COURS');

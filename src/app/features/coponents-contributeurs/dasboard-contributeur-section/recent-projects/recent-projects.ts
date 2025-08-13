@@ -46,7 +46,7 @@ export class RecentProjects implements OnInit {
   }
 
   loadProjectsFromApi(): void {
-    const apiUrl = 'http://localhost:8080/api/projets';
+    const apiUrl = 'http://localhost:8080/api/projets/allprojets';
 
     this.http.get<any[]>(apiUrl).subscribe({
       next: (res) => {

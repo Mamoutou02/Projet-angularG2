@@ -29,7 +29,7 @@ export class IdeeDeProjetContributeursComponent {
 
   ngOnInit(): void {
 
-    const apiUrl = `http://localhost:8080/api/ideeProjets`;
+    const apiUrl = `http://localhost:8080/api/idee-projets`;
     this.http.get<any[]>(apiUrl).subscribe({
       next: (res) => {
         this.ideeProjet = res;

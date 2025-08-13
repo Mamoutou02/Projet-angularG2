@@ -97,8 +97,10 @@ export class MesProjetContributeurs {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    const id_contributeur = 2;
-    const apiUrl = `http://localhost:8080/api/projets/recupere/id_contributeur/${id_contributeur}`;
+      const idStr = localStorage.getItem('id');
+       const id_contributeurs = Number(idStr);
+ 
+    const apiUrl = `http://localhost:8080/api/projets/recupère/id_contributeur/${id_contributeurs}`;
     this.http.get<any[]>(apiUrl).subscribe({
       next: (res) => {
         this.projets = res;
@@ -108,8 +110,13 @@ export class MesProjetContributeurs {
         console.error('Erreur lors du chargement des projets', err);
       }
     });
-
     
+  
+
+console.log('URL appelée:', apiUrl);
+
+
+   
   }
 
   deleteProject(idProjet: number, idAdmin: number) {

@@ -27,7 +27,8 @@ export class FormAjoutIdee {
 
   // méthode appelée au clic sur "Soumettre l'idée"
  onSubmit() {
-    const apiUrl = `http://localhost:8080/api/ideeProjets/contributeur/${2}/domaine/${12}`;
+  
+    const apiUrl = `http://localhost:8080/api/idee-projets/contributeur/${2}/domaine/${1}`;
 
     this.http.post(apiUrl, this.nouveauProjet).subscribe({
       next: (res) => {
