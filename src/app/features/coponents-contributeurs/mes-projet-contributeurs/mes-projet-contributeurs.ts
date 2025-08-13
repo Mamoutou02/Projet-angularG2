@@ -108,6 +108,18 @@ export class MesProjetContributeurs {
         console.error('Erreur lors du chargement des projets', err);
       }
     });
+
+    const apiUrls = `http://localhost:8080/api/projets`;
+
+    this.http.get<any[]>(apiUrls).subscribe({
+      next: (res) => {
+        this.projets = res;
+        console.log('Projets reçus :', this.projets);
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des projets', err);
+      }
+    });
   }
 
   deleteProject(idProjet: number, idAdmin: number) {
