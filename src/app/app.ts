@@ -8,11 +8,12 @@ import {
 } from './features/coponents-contributeurs/mes-projet-contributeurs/mes-projet-contributeurs';
 import {ConnexionComponent} from './features/login/connexion-component/connexion-component';
 import {InscriptionComponent} from './features/login/inscription-component/inscription-component';
+import {PageAccueil} from './features/page-accueil/page-accueil';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, DasboardAdmin, RouterLink, Sidebar, SidebarContributeurs, MesProjetContributeurs, ConnexionComponent, InscriptionComponent],
+  imports: [RouterOutlet, DasboardAdmin, RouterLink, Sidebar, SidebarContributeurs, MesProjetContributeurs, ConnexionComponent, InscriptionComponent, PageAccueil],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

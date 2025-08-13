@@ -1,0 +1,160 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Container global */
+.container {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Image en arrière-plan */
+.background-img {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: cover;
+  position: absolute;
+  left: 33%;
+  z-index: 0;
+}
+
+/* Triangle bleu */
+.triangle {
+  position: relative;
+  background-color: #2b2cfa;
+  color: white;
+  padding: 3px;
+  width: 35%;
+  height: 100%;
+  clip-path: polygon(0 0, 80% 0, 100% 50%, 80% 100%, 0 100%);
+  z-index: 1;
+}
+
+.logo {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  position: relative;
+  left: 10%;
+}
+
+.triangle ul {
+  list-style: none;
+  padding: 0;
+  left: 8%;
+  position: relative;
+}
+
+.triangle ul li {
+  margin: 20px 0;
+  font-size: 1.2rem;
+}
+
+.btn {
+  display: inline-block;
+  background-color: white;
+  color: #2b2cfa;
+  padding: 12px 20px;
+  text-decoration: none;
+  border-radius: 20px;
+  margin-top: 40px;
+  font-weight: bold;
+  left: 5%;
+  position: relative;
+}
+
+/* Décor à droite */
+.right-decor {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20%;
+  height: 100%;
+  background: linear-gradient(to left, #f3f4f6, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.right-decor .circle {
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgb(28 28 237 / 80%);
+  animation: float 6s ease-in-out infinite;
+}
+
+.right-decor .circle:nth-child(1) {
+  width: 80px;
+  height: 80px;
+  top: 20%;
+  right: 10%;
+}
+.right-decor .circle:nth-child(2) {
+  width: 50px;
+  height: 50px;
+  top: 50%;
+  right: 20%;
+  animation-delay: 1.5s;
+}
+.right-decor .circle:nth-child(3) {
+  width: 100px;
+  height: 100px;
+  bottom: 15%;
+  right: 5%;
+  animation-delay: 3s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+/* 🌐 Responsive */
+@media (max-width: 1024px) {
+  .triangle {
+    width: 45%;
+  }
+  .background-img {
+    left: 25%;
+  }
+  .right-decor {
+    width: 15%;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  .background-img {
+    position: relative;
+    width: 100%;
+    left: 0;
+    height: 40vh;
+  }
+  .triangle {
+    width: 100%;
+    height: auto;
+    clip-path: none;
+    padding: 20px;
+  }
+  .right-decor {
+    display: none; /* Masquer sur mobile pour éviter surcharge */
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1.5rem;
+  }
+  .triangle ul li {
+    font-size: 1rem;
+  }
+  .btn {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+}

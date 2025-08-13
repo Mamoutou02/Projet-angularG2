@@ -27,7 +27,7 @@ import { IdeeDeProjetContributeursComponent } from './features/coponents-contrib
 
 export const routes: Routes = [
   // Redirection par défaut vers Connexion
-  { path: '', redirectTo: 'Connexion', pathMatch: 'full' },
+  { path: '', redirectTo: 'PageAccueil', pathMatch: 'full' },
 
   { path: 'new-contribution', component: NewContribution },
 
