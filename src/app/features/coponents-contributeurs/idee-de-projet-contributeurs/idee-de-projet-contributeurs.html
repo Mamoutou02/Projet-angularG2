@@ -9,7 +9,7 @@
 
   <div class="project-list">
     <div class="project-row" style="position: relative;" *ngFor="let ideeProjets of ideeProjet">
-     
+
       <div class="project-description">{{ ideeProjets.description }}</div>
       <div class="project-statut">{{ ideeProjets.statut }}</div>
       <div class="project-niveau">{{ ideeProjets.niveau }}</div>
@@ -52,6 +52,15 @@
     (annuler)="fermerFormulaire()"
     (projetCree)="ajouterProjetDepuisFormulaire($event)"
   ></app-form-ajout-idee>
+  <!-- Formulaire ajouter commentaire -->
+  <div class="modal-overlay" *ngIf="afficherFormulaireCommentaire" (click)="fermerFormulaireCommentaire()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <app-ajouter-commentaires
+        (fermerPopup)="fermerFormulaireCommentaire()"
+        (soumis)="gererCommentaireSoumis($event)"
+      ></app-ajouter-commentaires>
+    </div>
+  </div>
 
 </div>
 

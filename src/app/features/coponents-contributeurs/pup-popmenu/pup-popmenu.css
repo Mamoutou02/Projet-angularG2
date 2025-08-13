@@ -1,23 +1,15 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #d3d3d3;
-  margin: 0;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
 
 .frame {
+  position: absolute;
+  top: 40px; /* Ajuste en fonction de la position du bouton */
+  left: 0;
   background-color: #ffffff;
   border: 2px solid #ccc;
   border-radius: 5px;
   width: 300px;
   padding: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box; /* Inclut padding et border dans la largeur */
-  max-width: 100%; /* Limite la largeur maximale à 100% du conteneur parent */
+  z-index: 1000;
 }
 
 .header {

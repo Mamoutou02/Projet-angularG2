@@ -1,0 +1,21 @@
+<div class="container">
+  <main>
+    <div class="main-header">
+      <button class="btn-add-coin" (click)="ouvrirFormulaire()">+ Ajouter</button>
+    </div>
+
+    <div class="coins-grid">
+      <div class="card" *ngFor="let coin of coins">
+        <span class="card-number">{{ coin.id }}</span>
+        <span class="card-value">{{ coin.valeur }}</span>
+        <div class="card-actions">
+          <button class="btn-modifier" (click)="modifierCoin(coin.id)">Modifier</button>
+        </div>
+        <button class="btn-delete" (click)="supprimerCoin(coin.id)">
+          <fa-icon [icon]="faDeleteLeft"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </main>
+  <app-form-ajout-coin *ngIf="afficherFormulaire" (fermer)="fermerFormulaire()"></app-form-ajout-coin>
+</div>

@@ -1,0 +1,30 @@
+<div class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Nouvelle Fonctionnalité</h2>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" name="description"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="point">Point</label>
+          <select id="point" name="point">
+            <option value="" disabled selected></option>
+            <option value="100">100</option>
+            <option value="200">200</option>
+            <option value="300">300</option>
+            <option value="400">400</option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-action btn-annuler" (click)="annuler()">Annuler</button>
+      <button class="btn-action btn-enregistrer" (click)="enregistrer()">Enregistrer</button>
+    </div>
+  </div>
+</div>
