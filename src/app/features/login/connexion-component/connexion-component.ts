@@ -20,20 +20,23 @@ export class ConnexionComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
-    this.authService.login(this.formData).subscribe({
-      next: (res) => {
-        console.log('Connexion réussie ', res);
-        alert("Bienvenu");
-        if (res.token) {
-          localStorage.setItem('token', res.token);
-        }
-        // Redirection 
-         this.router.navigate(['/dashboardContributeur']);
-      },
-      error: (err) => {
-        console.error('Erreur de connexion ', err);
-        alert(err.error?.message || 'Email ou mot de passe incorrect');
-      }
-    });
+   this.authService.login(this.formData.email, this.formData.password).subscribe({
+  next: (res) => {
+    localStorage.setItem('token', res.token);
+    localStorage.setItem('role', res.role);
+
+    if (res.role === 'Administrateur') {
+      this.router.navigate(['/AdminDashboard']);
+    } else if (res.role === 'Contributeur') {
+      this.router.navigate(['/dashboardContributeur']);
+    }
+  },
+  error: () => {
+    alert("Identifiants incorrects");
   }
+});
+
+  }
+
+
 }

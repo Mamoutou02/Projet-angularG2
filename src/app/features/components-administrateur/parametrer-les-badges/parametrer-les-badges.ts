@@ -17,6 +17,8 @@ export class ParametrerLesBadges implements OnInit {
   showPopup = false;
   badges: any[] = [];
 
+  
+
   constructor(private http: HttpClient) {}
 
   addBadge(): void {
