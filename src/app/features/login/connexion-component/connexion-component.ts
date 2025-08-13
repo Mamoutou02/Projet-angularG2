@@ -36,7 +36,7 @@ onSubmit() {
         } else if (res.roles.includes('Contributeur')) {
           this.router.navigate(['/dashboardContributeur']);
         } else {
-          // cas par défaut si rôle inconnu
+          
           this.router.navigate(['/Connexion']);
         }
       },
