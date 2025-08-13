@@ -127,5 +127,6 @@ export const routes: Routes = [
   { path: "projects", component: ListProjects },
   { path:"Connexion", component: ConnexionComponent },
   { path:"Inscription", component: InscriptionComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 
