@@ -24,10 +24,16 @@ import {ConnexionComponent} from './features/login/connexion-component/connexion
 import {InscriptionComponent} from './features/login/inscription-component/inscription-component';
 import { ContributionDetailsComponent } from './features/coponents-contributeurs/contribution-details/contribution-details';
 import { IdeeDeProjetContributeursComponent } from './features/coponents-contributeurs/idee-de-projet-contributeurs/idee-de-projet-contributeurs';
+import {PageAccueil} from './features/page-accueil/page-accueil';
 
 export const routes: Routes = [
   // Redirection par défaut vers Connexion
-  { path: '', redirectTo: 'Connexion', pathMatch: 'full' },
+  // { path: '', redirectTo: 'Connexion', pathMatch: 'full' },
+
+  { path: '', redirectTo: 'accueil', pathMatch: 'full' },
+  { path: 'accueil', component: PageAccueil },
+  { path: 'Connexion', component: ConnexionComponent },
+
 
   { path: 'new-contribution', component: NewContribution },
 
