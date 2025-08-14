@@ -10,14 +10,20 @@
     <h3>Faire une demande de contribution</h3>
 
     <form (ngSubmit)="onSubmit()" class="demande-form">
-      <div class="form-group">
-        <label for="type">Type :</label>
-        <select id="type" name="type" required [(ngModel)]="demandeForm.type_demande_participation">
-          <option value="" disabled selected>Choisir un type</option>
-          <option value="CONTRIBUTEUR">Contributeur</option>
-          <option value="GESTIONNAIRE">Gestionnaire</option>
-        </select>
-      </div>
+  <div class="form-group">
+    <label for="type">Type :</label>
+    <select id="type" name="type" required [(ngModel)]="demandeForm.type_demande_participation">
+      <option value="" disabled selected>Choisir un type</option>
+
+      <!-- Affiche seulement si c'est un projet -->
+      <option *ngIf="projetId" value="CONTRIBUTEUR">Contributeur</option>
+
+      <!-- Affiche seulement si c'est une idée de projet -->
+      <option *ngIf="ideeProjetId" value="GESTIONNAIRE">Gestionnaire</option>
+    </select>
+  </div>
+
+
 
       <div class="form-group">
         <label for="description">Description :</label>

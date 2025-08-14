@@ -13,7 +13,6 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     RouterOutlet,
     FormsModule,
     HttpClientModule,
-    MatSnackBarModule
   ],
   templateUrl: './connexion-component.html',
   styleUrls: ['./connexion-component.css'] 
@@ -27,7 +26,6 @@ export class ConnexionComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private snackBar: MatSnackBar
   ) {}
 
   onSubmit() {
@@ -39,11 +37,7 @@ export class ConnexionComponent {
           localStorage.setItem('roles', JSON.stringify(res.roles));
           console.log('Connexion réussie', res);
 
-          
-          this.snackBar.open(' Connexion réussie ! Bienvenue ', '', {
-            duration: 4000,
-            panelClass: ['custom-snackbar']
-          });
+      
 
           // Redirection selon le rôle
           if (res.roles.includes('Administrateur')) {
@@ -57,10 +51,8 @@ export class ConnexionComponent {
           }
         },
         error: (err) => {
-          this.snackBar.open('❌ Identifiants incorrects', '', {
-            duration: 3000,
-            panelClass: ['error-snackbar']
-          });
+          console.log("erreur", err);
+          alert("Identifiant Incorrecte ou probleme survenu");
         }
       });
   }

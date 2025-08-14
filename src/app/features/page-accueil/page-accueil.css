@@ -35,10 +35,13 @@ body {
 }
 
 .logo {
-  font-size: 2rem;
-  margin-bottom: 40px;
-  position: relative;
-  left: 10%;
+    margin-bottom: 40px;
+    position: relative;
+    left: 3%;
+    width: 76%;
+    top: 3%;
+    background-color: white;
+    border-radius: 10px;
 }
 
 .triangle ul {
@@ -46,6 +49,7 @@ body {
   padding: 0;
   left: 8%;
   position: relative;
+  top: 5%;
 }
 
 .triangle ul li {
@@ -60,7 +64,7 @@ body {
   padding: 12px 20px;
   text-decoration: none;
   border-radius: 20px;
-  margin-top: 40px;
+  margin-top: 101px;
   font-weight: bold;
   left: 5%;
   position: relative;

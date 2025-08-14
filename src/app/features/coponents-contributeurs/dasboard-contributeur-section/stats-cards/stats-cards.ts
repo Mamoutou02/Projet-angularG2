@@ -27,47 +27,53 @@ export class StatsCards {
   constructor(private http: HttpClient){}
 
   ngOnInit(): void{
-    this.getAllProjets();
+    this.getProjetsByContributeur();
     this.getAllbadge();
+    this.getAllProjets();
   }
 
-  
 
- 
+getProjetsByContributeur() {
+  const idStr = localStorage.getItem('id');
+  const id_contributeurs = Number(idStr);
 
-getAllProjets() {
-  this.http.get<any[]>('http://localhost:8080/api/projets/allprojets')
-    .subscribe({
-      next: (res) => {
-        this.projetsActifs = res.filter(projet => projet.statut === 'EN_COURS');
-        this.projets = res;
-
-        console.log('Projets reçus :', res);
-      },
-      error: (err) => {
-        console.error('Erreur lors du chargement des projets', err);
-      }
-    });
+  const apiUrl = `http://localhost:8080/api/projets/gestionnaire/${id_contributeurs}`;
+  this.http.get<any[]>(apiUrl).subscribe({
+    next: (res) => {
+      this.projetsActifs = res || [];
+      console.log('Projets reçus :', this.projetsActifs);
+    },
+    error: (err) => {
+      console.error('Erreur lors du chargement des projets', err);
+    }
+  });
 }
 
+getAllProjets() {
+  const apiUrl = `http://localhost:8080/api/projets/allprojets`;
+  this.http.get<any[]>(apiUrl).subscribe({
+    next: (res) => {
+      this.projets = res || [];
+      console.log('Projets reçus :', this.projets);
+    },
+    error: (err) => {
+      console.error('Erreur lors du chargement des projets', err);
+    }
+  });
+}
 
+getAllbadge() {
+  this.http.get<any[]>('http://localhost:8080/api/badges').subscribe({
+    next: (res) => {
+      this.badges = res || [];
+      console.log('Badges reçus', this.badges);
+    },
+    error: (err) => {
+      console.error('Erreur lors du chargement des badges', err);
+    }
+  });
+}
 
-
-
-  getAllbadge(){
-    this.http.get<any[]>('http://localhost:8080/api/badges')
-    .subscribe({
-      next: (res) => {
-        this.badges = res;
-        console.log("Badges recus", res)
-      },
-      error: (err) => {
-        console.error('Erreur lors du chargement des badges', err);
-      }
-    });
-  }
- 
-  
 
 
        
