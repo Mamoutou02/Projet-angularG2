@@ -3,14 +3,17 @@
     <h1 class="title">La liste des demandes</h1>
 
     <div class="contribution-list">
-      <div class="card" *ngFor="let demande of demandes">
+      <div class="card" *ngFor="let demande of Demandes">
         <div class="user-info">
-          <span class="user-name">{{ demande.name }}</span>
-          <span class="contribution-type">{{ demande.type }}</span>
+          <span class="demande-id">{{ demande.idDemandeParticipation }} - {{ demande.typeDemandeParticipationemande }}</span>
+          <span class="user-name">{{ demande.statut_demande_participation }}</span>
+          <span class="contribution-type">{{ demande.datedemande }}</span>
+          <span class="demande">{{ demande.description }}</span>
+          <span class="demande">{{ demande.type_demande_participationemande }}</span>
         </div>
         <div class="actions">
           <button class="view-icon"><fa-icon [icon]="faEye"></fa-icon></button>
-          <button class="btn-action btn-valider" (click)="valider(demande)">Valider</button>
+          <button class="btn-action btn-valider" (click)="ValiderDemande(demande.idDemandeParticipation)">Valider</button>
           <button class="btn-action btn-refuser" (click)="refuser(demande)">Refuser</button>
         </div>
       </div>

@@ -23,20 +23,18 @@
     <h2>Mes Badges</h2>
   </div>
 
-  <!-- Grille de cartes de badges -->
-  <div class="badges-grid">
-    <!-- Pour chaque badge dans le tableau badges -->
+
+
+
+    <div class="badge-list">
     <div class="badge-card" *ngFor="let badge of badgess">
-     <!-- Titre avec icône intégrée -->
-   <h3 class="badge-title">
-  <fa-icon
-    [icon]="faMedal"
-    class="badge-icon"
-    >
-  </fa-icon>
-  {{ badge.nom }}
-</h3>
-      <p>{{ badgess.length }} Badges collectés</p> <!-- Montant requis -->
-      <p class="desc">{{ badge.description }}</p> <!-- Description du badge -->
+      <img [src]="badge.image" [alt]="badge.nom" />
+      <div class="card-content">
+        <h2>{{badge.nom}}</h2>
+        <p>{{badge.description}}</p>
+        <div class="badge-number">{{badge.nombre}}</div>
+       
+      </div>
     </div>
+  </div>
   </div>

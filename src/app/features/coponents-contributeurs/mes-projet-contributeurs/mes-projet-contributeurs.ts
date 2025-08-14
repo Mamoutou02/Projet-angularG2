@@ -98,7 +98,7 @@ export class MesProjetContributeurs {
 
   ngOnInit(): void {
       const idStr = localStorage.getItem('id');
-       const id_contributeurs = Number(idStr);
+      const id_contributeurs = Number(idStr);
  
     const apiUrl = `http://localhost:8080/api/projets/recupère/id_contributeur/${id_contributeurs}`;
     this.http.get<any[]>(apiUrl).subscribe({

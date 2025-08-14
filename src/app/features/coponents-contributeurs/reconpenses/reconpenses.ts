@@ -37,8 +37,12 @@ export class Reconpenses {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
+
+    const idStr = localStorage.getItem('id');
+      const id_contributeurs = Number(idStr);
+
     // Charger les badges
-    const apiUrl = `http://localhost:8080/api/badges/contributeur/${2}`;
+    const apiUrl = `http://localhost:8080/api/badges/contributeur/${id_contributeurs}`;
     this.http.get<Badge[]>(apiUrl).subscribe({
       next: (res) => {
         this.badgess = res;
