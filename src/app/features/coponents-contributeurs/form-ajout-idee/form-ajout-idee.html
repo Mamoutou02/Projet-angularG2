@@ -1,65 +1,123 @@
-<div class="modal-container">
-  <div class="modal">
-    <div class="modal-header">
-      <h2>Nouvelle Idée de Projet</h2>
-    </div>
-    <div class="modal-body">
-      <p class="subtitle">Partager votre idée avec la communauté collabdev</p>
+<div class="modal">
+  <div class="modal-header">
+    <h2 class="modal-title">Nouvelle Idée de Projet</h2>
+  </div>
+  <div class="modal-body">
+    <p class="modal-description">
+      Partager votre idée avec la communauté collabdev
+    </p>
 
-      <form (ngSubmit)="onSubmit()">
+    <form (ngSubmit)="onSubmit()" class="project-form">
+      <div class="form-grid">
+        <!-- Colonne gauche -->
+        <div class="form-column">
+          <div class="form-group">
+            <label for="titre">Titre de l'idée de projet</label>
+            <input
+              type="text"
+              id="titre"
+              name="titre"
+              [(ngModel)]="nouveauProjet.titre"
+              required
+            />
+          </div>
 
-        <div class="form-group">
-          <label for="titre">Titre de l'idée de projet</label>
-          <input type="text" id="titre" name="titre" [(ngModel)]="nouveauProjet.titre" required />
-        </div>
+          <div class="form-group">
+            <label for="domaine">Domaine principal</label>
+            <select
+              id="domaine"
+              name="domaine"
+              [(ngModel)]="nouveauProjet.domaine"
+            >
+              <option value="" disabled selected></option>
+              <option value="web">Développement Web</option>
+              <option value="mobile">Développement Mobile</option>
+            </select>
+          </div>
 
-        <div class="form-group">
-          <label for="description">Description détaillée</label>
-          <textarea id="description" name="description" [(ngModel)]="nouveauProjet.description"></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="domaine">Domaine principal</label>
-          <input type="text" id="domaine" name="domaine" [(ngModel)]="nouveauProjet.domaine" />
-        </div>
-
-        <div class="options-container">
-          <div class="options-group">
+          <div class="form-group">
             <label>Niveau de difficulté</label>
             <div class="radio-group">
               <div class="radio-item">
-                <input type="radio" id="debutant" name="difficulte" value="debutant" [(ngModel)]="nouveauProjet.difficulte" />
+                <input
+                  type="radio"
+                  id="debutant"
+                  name="difficulte"
+                  value="debutant"
+                  [(ngModel)]="nouveauProjet.difficulte"
+                />
                 <label for="debutant">Débutant</label>
-                <p>Idée accessible aux nouveaux développeurs</p>
               </div>
+
               <div class="radio-item">
-                <input type="radio" id="intermediaire" name="difficulte" value="intermediaire" [(ngModel)]="nouveauProjet.difficulte" />
+                <input
+                  type="radio"
+                  id="intermediaire"
+                  name="difficulte"
+                  value="intermediaire"
+                  [(ngModel)]="nouveauProjet.difficulte"
+                />
                 <label for="intermediaire">Intermédiaire</label>
-                <p>Nécessite des compétences techniques moyennes</p>
               </div>
+
               <div class="radio-item">
-                <input type="radio" id="avance" name="difficulte" value="avance" [(ngModel)]="nouveauProjet.difficulte" />
+                <input
+                  type="radio"
+                  id="avance"
+                  name="difficulte"
+                  value="avance"
+                  [(ngModel)]="nouveauProjet.difficulte"
+                />
                 <label for="avance">Avancé</label>
-                <p>Pour développeurs expérimentés</p>
               </div>
             </div>
           </div>
+        </div> <!-- Fin colonne gauche -->
+
+        <!-- Colonne droite -->
+        <div class="form-column">
+          <div class="form-group">
+            <label for="description">Description détaillée</label>
+            <textarea
+              id="description"
+              name="description"
+              [(ngModel)]="nouveauProjet.description"
+            ></textarea>
+          </div>
+
 
           <div class="options-group">
-            <label>Léguer la gestion du projet</label>
+            <label for="leguer">Léguer la gestion du projet</label>
             <div class="checkbox-group">
-              <input type="checkbox" id="leguer" name="leguer" [(ngModel)]="nouveauProjet.leguer" />
-              <label for="leguer">Si activé, l'idée pourra être reprise par d'autres membres sans votre implication directe</label>
+              <input
+                type="checkbox"
+                id="leguer"
+                name="leguer"
+                [(ngModel)]="nouveauProjet.leguer"
+              />
+              <label for="leguer">
+                Si activé, l'idée pourra être reprise par d'autres membres sans votre implication directe
+              </label>
             </div>
           </div>
-        </div>
 
-        <div class="modal-footer">
-          <button type="button" class="btn-action btn-annuler" (click)="annulerFormulaire()">Annuler</button>
-          <button type="submit" class="btn-action btn-soumettre">Soumettre l'idée</button>
-        </div>
 
-      </form>
-    </div>
+
+        </div> <!-- Fin colonne droite -->
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="annulerFormulaire()"
+        >
+          Annuler
+        </button>
+        <button type="submit" class="btn btn-primary">
+          Soumettre l'idée
+        </button>
+      </div>
+    </form>
   </div>
 </div>

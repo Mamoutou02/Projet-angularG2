@@ -17,6 +17,7 @@ import {RouterLink} from '@angular/router';
   selector: 'app-sidebar',
   imports: [FontAwesomeModule, RouterLink],
   templateUrl: './sidebar.html',
+  standalone: true,
   styleUrl: './sidebar.css'
 })
 export class Sidebar {

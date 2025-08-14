@@ -8,12 +8,16 @@ import {
 } from './features/coponents-contributeurs/mes-projet-contributeurs/mes-projet-contributeurs';
 import {ConnexionComponent} from './features/login/connexion-component/connexion-component';
 import {InscriptionComponent} from './features/login/inscription-component/inscription-component';
+import {
+  EnsembleContributionsContributeurs
+} from './features/coponents-contributeurs/ensemble-contributions-contributeurs/ensemble-contributions-contributeurs';
 
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, DasboardAdmin, RouterLink, Sidebar, SidebarContributeurs, MesProjetContributeurs, ConnexionComponent, InscriptionComponent],
   templateUrl: './app.html',
+  standalone: true,
   styleUrl: './app.css'
 })
 export class App {
