@@ -29,6 +29,9 @@ export class PopupEye {
   type_demande_participation: ''
 };
 
+@Input() ideeProjetId!: number;
+
+@Input() projetId!: number;
 
   constructor(private http: HttpClient) {}
 
@@ -37,20 +40,34 @@ export class PopupEye {
 
   
 
-  onSubmit() : void {
+  onSubmit(): void {
+  const idStr = localStorage.getItem('id');
+  const id_contributeur = Number(idStr);
 
-   const idStr = localStorage.getItem('id');
-  const id_contributeurs = Number(idStr);
-  const id_idee_projet = 5; 
-    const apiUrl = `http://localhost:8080/api/demandes/idContributeur/${id_contributeurs}/idIdeeProjet/${id_idee_projet}`;
-    this.http.post(apiUrl, this.demandeForm).subscribe({
-      next: (data) => {
-        console.log("Demande envoyée avec succès :", data);
-        alert("Demande envoyée avec succès !");
-      },
-      error: (error) => {
-        console.error('Erreur lors de l\'envoi de la demande :', error);
-      }
-    });
+  let apiUrl = '';
+
+  if (this.projetId) {
+    // si c'est un projet déjà créé
+    apiUrl = `http://localhost:8080/api/demandes/participation/idProjet/${this.projetId}/idContributeur/${id_contributeur}?description=${encodeURIComponent(this.demandeForm.description)}`;
+  } else if (this.ideeProjetId) {
+    // si c'est une idée de projet
+    apiUrl = `http://localhost:8080/api/demandes/idContributeur/${id_contributeur}/idIdeeProjet/${this.ideeProjetId}`;
+  } else {
+    alert('Impossible d’envoyer la demande : aucun projet ou idée sélectionné.');
+    return;
   }
+
+  this.http.post(apiUrl, this.demandeForm).subscribe({
+    next: (data) => {
+      console.log("Demande envoyée avec succès :", data);
+      alert("Demande envoyée avec succès !");
+    },
+    error: (error) => {
+      console.error('Erreur lors de l\'envoi de la demande :', error);
+      alert('Erreur lors de l\'envoi de la demande. Veuillez réessayer. ' + error);
+    }
+  });
+}
+
+
 }

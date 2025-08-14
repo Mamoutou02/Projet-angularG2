@@ -26,13 +26,9 @@ export class ListProjects {
   protected readonly faEllipsisV = faEllipsisV;
   protected readonly faArrowLeft = faArrowLeft;
   chemin: string = '/dashboardContributeur';
-  projets: Projet[] = [
-    { id: 1, titre: 'Système de recommandation', statut: 'En cours', coin: 100, debloque: false, niveau: 'Débutant', description: 'Système intelligent qui propose des recommandations personnalisées aux utilisateurs selon leurs préférences et comportements.' },
-    { id: 2, titre: 'Système de distribution', statut: 'En cours', coin: 500, debloque: false },
-    { id: 3, titre: 'Application de chat temps réel', statut: 'Terminé', coin: 1000, debloque: false },
-    { id: 4, titre: 'Site e-commerce avec gestion de stock, panier, et suivi .......', statut: 'Débuté', coin: 750, debloque: false },
 
-  ];
+
+   projet : any[] = [];
 
   selectedProject: any = null;
   showModal: boolean = false;
@@ -42,13 +38,11 @@ export class ListProjects {
   
 
   openPopupDetail(projet: any) {
-    this.selectedProject = {
-      titre: projet.titre,
-      niveau: projet.niveau ?? 'Débutant',
-      description: projet.description ?? 'Pas de description disponible.'
-    };
-    this.showModal = true;
-  }
+  this.selectedProject = projet;
+  this.showModal = true;
+  console.log('Projet sélectionné pour popup :', projet);
+}
+
 
   closePopup() {
     this.showModal = false;

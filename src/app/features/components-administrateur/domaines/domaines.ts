@@ -22,23 +22,16 @@ export class Domaines implements OnInit {
   faPen = faPen;
   faTrash = faTrash;
 
-  domaineData: Domaine = {
-    titre: '',
-    description: ''
-  };
-
+  domaineData: Domaine = { titre: '', description: '' };
   domaineEnEdition: Domaine | null = null;
-
   domaines: Domaine[] = [];
-
   idAdmin = 1; 
 
   constructor(private http: HttpClient) {}
 
-  
-
   ngOnInit(): void {
     this.chargerDomaines();
+    this.supprimerDomaine = this.supprimerDomaine.bind(this);
   }
 
   get domaineFormData(): Domaine {
@@ -48,13 +41,8 @@ export class Domaines implements OnInit {
   chargerDomaines() {
     this.http.get<Domaine[]>('http://localhost:8080/api/domaines')
       .subscribe({
-        next: (res) => {
-          this.domaines = res;
-          console.log('Domaines chargés :', this.domaines);
-        },
-        error: (err) => {
-          console.error('Erreur chargement domaines', err);
-        }
+        next: res => this.domaines = res,
+        error: err => console.error('Erreur chargement domaines', err)
       });
   }
 
@@ -64,49 +52,52 @@ export class Domaines implements OnInit {
       return;
     }
 
-    if (this.domaineEnEdition) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const httpOptions = { headers };
 
-  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  const httpOptions = {
-    headers: headers
-  };
-      // Edition
-    this.http.put<Domaine>(
-  `http://localhost:8080/api/domaines/administrateur/${this.idAdmin}/${this.domaineEnEdition.idDomaine}`,
-  this.domaineEnEdition
-  
-)
-.subscribe({
+    if (this.domaineEnEdition && this.domaineEnEdition.idDomaine) {
+      // Mode édition
+      const updatePayload = {
+        titre: this.domaineEnEdition.titre,
+        description: this.domaineEnEdition.description
+      };
+      this.http.put<Domaine>(
+        `http://localhost:8080/api/domaines/${this.domaineEnEdition.idDomaine}/admin/${this.idAdmin}`,
+        updatePayload,
+        httpOptions
+      ).subscribe({
         next: () => {
-    
           alert('Domaine modifié avec succès');
           this.annulerEdition();
           this.chargerDomaines();
         },
-        error: (err) => {
+        error: err => {
           console.error('Erreur modification domaine', err);
           alert('Erreur lors de la modification');
         }
       });
     } else {
-      // Création
-      this.http.post<Domaine>(`http://localhost:8080/api/domaines/administrateur/${this.idAdmin}`, this.domaineData)
-        .subscribe({
-          next: () => {
-            alert('Domaine ajouté avec succès');
-            this.domaineData = { titre: '', description: '' };
-            this.chargerDomaines();
-          },
-          error: (err) => {
-            console.error('Erreur création domaine', err);
-            alert('Erreur lors de la création');
-          }
-        });
+      // Mode création
+      this.http.post<Domaine>(
+        `http://localhost:8080/api/domaines/administrateur/${this.idAdmin}`,
+        this.domaineData,
+        httpOptions
+      ).subscribe({
+        next: () => {
+          alert('Domaine ajouté avec succès');
+          this.domaineData = { titre: '', description: '' };
+          this.chargerDomaines();
+        },
+        error: err => {
+          console.error('Erreur création domaine', err);
+          alert('Erreur lors de la création');
+        }
+      });
     }
   }
 
   commencerEdition(domaine: Domaine) {
-    this.domaineEnEdition = { ...domaine }; // clone
+    this.domaineEnEdition = { ...domaine }; // clone pour édition
   }
 
   annulerEdition() {
@@ -116,19 +107,17 @@ export class Domaines implements OnInit {
 
   supprimerDomaine(id: number) {
     if (confirm('Voulez-vous vraiment supprimer ce domaine ?')) {
-      this.http.delete(`http://localhost:8080/api/domaines/${id}`)
+      this.http.delete(`http://localhost:8080/api/domaines/domaine/${id}`)
         .subscribe({
           next: () => {
             alert('Domaine supprimé');
             this.chargerDomaines();
           },
-          error: (err) => {
+          error: err => {
             console.error('Erreur suppression domaine', err);
             alert('Erreur lors de la suppression');
           }
         });
     }
   }
-
-  
 }

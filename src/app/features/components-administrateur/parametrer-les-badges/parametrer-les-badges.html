@@ -11,20 +11,18 @@
         <p>{{badge.description}}</p>
         <div class="badge-number">{{badge.nombre}}</div>
         <div id="btn">
-            <button class="modify-button">Modifier</button>
-            <button class="delete-button">Supprimer</button>
+            <button class="modify-button" (click)="editBadge(badge)">Modifier</button>
+            <button class="delete-button" (click)="deleteBadge(badge)">Supprimer</button>
         </div>
       </div>
     </div>
-
-   
   </div>
 
   <!-- Affichage conditionnel du popup -->
   <app-badges-popup
-  *ngIf="showPopup"
-  (closed)="closePopup()"
-  (submitted)="onBadgeSubmitted($event)">
-</app-badges-popup>
-
+    *ngIf="showPopup"
+    [badgeToEdit]="currentEditingBadge"
+    (closed)="closePopup()"
+    (submitted)="onBadgeSubmitted($event)">
+  </app-badges-popup>
 </div>

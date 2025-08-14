@@ -16,7 +16,7 @@
       <div class="project-titre">{{ ideeProjets.titre }}</div>
       <div class="project-leguer">{{ ideeProjets.leguer }}</div>
       <div class="icon">
-        <button class="btn" (click)="ouvrirDetail(ideeProjets)">
+        <button class="btn" (click)="openPopupDetail(ideeProjets)">
           <fa-icon [icon]="faEye"></fa-icon>
         </button>
         <div>
@@ -37,6 +37,16 @@
 
     </div>
   </div>
+
+  <app-popup-eye
+  *ngIf="showModal"
+  [titreProjet]="selectedProject?.titre"
+  [niveau]="selectedProject?.niveau"
+  [description]="selectedProject?.description"
+  [ideeProjetId]="selectedProject?.idIdeeProjet"
+  (closeModal)="closePopup()"
+></app-popup-eye>
+
 
   <!-- Détail du projet affiché en dehors du *ngFor -->
   <!-- Popup modale -->

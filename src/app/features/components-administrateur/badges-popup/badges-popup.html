@@ -8,26 +8,18 @@
 
       <div class="form-group">
         <label for="name">Nom du Badge :</label>
-        <input type="text" id="name" name="name" [(ngModel)]="badgeData.nom" required />
+        <input type="text" id="name" name="name" [(ngModel)]="badge.nom" required />
       </div>
 
-      <div class="form-group">
-        <label for="image">Image du Badge :</label>
-        <input type="file" id="image" name="image" [(ngModel)]="badgeData.image" required />
-      </div>
-
-      <div *ngIf="imagePreview" class="image-preview">
-        <img [src]="imagePreview" alt="Preview image" />
-      </div>
 
       <div class="form-group">
         <label for="nombre">Nombre :</label>
-        <input type="number" id="nombre" name="nombre" [(ngModel)]="badgeData.nombre" min="0" required />
+        <input type="number" id="nombre" name="nombre" [(ngModel)]="badge.nombre" min="0" required />
       </div>
 
       <div class="form-group">
         <label for="description">Description :</label>
-        <textarea id="description" name="description" rows="3" [(ngModel)]="badgeData.description" required></textarea>
+        <textarea id="description" name="description" rows="3" [(ngModel)]="badge.description" required></textarea>
       </div>
 
       <div class="form-actions">

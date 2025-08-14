@@ -8,6 +8,7 @@ import {FaireDemandeGestionnaire} from '../faire-demande-gestionnaire/faire-dema
 import {FormAjoutIdee} from '../form-ajout-idee/form-ajout-idee';
 import { HttpClient } from '@angular/common/http';
 import {AjouterCommentaires} from '../ajouter-commentaires/ajouter-commentaires';
+import { PopupEye } from '../list-projects/popup-eye/popup-eye';
 
 
 
@@ -15,17 +16,31 @@ import {AjouterCommentaires} from '../ajouter-commentaires/ajouter-commentaires'
   selector: 'app-idee-de-projet-contributeurs',
   standalone: true,
   templateUrl: './idee-de-projet-contributeurs.html',
-  imports: [CommonModule, FaIconComponent, DetailIdeeProjet, PupPopmenu, FaireDemandeGestionnaire, FormAjoutIdee, AjouterCommentaires],
+  imports: [CommonModule, FaIconComponent, DetailIdeeProjet,
+     PupPopmenu, FaireDemandeGestionnaire, FormAjoutIdee,
+      AjouterCommentaires, PopupEye],
   styleUrl: './idee-de-projet-contributeurs.css'
 })
 export class IdeeDeProjetContributeursComponent {
 
   faEye = faEye;
   faEllipsisV = faEllipsisV;
+   selectedProject: any = null;
+   showModal: boolean = false;
 
   ideeProjet : any[] = [];
   constructor(private http: HttpClient) {}
 
+  openPopupDetail(projet: any) {
+    this.selectedProject = projet;
+    this.showModal = true;
+  }
+
+
+   closePopup() {
+    this.showModal = false;
+    this.selectedProject = null;
+  }
 
   ngOnInit(): void {
 

@@ -53,12 +53,15 @@
 
   <!-- Le composant popup ne doit être présent que si showModal est true -->
   <app-popup-eye
-    *ngIf="showModal"
-    [titreProjet]="selectedProject?.titre"
-    [niveau]="selectedProject?.niveau"
-    [description]="selectedProject?.description"
-    (closeModal)="closePopup()"
-  ></app-popup-eye>
+  *ngIf="showModal"
+  [titreProjet]="selectedProject?.titre"
+  [niveau]="selectedProject?.niveau"
+  [description]="selectedProject?.description"
+  [projetId]="selectedProject?.idProjet"
+  [ideeProjetId]="selectedProject?.ideeProjet?.idIdeeProjet"
+  (closeModal)="closePopup()"
+></app-popup-eye>
+
 
   <app-popup-comments
     *ngIf="showCommentsModal"
