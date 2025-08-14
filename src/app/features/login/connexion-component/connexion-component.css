@@ -47,13 +47,7 @@ body {
   background-color: #EBEBEB;
 }
 
-h2 {
-  color: #5149E2;
-  margin-left: 40%;
-  position: relative;
-  bottom: 16%;
-  font-size: 180%;
-}
+
 
 .form-group {
   margin-bottom: 20px;
@@ -100,14 +94,15 @@ button:hover {
 }
 
 #logo{
-  width: 30%;
+  width: 65%;
+  margin-left: 20%;
 
 }
 
 p{
-  font-size: 10px;
+  font-size: 20px;
   margin-top: 15%;
-  margin-left: 25%;
+  margin-left: 10%;
 }
 
 span{
@@ -116,4 +111,10 @@ span{
 a{
   text-decoration: none;
   color: #2c20d6;
+  font-weight: bold;
+  transition: color 0.3s;
+  &:hover {
+    color: darken(#2c20d6, 10%);
+  }
+  font-size: 20px;
 }

@@ -107,16 +107,26 @@ button:hover {
 }
 
 #logo{
-  width: 20%;
-  position: relative;
-  top: 5%;
+  width: 65%;
+  margin-left: 20%;
+
+}
+
+a{
+  text-decoration: none;
+  color: #2c20d6;
+  font-weight: bold;
+  transition: color 0.3s;
+  &:hover {
+    color: darken(#2c20d6, 10%);
+  }
+  font-size: 20px;
 }
 
 p{
-  font-size: 10px;
-  margin-top: 8%;
-  margin-left: 25%;
-  text-decoration: none;
+  font-size: 20px;
+  margin-top: 15%;
+  margin-left: 10%;
 }
 
 span{
@@ -125,6 +135,16 @@ span{
 }
 
 #profil{
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+
+#niveau{
   width: 100%;
   padding: 12px;
   border: 1px solid #ddd;
