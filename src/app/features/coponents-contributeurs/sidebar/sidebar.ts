@@ -23,5 +23,14 @@ export class Sidebar {
     protected readonly faUserCircle = faUserCircle; // User icon for the header
 
 
+  nom: string | null = null;
+  prenom: string | null = null;
+
+  ngOnInit() {
+    this.nom = localStorage.getItem('nom') ?? '';
+    this.prenom = localStorage.getItem('prenom') ?? '';
+  }
+
+
 
 }

@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faDatabase, faProjectDiagram, faTrophy, faUser } from '@fortawesome/free-solid-svg-icons';
+import { Badge } from '../../../../services/badges';
 
 @Component({
   selector: 'app-stats-cards',
@@ -28,8 +29,23 @@ export class StatsCards {
 
   ngOnInit(): void{
     this.getProjetsByContributeur();
-    this.getAllbadge();
+
     this.getAllProjets();
+
+    const idStr = localStorage.getItem('id');
+      const id_contributeurs = Number(idStr);
+
+    // Charger les badges
+    const apiUrl = `http://localhost:8080/api/badges/contributeur/${id_contributeurs}`;
+    this.http.get<Badge[]>(apiUrl).subscribe({
+      next: (res) => {
+        this.badges = res;
+        console.log('Badges reçus :', this.badges);
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des badges', err);
+      }
+    });
   }
 
 

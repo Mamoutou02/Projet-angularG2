@@ -23,4 +23,12 @@ export class DasboardContributeurSection {
   handleSearch(query: string) {
     this.searchQuery = query;
   }
+
+  nom: string | null = null;
+  prenom: string | null = null;
+
+  ngOnInit() {
+    this.nom = localStorage.getItem('nom');
+    this.prenom = localStorage.getItem('prenom');
+  }
 }
