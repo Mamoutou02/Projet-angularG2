@@ -8,6 +8,12 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.disabled-eye {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
 /* Header */
 .header {
   display: flex;

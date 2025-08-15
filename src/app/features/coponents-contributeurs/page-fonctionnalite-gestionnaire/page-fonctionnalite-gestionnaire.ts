@@ -1,11 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormAjoutFonctionnalites} from '../form-ajout-fonctionnalites/form-ajout-fonctionnalites';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormAjoutFonctionnalites } from '../form-ajout-fonctionnalites/form-ajout-fonctionnalites';
+import { HttpClient } from '@angular/common/http';
+import { ProjetSelectionService } from '../../../services/projet-selection-service-';
+
+
 interface Fonctionnalite {
   id: number;
-  description: string;
+  fonctionnaliteDescription: string;
   statut: string;
-  point?: number;
+  pointFonctionnalite: number;
 }
 
 @Component({
@@ -15,24 +19,36 @@ interface Fonctionnalite {
   standalone: true,
   styleUrls: ['./page-fonctionnalite-gestionnaire.css']
 })
-export class PageFonctionnaliteGestionnaire implements OnInit{
+export class PageFonctionnaliteGestionnaire implements OnInit {
   fonctionnalites: Fonctionnalite[] = [];
+  afficherFormulaireAjout = false;
+
+  constructor(
+    private http: HttpClient,
+    private projetSelectionService: ProjetSelectionService
+  ) {}
 
   ngOnInit() {
-    // Pour l'instant, on initialise avec des données statiques, plus tard on fera appel à l'API
-    this.fonctionnalites = [
-      { id: 1, description: 'Authentification : Inscription, connexion, réinitialisation de mot de passe', statut: 'En cours', point: 100 },
-      { id: 2, description: 'Mode sombre / clair : Thèmes personnalisables.', statut: 'En cours', point: 100 },
-      { id: 3, description: 'Notifications : Alertes en temps réel, push notifications, email, SMS.', statut: 'Terminé', point: 300 },
-      { id: 4, description: 'Commentaires / likes / partages : Interaction entre utilisateurs.', statut: 'Pas commencé', point: 300 },
-      { id: 5, description: 'Navigation fluide : Menus, barres de recherche, onglets.', statut: 'Terminé', point: 200 },
-      { id: 6, description: 'Tableau de bord (Dashboard) : Vue d\'ensemble pour l\'utilisateur.', statut: 'Terminé', point: 200 },
-      { id: 7, description: 'Messagerie : Chat privé ou de groupe.', statut: 'En cours', point: 300 },
-      { id: 8, description: 'Gestion des rôles et permissions : selon l\'utilisateur (admin, client, etc.)', statut: 'Pas commencé', point: 400 },
-      { id: 9, description: 'Paiement en ligne : Par carte, mobile money.', statut: 'Pas commencé' }
-    ];
+    // Abonnement pour récupérer le projet sélectionné
+    this.projetSelectionService.projetId$.subscribe(idProjet => {
+      if (idProjet !== null) {
+        this.getFonctionnalitesByProjet(idProjet);
+      }
+    });
   }
-  afficherFormulaireAjout = false; // contrôle l’affichage du modal
+
+  
+
+  getFonctionnalitesByProjet(idProjet: number) {
+    const apiUrl = `http://localhost:8080/api/fonctionnalites/projet/${idProjet}`;
+    this.http.get<Fonctionnalite[]>(apiUrl).subscribe({
+      next: res => {
+        this.fonctionnalites = res;
+        console.log('Fonctionnalités du projet :', this.fonctionnalites);
+      },
+      error: err => console.error(err)
+    });
+  }
 
   ouvrirFormulaire() {
     this.afficherFormulaireAjout = true;
@@ -41,6 +57,4 @@ export class PageFonctionnaliteGestionnaire implements OnInit{
   fermerFormulaire() {
     this.afficherFormulaireAjout = false;
   }
-
-
 }

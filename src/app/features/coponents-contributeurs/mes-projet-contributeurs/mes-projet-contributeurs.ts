@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
-import { faEye, faUser, faCrown, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faUser, faCrown, faTimes, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { HttpClient } from '@angular/common/http';
 import {DashboardGestionnaire} from '../dashboard-gestionnaire/dashboard-gestionnaire';
+import { ProjetSelectionService } from '../../../services/projet-selection-service-';
 
 interface Project {
   name: string;
@@ -93,8 +94,9 @@ export class MesProjetContributeurs {
 
 
   projets: any[] = [];
+   contributions: any[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private projetSelectionService: ProjetSelectionService) {}
 
   ngOnInit(): void {
     const idStr = localStorage.getItem('id');
@@ -110,6 +112,8 @@ export class MesProjetContributeurs {
         console.error('Erreur lors du chargement des projets', err);
       }
     });
+
+    
     
   
 
@@ -118,6 +122,29 @@ console.log('URL appelée:', apiUrl);
 
    
   }
+
+  ouvrirDashboard(projet: any) {
+  this.projetSelectionne = projet;
+  this.dashboardOuvert = true;
+
+  // Partage l'ID du projet
+  this.projetSelectionService.selectProjet(projet.idProjet);
+}
+
+
+
+  getContributionsByProjet(idProjet: number) {
+  const apiUrl = `http://localhost:8080/api/contributions/projet/${idProjet}`;
+  this.http.get<any[]>(apiUrl).subscribe({
+    next: (res) => {
+      this.contributions = res;
+      console.log('Contributions du projet :', this.contributions);
+    },
+    error: (err) => console.error(err)
+  });
+}
+
+
 
   deleteProject(idProjet: number, idAdmin: number) {
     if (confirm('Voulez-vous vraiment supprimer ce projet ?')) {
@@ -139,10 +166,7 @@ console.log('URL appelée:', apiUrl);
   // cas du formulaire d'affichage du detail du projet
   dashboardOuvert = false;
 
-  ouvrirDashboard(projet: any) {
-    this.projetSelectionne = projet;
-    this.dashboardOuvert = true;
-  }
+  
 
   fermerDashboard() {
     this.dashboardOuvert = false;

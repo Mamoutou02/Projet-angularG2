@@ -1,11 +1,18 @@
-import { Component, Input } from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {faEye} from '@fortawesome/free-solid-svg-icons';
-import {FaIconComponent} from '@fortawesome/angular-fontawesome';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { HttpClient } from '@angular/common/http';
+import { ProjetSelectionService } from '../../../services/projet-selection-service-';
+
 interface Demande {
-  name: string;
-  type: string;
+  idDemandeParticipation: number;
+  typeDemandeParticipation: string;
+  statutDemandeParticipation: string;
+  datedemande: Date;
+  description: string;
+  typeDemandeParticipationemande?: string; // si tu veux afficher ce champ
+  nomContributeur?: string;
 }
 
 @Component({
@@ -13,63 +20,33 @@ interface Demande {
   imports: [CommonModule, FaIconComponent],
   templateUrl: './page-demandes-gestionnaires.html',
   standalone: true,
-  styleUrl: './page-demandes-gestionnaires.css'
+  styleUrls: ['./page-demandes-gestionnaires.css']
 })
 export class PageDemandesGestionnaires {
-  demandes: Demande[] = [
-    { name: 'Djénèba Haidara', type: 'Demande à contribuer' },
-    { name: 'Aissata Koné', type: 'Demande à contribuer' },
-    { name: 'Oumar Dolo', type: 'Demande à contribuer' },
-    { name: 'Daba Diallo', type: 'Demande à contribuer' },
-    { name: 'Mamoutou Sangaré', type: 'Demande à contribuer' }
-  ];
-
-  valider(demande: Demande) {
-    console.log('Valider :', demande);
-    // plus tard : requête API pour valider la demande
-  }
-
-
-
-  refuser(demande: Demande) {
-    console.log('Refuser :', demande);
-    // plus tard : requête API pour refuser la demande
-  }
-
+  demandes: Demande[] = [];
   protected readonly faEye = faEye;
 
-  @Input() DemandesId!: number;
+  constructor(
+    private http: HttpClient,
+    private projetSelectionService: ProjetSelectionService
+  ) {}
 
-  Demandes : any[] = [];
-
-  constructor(private http : HttpClient){}
-
-  ngOnInit(): void{
-    this.getAllDemandes();
-    this.ValiderDemande = this.ValiderDemande.bind(this);
-
+  ngOnInit(): void {
+    // S'abonner aux changements de projet sélectionné
+    this.projetSelectionService.projetId$.subscribe((projetId) => {
+      if (projetId) {
+        this.getAllDemandes(projetId);
+      } else {
+        console.warn('Aucun projet sélectionné pour récupérer les demandes.');
+      }
+    });
   }
 
- ValiderDemande(idDemande: number) {
-  const apiUrl = `http://localhost:8080/api/demandes/gestionnaire/accepter/${idDemande}`;
-  this.http.put(apiUrl, {}).subscribe({
-    next: (projet) => {
-      console.log('Demande validée avec succès, projet créé :', projet);
-      this.getAllDemandes(); 
-    },
-    error: (error) => {
-      console.error('Erreur lors de la validation de la demande :', error);
-    }
-  });
-}
-
-
-
-  getAllDemandes(){
-    const apiUrls = 'http://localhost:8080/api/demandes';
-    this.http.get<any[]>(apiUrls).subscribe({
+  getAllDemandes(projetId: number) {
+    const apiUrl = `http://localhost:8080/api/demandes/projet/${projetId}`;
+    this.http.get<Demande[]>(apiUrl).subscribe({
       next: (data) => {
-        this.Demandes = data;
+        this.demandes = data;
         console.log('Demandes récupérées avec succès :', data);
       },
       error: (error) => {
@@ -77,4 +54,43 @@ export class PageDemandesGestionnaires {
       }
     });
   }
+
+  valider(idDemande: number) {
+    const apiUrl = `http://localhost:8080/api/demandes/gestionnaire/accepter/${idDemande}`;
+    this.http.put(apiUrl, {}).subscribe({
+      next: (projet) => {
+        console.log('Demande validée avec succès, projet créé :', projet);
+        const projetId = this.projetSelectionService.getSelectedProjet();
+        alert("Demande validée avec succès");
+        if (projetId) this.getAllDemandes(projetId);
+      },
+      error: (error) => {
+        console.error('Erreur lors de la validation de la demande :', error);
+      }
+    });
+  }
+
+  refuser(demande: Demande) {
+    const apiUrl = `http://localhost:8080/api/demandes/gestionnaire/rejeter/${demande.idDemandeParticipation}`;
+    this.http.put(apiUrl, {}).subscribe({
+      next: () => {
+        console.log('Demande rejetée avec succès');
+        const projetId = this.projetSelectionService.getSelectedProjet();
+        if (projetId) this.getAllDemandes(projetId);
+      },
+      error: (error) => {
+        console.error('Erreur lors du rejet de la demande :', error);
+      }
+    });
+  }
+
+  // Fonction utilitaire pour savoir si la demande est traitée
+isDemandeTraitee(demande: any): boolean {
+  return demande.statutDemandeParticipation === 'ACCEPTEE' || demande.statutDemandeParticipation === 'REFUSEE';
+}
+
+getButtonClass(demande: any): string {
+  return this.isDemandeTraitee(demande) ? 'btn-valider-gris' : 'btn-valider-vert';
+}
+
 }

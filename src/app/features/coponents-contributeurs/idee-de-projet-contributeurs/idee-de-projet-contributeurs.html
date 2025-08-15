@@ -16,9 +16,13 @@
       <div class="project-titre">{{ ideeProjets.titre }}</div>
       <div class="project-leguer">{{ ideeProjets.leguer }}</div>
       <div class="icon">
-        <button class="btn" (click)="openPopupDetail(ideeProjets)">
-          <fa-icon [icon]="faEye"></fa-icon>
-        </button>
+        <button 
+         class="btn" 
+         (click)="ideeProjets.leguer ? openPopupDetail(ideeProjets) : null"
+         [disabled]="!ideeProjets.leguer"
+         [ngClass]="{ 'disabled-eye': !ideeProjets.leguer }">
+         <fa-icon [icon]="faEdit"></fa-icon>
+       </button>
         <div>
           <button class="btn" (click)="ouvrirMenu(ideeProjets)">
             <fa-icon [icon]="faEllipsisV"></fa-icon>

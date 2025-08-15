@@ -26,6 +26,7 @@ import { ContributionDetailsComponent } from './features/coponents-contributeurs
 import { IdeeDeProjetContributeursComponent } from './features/coponents-contributeurs/idee-de-projet-contributeurs/idee-de-projet-contributeurs';
 import {PageAccueil} from './features/page-accueil/page-accueil';
 
+
 export const routes: Routes = [
   // Redirection par défaut vers Connexion
   // { path: '', redirectTo: 'Connexion', pathMatch: 'full' },
@@ -106,6 +107,13 @@ export const routes: Routes = [
     component: DashboardContributeur,
     children:[
       { path:'', component: MesProjetContributeurs }
+    ]
+  },
+  {
+    path: "popup",
+    component: DashboardContributeur,
+    children:[
+      { path:'', component: PopupEye }
     ]
   },
   {

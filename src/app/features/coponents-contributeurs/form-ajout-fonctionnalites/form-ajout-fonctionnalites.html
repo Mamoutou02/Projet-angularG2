@@ -4,27 +4,44 @@
       <h2>Nouvelle Fonctionnalité</h2>
     </div>
     <div class="modal-body">
-      <form>
+      <form (ngSubmit)="onSubmit()">
+        <!-- Description -->
         <div class="form-group">
           <label for="description">Description</label>
-          <textarea id="description" name="description"></textarea>
+          <textarea
+            id="description"
+            name="description"
+            [(ngModel)]="formData.fonctionnaliteDescription"
+            required
+          ></textarea>
         </div>
 
+        <!-- Statut -->
+        
+          
+
+        <!-- Points -->
         <div class="form-group">
           <label for="point">Point</label>
-          <select id="point" name="point">
-            <option value="" disabled selected></option>
+          <select
+            id="point"
+            name="point"
+            [(ngModel)]="formData.pointFonctionnalite"
+            required
+          >
+            <option value="" disabled selected>Sélectionnez un point</option>
             <option value="100">100</option>
             <option value="200">200</option>
             <option value="300">300</option>
             <option value="400">400</option>
           </select>
         </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-action btn-annuler" (click)="annuler()">Annuler</button>
+          <button type="submit" class="btn-action btn-enregistrer">Enregistrer</button>
+        </div>
       </form>
-    </div>
-    <div class="modal-footer">
-      <button class="btn-action btn-annuler" (click)="annuler()">Annuler</button>
-      <button class="btn-action btn-enregistrer" (click)="enregistrer()">Enregistrer</button>
     </div>
   </div>
 </div>

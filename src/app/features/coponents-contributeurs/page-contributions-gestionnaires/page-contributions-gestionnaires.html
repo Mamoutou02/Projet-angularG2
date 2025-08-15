@@ -1,19 +1,29 @@
-<div class="container">
-  <main>
-    <h1 class="title">La liste des demandes</h1>
-
-    <div class="contribution-list">
-      <div class="card" *ngFor="let contribution of contributions ">
-        <div class="user-info">
-          <span class="user-name">{{ contribution.userName }}</span>
-          <span class="contribution-type">{{ contribution.description }}</span>
-        </div>
-        <div class="actions">
-          <button class="view-icon"><fa-icon [icon]="faEye"></fa-icon></button>
-          <button class="btn-action btn-valider" (click)="valider(contribution)">Valider</button>
-          <button class="btn-action btn-refuser" (click)="refuser(contribution)">Refuser</button>
-        </div>
-      </div>
+<div class="contribution-list" *ngIf="contributions.length > 0">
+  <div class="card" *ngFor="let contribution of contributions">
+    <div class="user-info">
+      <span class="user-name">{{ contribution.statutC }}</span>
+      <span class="contribution-type">{{ contribution.titre }}</span>
+      <span class="contributeur-info">{{ contribution.contributeur?.nom }} {{ contribution.contributeur?.prenom }}</span>
     </div>
-  </main>
+    <div class="actions">
+      <button class="view-icon"><fa-icon [icon]="faEye"></fa-icon></button>
+
+      <!-- Bouton Valider -->
+      <button 
+        class="btn-action btn-valider"
+        [disabled]="contribution.statutC === 'VALIDEE'"
+        [ngClass]="{'btn-validee': contribution.statutC === 'VALIDEE'}"
+        (click)="valider(contribution)">
+        Valider
+      </button>
+
+      <!-- Bouton Refuser -->
+      <button 
+        class="btn-action btn-refuser"
+        *ngIf="contribution.statutC !== 'VALIDEE'"
+        (click)="refuser(contribution)">
+        Refuser
+      </button>
+    </div>
+  </div>
 </div>

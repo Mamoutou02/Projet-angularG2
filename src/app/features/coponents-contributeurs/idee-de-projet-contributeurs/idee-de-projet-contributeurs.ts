@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';
-import {faEllipsisV, faEye} from '@fortawesome/free-solid-svg-icons';
+import {faEdit, faEllipsisV, faEye} from '@fortawesome/free-solid-svg-icons';
 import { DetailIdeeProjet } from '../detail-idee-projet/detail-idee-projet';
 import {PupPopmenu} from '../pup-popmenu/pup-popmenu';
 import {FaireDemandeGestionnaire} from '../faire-demande-gestionnaire/faire-demande-gestionnaire';
@@ -23,7 +23,7 @@ import { PopupEye } from '../list-projects/popup-eye/popup-eye';
 })
 export class IdeeDeProjetContributeursComponent {
 
-  faEye = faEye;
+  faEdit = faEdit;
   faEllipsisV = faEllipsisV;
    selectedProject: any = null;
    showModal: boolean = false;

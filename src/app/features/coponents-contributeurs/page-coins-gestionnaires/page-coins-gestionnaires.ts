@@ -1,49 +1,63 @@
-import {Component, OnInit} from '@angular/core';
-import {faDeleteLeft, faEye} from '@fortawesome/free-solid-svg-icons';
-import {FaIconComponent} from '@fortawesome/angular-fontawesome';
-import {CommonModule} from '@angular/common';
-import {FormAjoutCoin} from '../form-ajout-coin/form-ajout-coin';
+import { Component, OnInit } from '@angular/core';
+import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { CommonModule } from '@angular/common';
+import { FormAjoutCoin } from '../form-ajout-coin/form-ajout-coin';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+
 interface Coin {
+  idCoin: number;
+  nombreCoins: number;
+  dateAcquisition: string;
+}
+
+interface Contributeur {
   id: number;
-  valeur: number;
+  email: string;
+}
+
+interface Contribution {
+  idContribution: number;
+  titre: string;
+  statutC: string;
+  dateSoumission: string;
+  contributeur: Contributeur;
+  coins: Coin[];
 }
 
 @Component({
   selector: 'app-page-coins-gestionnaires',
-  imports: [
-    FaIconComponent, CommonModule, FormAjoutCoin
-  ],
+  imports: [FaIconComponent, CommonModule, FormAjoutCoin],
   templateUrl: './page-coins-gestionnaires.html',
   standalone: true,
-  styleUrl: './page-coins-gestionnaires.css'
+  styleUrls: ['./page-coins-gestionnaires.css']
 })
-export class PageCoinsGestionnaires implements OnInit{
+export class PageCoinsGestionnaires implements OnInit {
 
-   protected readonly faDeleteLeft = faDeleteLeft;
-  coins: Coin[] = [];
+  protected readonly faDeleteLeft = faDeleteLeft;
+
+  contributions: Contribution[] = [];
+  afficherFormulaire = false;
+
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
-    // --- Données fictives pour développement ---
-    this.coins = [
-      { id: 1, valeur: 100 },
-      { id: 2, valeur: 500 },
-      { id: 3, valeur: 1000 },
-      { id: 4, valeur: 700 },
-      { id: 5, valeur: 900 },
-      { id: 6, valeur: 400 },
-      { id: 7, valeur: 800 },
-      { id: 8, valeur: 300 },
-      { id: 9, valeur: 200 },
-      { id: 10, valeur: 1200 },
-      { id: 8, valeur: 300 },
-      { id: 9, valeur: 200 },
-      { id: 10, valeur: 1200 },
-    ];
+    this.getAllContributions();
+  }
 
-    // --- Plus tard, appel à l’API ---
-    // this.coinsService.getCoins().subscribe(data => {
-    //   this.coins = data;
-    // });
+  getAllContributions() {
+    const idGest = Number(localStorage.getItem('id'));
+    const apiUrl = `http://localhost:8080/api/coins/gestionnaire/${idGest}`;
+    this.http.get<Contribution[]>(apiUrl).subscribe({
+      next: (res) => {
+        this.contributions = res;
+      },
+      error: (err) => {
+        console.error('Erreur', err);
+        alert('Une erreur est survenue');
+      }
+    });
   }
 
   modifierCoin(id: number) {
@@ -55,7 +69,6 @@ export class PageCoinsGestionnaires implements OnInit{
     console.log('Supprimer coin', id);
     // plus tard, appel API DELETE
   }
-  afficherFormulaire = false;
 
   ouvrirFormulaire() {
     this.afficherFormulaire = true;

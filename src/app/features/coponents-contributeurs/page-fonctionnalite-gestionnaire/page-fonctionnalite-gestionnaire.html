@@ -6,25 +6,26 @@
   <div class="table-container">
     <table>
       <thead>
-      <tr>
-        <th>N°</th>
-        <th>Description</th>
-        <th>Statut</th>
-        <th>Point</th>
-      </tr>
+        <tr>
+          <th>N°</th>
+          <th>Description</th>
+          <th>Statut</th>
+          <th>Point</th>
+        </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let f of fonctionnalites">
-        <td>{{ f.id }}</td>
-        <td>{{ f.description }}</td>
-        <td>{{ f.statut }}</td>
-        <td>{{ f.point ?? '-' }}</td>
-      </tr>
+        <tr *ngFor="let f of fonctionnalites">
+          <td>{{ f.id }}</td>
+          <td>{{ f.fonctionnaliteDescription}}</td>
+          <td>{{ f.statut }}</td>
+          <td>{{ f.pointFonctionnalite }}</td>
+        </tr>
       </tbody>
     </table>
   </div>
-  <!-- Affichage conditionnel du modal -->
-  <app-form-ajout-fonctionnalites *ngIf="afficherFormulaireAjout"
-                                  (close)="fermerFormulaire()">
+
+  <app-form-ajout-fonctionnalites
+    *ngIf="afficherFormulaireAjout"
+    (close)="fermerFormulaire()">
   </app-form-ajout-fonctionnalites>
 </div>

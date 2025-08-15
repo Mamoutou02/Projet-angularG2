@@ -132,3 +132,10 @@ header {
 .btn-refuser {
   background-color: #f56565;
 }
+
+
+.btn-validee {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
