@@ -5,8 +5,27 @@ import { FileUploadService } from './file-upload.service';
 import {Location} from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { HttpEventType, HttpEvent } from '@angular/common/http';
-import { Contribution } from '../mes-contributions-contributeurs/mes-contributions-contributeurs';
 
+
+interface Feature {
+  id: string;
+  name: string;
+}
+
+interface Contribution {
+  icon: string;
+  title: string;
+  description: string;
+  featureId: string;
+  fonctionnalite: string;
+  contenu: string;
+  fichier: File | null;
+  lien: string;
+  date: string;
+  status: string;
+  statusText: string;
+  auteur: string;
+}
 @Component({
   selector: 'app-new-contribution',
   standalone: true,
@@ -20,14 +39,23 @@ export class NewContribution {
   isUploading = false;
   uploadSuccess = false;
   uploadError: string | null = null;
+  contributionType: 'file' | 'link' = 'file';
+
+  features: Feature[] = [
+    { id: '1', name: 'Fonctionnalité 1' },
+    { id: '2', name: 'Fonctionnalité 2' },
+    { id: '3', name: 'Fonctionnalité 3' }
+  ];
 
   contribution = {
     icon: 'fa-lock',
     title: '',
     description: '',
+    featureId: '',
     fonctionnalite: '',
     contenu: '',
     fichier: null as File | null,
+    lien: '',
     date: new Date().toISOString().split('T')[0],
     status: 'pending',
     statusText: 'En attente',
@@ -39,6 +67,28 @@ export class NewContribution {
    private uploadService: FileUploadService,
    private location: Location // Injection du service
    ) {} // Injection du Router
+
+// Méthode pour réinitialiser le lien et le fichier
+   resetLink() {
+    this.contribution.lien = '';
+  }
+
+  resetFile() {
+    this.contribution.fichier = null;
+  }
+
+  // Méthode pour changer le type de contribution
+isFormValid(): boolean {
+    if (!this.contribution.featureId || !this.contribution.description) {
+      return false;
+    }
+
+    if (this.contributionType === 'file') {
+      return !!this.contribution.fichier;
+    } else {
+      return !!this.contribution.lien;
+    }
+  }
 
     onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -56,6 +106,9 @@ export class NewContribution {
       console.log('Fichier sélectionné:', file.name);
     }
   }
+
+
+
 // Méthode pour gérer le téléversement du fichier
   onFileUpload() {
     if (!this.contribution.fichier) {
@@ -68,16 +121,14 @@ export class NewContribution {
     this.uploadSuccess = false;
     this.uploadError = null;
 
-  this.uploadService.uploadFile(this.contribution.fichier).subscribe({
-    next: (event: HttpEvent<any>) => {
-       if (event.type === HttpEventType.UploadProgress && event.total) {
-        // TypeScript sait maintenant que event a les propriétés loaded et total
-        this.uploadProgress = Math.round(100 * (event.loaded / (event.total)));
-      }
+ this.uploadService.uploadFile(this.contribution.fichier).subscribe({
+      next: (event) => {
+        if (event.type === HttpEventType.UploadProgress && event.total) {
+          this.uploadProgress = Math.round(100 * (event.loaded / event.total));
+        }
       },
-      // Gestion de la progression du téléversement
       error: (err) => {
-      this.uploadError = err.message || 'Échec du téléversement';
+        this.uploadError = err.message || 'Échec du téléversement';
         this.isUploading = false;
         this.uploadProgress = null;
       },
@@ -106,16 +157,22 @@ export class NewContribution {
 
   // Méthode pour soumettre la contribution
 onSubmit() {
-    if (this.isUploading) {
-      this.uploadError = 'Veuillez attendre la fin du téléversement';
-      return;
-    }
-// Validation des champs requis
-    console.log('Données soumises:', {
-      ...this.contribution,
-      fichier: this.contribution.fichier?.name
-    });
-
-    this.router.navigate(['/MesContributionsContributeurs']);
+  if (this.isUploading) {
+    this.uploadError = 'Veuillez attendre la fin du téléversement';
+    return;
   }
+
+  if (!this.isFormValid()) {
+    alert('Veuillez remplir tous les champs requis');
+    return;
+  }
+
+  console.log('Données soumises:', {
+    ...this.contribution,
+    fichier: this.contribution.fichier?.name,
+    type: this.contributionType
+  });
+
+  this.router.navigate(['/MesContributionsContributeurs']);
+}
 }

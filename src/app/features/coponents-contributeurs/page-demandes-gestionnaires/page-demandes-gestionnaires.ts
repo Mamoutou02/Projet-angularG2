@@ -56,7 +56,7 @@ export class PageDemandesGestionnaires {
   }
 
   valider(idDemande: number) {
-    const apiUrl = `http://localhost:8080/api/demandes/gestionnaire/accepter/${idDemande}`;
+    const apiUrl = `http://localhost:8080/api/demandes/contributeur/accepter/${idDemande}`;
     this.http.put(apiUrl, {}).subscribe({
       next: (projet) => {
         console.log('Demande validée avec succès, projet créé :', projet);

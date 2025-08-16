@@ -1,27 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import {NgClass} from '@angular/common';
+import {CommonModule, NgClass} from '@angular/common';
 
-/*interface Contribution {
+interface Contribution {
   projet: string;
   date: string;
   fonctionnalite: string;
   description: string;
   statut: string;
   active?: boolean; // Optionnel pour mettre une carte en surbrillance
-}*/
+}
 
 @Component({
   selector: 'app-ensemble-contributions-contributeurs',
   templateUrl: './ensemble-contributions-contributeurs.html',
   styleUrls: ['./ensemble-contributions-contributeurs.css'],
   imports: [
-    NgClass
+    NgClass,
+    CommonModule
   ],
   standalone: true
 })
-export class EnsembleContributionsContributeurs /*implements OnInit*/ {
+export class EnsembleContributionsContributeurs implements OnInit {
 
-  /*contributions: Contribution[] = [];
+  contributions: Contribution[] = [];
 
   ngOnInit() {
     // MOCK pour développement
@@ -57,6 +58,6 @@ export class EnsembleContributionsContributeurs /*implements OnInit*/ {
         statut: "Réglée"
       }
     ];
-  }*/
+  }
 
 }

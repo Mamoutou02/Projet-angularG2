@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
-import {Location} from '@angular/common';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
-
+import { CommonModule } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 export interface Contribution {
   icon: string;
@@ -15,90 +15,69 @@ export interface Contribution {
 }
 
 @Component({
-selector: 'app-mes-contributions-contributeurs',
-standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink],
+  selector: 'app-mes-contributions-contributeurs',
+  standalone: true,
+  imports: [CommonModule, RouterLink],
   templateUrl: './mes-contributions-contributeurs.html',
-  styleUrl: './mes-contributions-contributeurs.css'
+  styleUrls: ['./mes-contributions-contributeurs.css']
 })
 export class MesContributionsContributeurs {
-  constructor(private router: Router, private location: Location) {} // Injectez Location abd Router
+
   activeTab: string = 'contribution';
+  contributions: any[] = [];
 
+  constructor(
+    private http: HttpClient, 
+    private router: Router, 
+    private route: ActivatedRoute
+  ) {}
 
-contributions: Contribution[] = [
-  {
-    icon: 'fa-bell',
-    title: 'API NOTIFICATION',
-    date: '15 Juil 2023',
-    description: 'Intégration de l\'authentification OAUTH avec GitHub pour Synchroniser les issues et pull requests.',
-    status: 'rejected',
-    statusText: 'Rejetée',
-    auteur: 'Oumar DOLO'
-  },
-  {
-    icon: 'fa-lock',
-    title: 'AUTHENTIFICATION',
-    date: '15 Juil 2023',
-    description: 'Mise en place d\'un système d\'authentification sécurisé avec chiffrement AES-256.',
-    status: 'approved',
-    statusText: 'Approuvée',
-    auteur: 'Djeneba Haïdara'
-  },
-  {
-    icon: 'fa-user-shield',
-    title: 'AUTORISATION RBAC',
-    date: '20 Août 2023',
-    description: 'Implémentation du contrôle d\'accès basé sur les rôles (Admin, Éditeur, Lecteur).',
-    status: 'pending',
-    statusText: 'En revue',
-    auteur: 'Hamidou Dijré'
-  },
-  {
-    icon: 'fa-key',
-    title: 'JWT TOKENS',
-    date: '10 Sep 2023',
-    description: 'Génération et validation de tokens JWT pour les API internes.',
-    status: 'approved',
-    statusText: 'Approuvée',
-    auteur: 'Élodie MARTIN'
+  ngOnInit(): void {
+    // Récupérer projetId depuis queryParams
+    this.route.queryParams.subscribe(params => {
+  const idProjet = params['projetId'];
+  if (idProjet) this.GetContributionsParProjet(Number(idProjet));
+});
   }
-];
 
-features = [
-  { id: 1, description: 'Mode sombre / clair : Thèmes personnalisables.' },
-  { id: 2, description: 'Notifications : Alertes en temps réel, push notifications, email, SMS.' },
-  { id: 3, description: 'Commentaires / likes / partages : Interaction entre utilisateurs.' },
-  { id: 4, description: 'Navigation fluide : Menus, barres de recherche, onglets.' },
-  { id: 5, description: 'Tableau de bord (Dashboard) : Vue d\'ensemble pour l\'utilisateur.' },
-  { id: 6, description: 'Messagerie : Chat privé ou de groupe.' }
-];
-
-   switchTab(tab: string): void {
+  switchTab(tab: string): void {
     this.activeTab = tab;
   }
 
-addNew(): void {
-  //logique d'ajout
+  addNew(): void {
     this.router.navigate(['/new-contribution']);
     console.log('Ajouter une nouvelle contribution');
   }
 
+  openContributionDetails(contribution: Contribution): void {
+    this.router.navigate(['/contribution-details'], {
+      state: { contributionData: contribution }
+    });
+  }
 
-openContributionDetails(contribution: Contribution): void {
-  this.router.navigate(['/contribution-details'], {
-    state: {
-      contributionData: contribution
-      // {
-      //   title: contribution.title,
-      //   date: contribution.date,
-      //   description: contribution.description,
-      //   status: contribution.status,
-      //   statusText: contribution.statusText,
-      //   auteur: contribution.auteur,
-      //   icon: contribution.icon
-      // }
+  GetContributionsParProjet(idProjet: number) {
+    const idStr = localStorage.getItem('id');
+    const idContributeur = Number(idStr);
+
+    this.http.get<any[]>(`http://localhost:8080/api/contributions/projet/${idProjet}/contributeur/${idContributeur}`)
+  .subscribe(
+    (response) => {
+      console.log('Contributions brutes:', response);
+      this.contributions = response.map(item => ({
+        icon: "fa-coins",
+        title: item.titre,
+        date: item.dateSoumission,
+        description: item.type,
+        status: item.statutC.toLowerCase(),
+        statusText: item.statutC,
+        auteur: item.contributeur.email
+      }));
+      console.log('Contributions formatées:', this.contributions);
+    },
+    (error) => {
+      console.error('Erreur lors de la récupération des contributions:', error);
     }
-  });
-}
+  );
+
+  }
 }

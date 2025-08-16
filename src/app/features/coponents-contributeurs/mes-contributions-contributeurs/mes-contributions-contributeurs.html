@@ -1,4 +1,3 @@
-
 <div class="top-bar">
   <div class="tabs">
     <button
@@ -13,8 +12,11 @@
       (click)="switchTab('features')">
       Fonctionnalités
     </button>
-  </div>
 
+    <button routerLink="/ProjetsRejoints">
+      Retour
+    </button>
+  </div>
 </div>
 
 <div class="content">
@@ -24,8 +26,8 @@
     </button>
   </div>
 
+  <!-- Contributions dynamiques -->
   <div class="card-container" *ngIf="activeTab === 'contribution'">
-    <!-- Boucle sur les contributions -->
     <div class="card" *ngFor="let item of contributions">
       <div class="card-header">
         <div class="icon-circle">
@@ -33,40 +35,58 @@
         </div>
         <div class="card-title">{{item.title}}</div>
         <div class="card-date">
-          <i class="fa fa-calendar"></i> {{item.date}}
+          <i class="fa fa-calendar"></i> {{item.date | date:'short'}}
         </div>
       </div>
 
       <div class="card-body">
-        <p>{{item.description}}</p>
+
+        <p><strong>Description :</strong> {{item.description}}</p>
+        
+
         <div class="card-status">
-          <span class="status {{item.status}}">{{item.statusText}}</span>
+          <span class="status"
+                [ngClass]="{
+                  'en_cours': item.statutC === 'EN_COURS',
+                  'termine': item.statutC === 'TERMINE',
+                  'attente': item.statutC === 'EN_ATTENTE'}">
+                  <strong>Statut :</strong>
+                 {{ item.statusText }}
+          </span>
         </div>
       </div>
 
       <div class="card-footer">
-  <a class="details-link" (click)="openContributionDetails(item)">
-    Voir détails
-  </a>
-</div>
+        <a class="details-link" (click)="openContributionDetails(item)">
+          Voir détails
+        </a>
+      </div>
     </div>
   </div>
 
+  <!-- Fonctionnalités statiques -->
   <div *ngIf="activeTab === 'features'" class="fonctionnalites-table-container">
-  <table>
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Fonctionnalités</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let feature of features">
-        <th scope="row">{{feature.id}}</th>
-        <td>{{feature.description}}</td>
-      </tr>
-    </tbody>
-  </table>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Fonctionnalités</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Page d'accueil responsive</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Formulaire de connexion</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Système de notifications</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-</div>
-

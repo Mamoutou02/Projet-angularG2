@@ -1,23 +1,19 @@
-<!--div class="card-grid">
-  <div
-    class="card"
-    *ngFor="let c of contributions"
-    [ngClass]="{ 'card-active': c.active }"
-  >
-    <div class="card-header">
-      <h3 class="card-title">Projet : {{ c.projet }}</h3>
-      <span class="card-date">{{ c.date }}</span>
+<div class="tile-grid">
+  <div class="tile" *ngFor="let c of contributions">
+    <div class="tile-header">
+      <h3 class="tile-title">{{ c.projet }}</h3>
+      <span class="tile-date">{{ c.date }}</span>
     </div>
-    <div class="card-body">
-      <h4 class="card-subtitle">{{ c.fonctionnalite }}</h4>
-      <p class="card-description">{{ c.description }}</p>
-      <div class="card-status">
-        <span class="status-label">Statut:</span>
+    <div class="tile-body">
+      <h4 class="tile-subtitle">{{ c.fonctionnalite }}</h4>
+      <p class="tile-description">{{ c.description }}</p>
+      <div class="tile-status">
+        <span class="status-label">Statut :</span>
         <span class="status-badge">{{ c.statut }}</span>
       </div>
     </div>
-    <div class="card-footer">
-      <a href="#" class="card-link">Voir les détails</a>
+    <div class="tile-footer">
+      <a href="#" class="tile-link">Voir les détails</a>
     </div>
   </div>
-</div-->
+</div>

@@ -1,40 +1,116 @@
-<!-- contribution-modal.component.html -->
 <div class="modal">
   <div class="modal-header">
-    <h1>Nouvelle Contributions</h1>
+    <h1>Nouvelle Contribution</h1>
     <button class="close-btn" (click)="closeModal()">×</button>
   </div>
 
   <form class="form" (ngSubmit)="onSubmit()">
-    <label for="fonctionnalite">Choisir une fonctionnalité</label>
-    <select [(ngModel)]="contribution.fonctionnalite" name="fonctionnalite">
-      <!-- options -->
-    </select>
+    <!-- Sélection de la fonctionnalité -->
+    <div class="form-group">
+      <label for="featureSelect">Sélectionner la fonctionnalité</label>
+      <select id="featureSelect" [(ngModel)]="contribution.featureId" name="featureId" required>
+        <option value="" disabled selected>Sélectionnez une fonctionnalité</option>
+        <option *ngFor="let feature of features" [value]="feature.id">{{ feature.name }}</option>
+      </select>
+    </div>
 
-    <!-- Zone de téléversement séparée -->
-    <div class="file-upload-section">
-      <input #fileInput type="file" (change)="onFileSelected($event)" style="display: none">
-<button type="button" class="upload-btn" (click)="fileInput.click()">
-  Sélectionner un fichier
-</button>
-      <!-- Affichage du nom du fichier sélectionné et bouton de téléversement -->
-      <div *ngIf="contribution.fichier">
-        <p>Fichier sélectionné: {{ contribution.fichier?.name }}</p>
-        <button type="button" class="upload-btn" (click)="onFileUpload()" [disabled]="isUploading">
+    <!-- Description -->
+    <div class="form-group">
+      <label for="contributionDescription">Description</label>
+      <textarea id="contributionDescription"
+                [(ngModel)]="contribution.description"
+                name="description"
+                required
+                placeholder="Décrivez votre contribution..."></textarea>
+    </div>
+
+    <!-- Type de contribution -->
+    <div class="contribution-type">
+      <label>Type de contribution :</label>
+      <div class="radio-group">
+        <label>
+          <input type="radio"
+                 name="contributionType"
+                 [(ngModel)]="contributionType"
+                 value="file"
+                 (change)="resetLink()"
+                 checked>
+          Fichier
+        </label>
+        <label>
+          <input type="radio"
+                 name="contributionType"
+                 [(ngModel)]="contributionType"
+                 value="link"
+                 (change)="resetFile()">
+          Lien (Figma/GitHub)
+        </label>
+      </div>
+    </div>
+
+    <!-- Zone de fichier -->
+    <div class="file-upload-section" *ngIf="contributionType === 'file'">
+      <input #fileInput
+             type="file"
+             (change)="onFileSelected($event)"
+             style="display: none"
+             accept=".pdf,.doc,.docx,.zip,.rar,.png,.jpg,.jpeg">
+      <button type="button" class="upload-btn" (click)="fileInput.click()">
+        Sélectionner un fichier
+      </button>
+
+      <div *ngIf="contribution.fichier" class="file-upload-status">
+        <p class="file-info">
+          {{ contribution.fichier.name }}
+          ({{ (contribution.fichier.size / 1024 / 1024).toFixed(2) }} MB)
+        </p>
+        <button type="button"
+                class="upload-btn"
+                (click)="onFileUpload()"
+                [disabled]="isUploading">
           <span *ngIf="!isUploading">Téléverser</span>
-          <span *ngIf="isUploading">Téléversement en cours...</span>
+          <span *ngIf="isUploading">Téléversement...</span>
         </button>
-<!-- Affichage de la progression du téléversement -->
-        <div *ngIf="isUploading">
+
+        <div *ngIf="isUploading" class="upload-progress">
           <progress [value]="uploadProgress" max="100"></progress>
-          {{ uploadProgress }}%
+          <span>{{ uploadProgress }}%</span>
+        </div>
+
+        <div *ngIf="uploadError" class="error-message">
+          {{ uploadError }}
+        </div>
+        <div *ngIf="uploadSuccess" class="success-message">
+          Téléversement réussi!
         </div>
       </div>
     </div>
-<!-- Champ de saisie pour le titre -->
+
+    <!-- Zone de lien -->
+    <div class="link-section" *ngIf="contributionType === 'link'">
+      <label for="contributionLink">Lien (Figma/GitHub)</label>
+      <div class="link-input-group">
+        <input type="url"
+               id="contributionLink"
+               [(ngModel)]="contribution.lien"
+               name="contributionLink"
+               placeholder="https://..."
+               pattern="https?://.+"
+               required>
+        <span class="link-hint">
+          URL doit commencer par http:// ou https://
+        </span>
+      </div>
+    </div>
+
+    <!-- Boutons d'action -->
     <div class="buttons">
-      <button type="button" class="cancel-btn" (click)="goBack()">Annuler</button>
-      <button type="submit" class="submit-btn">Envoyer la contribution</button>
+      <button type="button" class="cancel-btn" (click)="goBack()">
+        Annuler
+      </button>
+      <button type="submit" class="submit-btn" [disabled]="!isFormValid()">
+        Envoyer
+      </button>
     </div>
   </form>
 </div>

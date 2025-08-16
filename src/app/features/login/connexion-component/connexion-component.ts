@@ -55,6 +55,11 @@ export class ConnexionComponent {
                 localStorage.setItem('token', res.token);
                 localStorage.setItem('id', res.id.toString());
                 localStorage.setItem('roles', JSON.stringify(res.roles));
+                 // Stocker nom et prénom
+    localStorage.setItem('nom', res.nom);
+    if (res.prenom) {
+      localStorage.setItem('prenom', res.prenom);
+    }
                 console.log('Connexion contributeur réussie', res);
                 this.router.navigate(['/dashboardContributeur']);
             },

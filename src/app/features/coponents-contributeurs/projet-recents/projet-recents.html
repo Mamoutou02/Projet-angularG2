@@ -1,0 +1,34 @@
+<div class="container">
+
+  <button class="btn-retour" (click)="retour()">
+    <fa-icon [icon]="faArrowLeft"></fa-icon> Retour
+  </button>
+
+  <h1>Mes Projets Rejoints</h1>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Titre</th>
+        <th>Description</th>
+        <th>Date de création</th>
+        <th>Voir</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let projet of projets">
+        <td>{{ projet.idProjet }}</td>
+        <td>{{ projet.titre }}</td>
+        <td>{{ projet.description }}</td>
+        <td>{{ projet.dateCreation | date:'dd/MM/yyyy' }}</td>
+        <td>
+          <button class="detail-btn"  (click)="goToContributions(projet.idProjet)">
+            <fa-icon [icon]="faEye"></fa-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

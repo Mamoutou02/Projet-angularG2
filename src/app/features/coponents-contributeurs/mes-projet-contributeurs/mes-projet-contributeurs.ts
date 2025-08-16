@@ -5,7 +5,7 @@ import { faEye, faUser, faCrown, faTimes, faEdit } from '@fortawesome/free-solid
 import { HttpClient } from '@angular/common/http';
 import {DashboardGestionnaire} from '../dashboard-gestionnaire/dashboard-gestionnaire';
 import { ProjetSelectionService } from '../../../services/projet-selection-service-';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 interface Project {
   name: string;
@@ -17,7 +17,7 @@ interface Project {
 @Component({
   selector: 'app-mes-projet-contributeurs',
   standalone: true,
-  imports: [CommonModule, FaIconComponent, DashboardGestionnaire],
+  imports: [CommonModule, FaIconComponent, DashboardGestionnaire, RouterLink],
   templateUrl: './mes-projet-contributeurs.html',
   styleUrls: ['./mes-projet-contributeurs.css']
 })
