@@ -12,9 +12,10 @@ import { RouterOutlet } from '@angular/router';
     RouterOutlet,
   ],
   templateUrl: './dasboard-admin.html',
+  standalone: true,
   styleUrl: './dasboard-admin.css'
 })
 export class DasboardAdmin {
 
-  
+
 }

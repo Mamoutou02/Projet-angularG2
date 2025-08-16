@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-popup-add-comment',
   imports: [FormsModule],
   templateUrl: './popup-add-comment.html',
+  standalone: true,
   styleUrl: './popup-add-comment.css'
 })
 export class PopupAddComment {
