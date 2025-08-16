@@ -19,13 +19,7 @@
          (click)="changerOnglet('demandes'); $event.preventDefault()">
         Demandes
       </a>
-      <a href="#"
-         class="nav-item"
-         [class.active]="ongletActif === 'coins'"
-         (click)="changerOnglet('coins'); $event.preventDefault()">
-        Coins
-      </a>
-      <a class="btn-retour" (click)="fermerDashboard()">Retour</a>
+      <a class="btn-retour" (click)="fermerDashboard()" routerLink="/ProjetsContributeurs">Retour</a>
     </nav>
   </header>
 

@@ -5,6 +5,7 @@ import { faEye, faUser, faCrown, faTimes, faEdit } from '@fortawesome/free-solid
 import { HttpClient } from '@angular/common/http';
 import {DashboardGestionnaire} from '../dashboard-gestionnaire/dashboard-gestionnaire';
 import { ProjetSelectionService } from '../../../services/projet-selection-service-';
+import { Router } from '@angular/router';
 
 interface Project {
   name: string;
@@ -25,48 +26,10 @@ export class MesProjetContributeurs {
   faEye = faEye;
 
 
-  // Données des projets
-  managerProjects: Project[] = [
-    {
-      name: 'Projet Alpha',
-      status: 'En cours',
-      role: 'Gestionnaire',
-      description: 'Développement d\'une nouvelle application web'
-    } ,
-    {
-      name: 'Projet Star',
-      status: 'Terminé',
-      role: 'Gestionnaire',
-      description: 'Développement d\'une nouvelle application web'
-    },
-    {
-      name: 'Projet Star',
-      status: 'Débuté',
-      role: 'Gestionnaire',
-      description: 'Développement d\'une nouvelle application web'
-    }
-  ];
+  
+   
 
-  contributorProjects: Project[] = [
-    {
-      name: 'Projet Beta',
-      status: 'En cours',
-      role: 'Contributeur',
-      description: 'Amélioration de l\'interface utilisateur'
-    },
-    {
-      name: 'Projet ODK',
-      status: 'Débuté',
-      role: 'Contributeur',
-      description: 'Amélioration de l\'interface utilisateur'
-    },
-    {
-      name: 'Projet ODK',
-      status: 'Terminé',
-      role: 'Contributeur',
-      description: 'Amélioration de l\'interface utilisateur'
-    }
-  ];
+  
 
   selectedProject: Project | null = null;
   showPopup = false;
@@ -96,7 +59,7 @@ export class MesProjetContributeurs {
   projets: any[] = [];
    contributions: any[] = [];
 
-  constructor(private http: HttpClient, private projetSelectionService: ProjetSelectionService) {}
+  constructor(private http: HttpClient, private projetSelectionService: ProjetSelectionService, private router: Router) {}
 
   ngOnInit(): void {
     const idStr = localStorage.getItem('id');
@@ -113,11 +76,7 @@ export class MesProjetContributeurs {
       }
     });
 
-    
-    
-  
-
-console.log('URL appelée:', apiUrl);
+      console.log('URL appelée:', apiUrl);
 
 
    
@@ -129,6 +88,9 @@ console.log('URL appelée:', apiUrl);
 
   // Partage l'ID du projet
   this.projetSelectionService.selectProjet(projet.idProjet);
+
+  this.router.navigate(['/dashboardGestionnaire']);
+
 }
 
 

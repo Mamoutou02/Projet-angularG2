@@ -6,12 +6,15 @@ import {CommonModule} from '@angular/common';
 import {PageDemandesGestionnaires} from '../page-demandes-gestionnaires/page-demandes-gestionnaires';
 import {PageContributionsGestionnaires} from '../page-contributions-gestionnaires/page-contributions-gestionnaires';
 import {PageCoinsGestionnaires} from '../page-coins-gestionnaires/page-coins-gestionnaires';
+import { RouterLink } from '@angular/router';
+
 
 @Component({
   selector: 'app-dashboard-gestionnaire',
   imports: [
-    FaIconComponent, PageFonctionnaliteGestionnaire, CommonModule, PageDemandesGestionnaires, PageContributionsGestionnaires, PageCoinsGestionnaires
-  ],
+    FaIconComponent, PageFonctionnaliteGestionnaire, CommonModule, PageDemandesGestionnaires, PageContributionsGestionnaires, PageCoinsGestionnaires,
+    RouterLink
+],
   templateUrl: './dashboard-gestionnaire.html',
   standalone: true,
   styleUrls: ['./dashboard-gestionnaire.css']

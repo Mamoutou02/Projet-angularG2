@@ -1,3 +1,4 @@
+/* Container principal */
 .container {
   max-width: 900px;
   margin: 30px auto;
@@ -8,11 +9,11 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Icône désactivée */
 .disabled-eye {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
 }
-
 
 /* Header */
 .header {
@@ -28,7 +29,7 @@
   color: #1e293b;
 }
 
-/* Actions: input + button */
+/* Barre d'actions */
 .actions {
   display: flex;
   gap: 10px;
@@ -41,7 +42,7 @@
   border-radius: 8px;
   outline: none;
   width: 280px;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .actions input[type="text"]:focus {
@@ -58,11 +59,12 @@
   font-weight: 700;
   font-size: 1.1rem;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .actions button:hover {
   background: #0056b3;
+  transform: translateY(-1px);
 }
 
 /* Liste des projets */
@@ -72,10 +74,10 @@
   gap: 18px;
 }
 
-/* Chaque ligne de projet */
+/* Chaque projet */
 .project-row {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 2fr 1fr 100px;
+  grid-template-columns: 2fr 1fr 1fr auto;
   align-items: center;
   background: #f9fafb;
   padding: 16px 20px;
@@ -90,25 +92,22 @@
   box-shadow: 0 6px 14px rgba(0, 123, 255, 0.3);
 }
 
-/* Colonnes du projet */
+/* Colonnes */
 .project-description,
-.project-statut,
 .project-niveau,
-.project-titre,
-.project-leguer {
+.project-titre {
   font-size: 0.95rem;
   color: #334155;
-  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
-/* Colonne icônes */
+/* Icônes d'actions */
 .icon {
   display: flex;
   gap: 10px;
   justify-content: flex-end;
 }
 
-/* Boutons icônes */
 .btn {
   background: transparent;
   border: none;
@@ -125,10 +124,10 @@
   color: white;
 }
 
-/* Popup menu positionné */
+/* Menu contextuel */
 .pop-menu-positionne {
   position: absolute;
-  top: 40px;
+  top: 50px;
   right: 0;
   z-index: 10;
   background: white;
@@ -138,7 +137,7 @@
   min-width: 180px;
 }
 
-/* Modal overlay */
+/* Modal Overlay */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -152,7 +151,7 @@
   z-index: 9999;
 }
 
-/* Modal content */
+/* Contenu modal */
 .modal-content {
   background: white;
   border-radius: 12px;
@@ -183,7 +182,7 @@
   background: #d32f2f;
 }
 
-/* Composant formulaire - suppose que tu as un wrapper */
+/* Formulaire d'ajout */
 app-form-ajout-idee {
   display: block;
   margin-top: 30px;
@@ -208,13 +207,6 @@ app-form-ajout-idee {
   .project-row {
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-  }
-  .project-description, 
-  .project-statut, 
-  .project-niveau, 
-  .project-titre, 
-  .project-leguer {
-    font-size: 0.9rem;
   }
   .icon {
     justify-content: flex-start;

@@ -25,6 +25,7 @@ import {InscriptionComponent} from './features/login/inscription-component/inscr
 import { ContributionDetailsComponent } from './features/coponents-contributeurs/contribution-details/contribution-details';
 import { IdeeDeProjetContributeursComponent } from './features/coponents-contributeurs/idee-de-projet-contributeurs/idee-de-projet-contributeurs';
 import {PageAccueil} from './features/page-accueil/page-accueil';
+import { DashboardGestionnaire } from './features/coponents-contributeurs/dashboard-gestionnaire/dashboard-gestionnaire';
 
 
 export const routes: Routes = [
@@ -110,11 +111,15 @@ export const routes: Routes = [
     ]
   },
   {
-    path: "popup",
+    path: "dashboardGestionnaire",
     component: DashboardContributeur,
-    children:[
-      { path:'', component: PopupEye }
+    children: [
+      { path: "", component: DashboardGestionnaire }
     ]
+  },
+   {
+    path: "Deconnexion",
+    component: ConnexionComponent
   },
   {
     path: "MesContributionsContributeurs",
