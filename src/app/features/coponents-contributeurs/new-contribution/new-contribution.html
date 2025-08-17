@@ -1,116 +1,56 @@
-<div class="modal">
-  <div class="modal-header">
-    <h1>Nouvelle Contribution</h1>
-    <button class="close-btn" (click)="closeModal()">×</button>
+<div class="modal-backdrop" *ngIf="isModalOpen">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h2>Nouvelle Contribution</h2>
+      <button class="close-btn" (click)="closeModal()">✖</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="titre">Titre</label>
+        <input id="titre" type="text" [(ngModel)]="contribution.titre" placeholder="Titre de la contribution" />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" [(ngModel)]="contribution.description" placeholder="Décrivez votre contribution"></textarea>
+      </div>
+
+      <div class="form-group contribution-type">
+        <label>
+          <input type="radio" name="type" value="file" [(ngModel)]="contributionType" /> Fichier
+        </label>
+        <label>
+          <input type="radio" name="type" value="link" [(ngModel)]="contributionType" /> Lien
+        </label>
+      </div>
+
+      <div *ngIf="contributionType === 'file'" class="file-upload-section">
+        <label for="fichier">Fichier</label>
+        <input type="file" id="fichier" (change)="onFileSelected($event)" />
+        <p *ngIf="contribution.fichier">Fichier sélectionné : {{ contribution.fichier.name }}</p>
+      </div>
+
+      <div *ngIf="contributionType === 'link'" class="link-section">
+        <label for="lien">Lien</label>
+        <input id="lien" type="text" [(ngModel)]="contribution.lien" placeholder="https://..." />
+      </div>
+
+      <div *ngIf="uploadProgress">
+        <p>Progression : {{ uploadProgress }}%</p>
+      </div>
+
+      <p class="error-msg" *ngIf="uploadError">{{ uploadError }}</p>
+      <p class="success-msg" *ngIf="uploadSuccess">Téléversement réussi !</p>
+    </div>
+
+    <div class="modal-footer form-actions">
+      <button class="cancel-btn" (click)="closeModal()">Annuler</button>
+      <button class="submit-btn" 
+              (click)="onSubmit()" 
+              [disabled]="!fonctionnaliteId || !projetId || isUploading">
+        Soumettre
+      </button>
+    </div>
   </div>
-
-  <form class="form" (ngSubmit)="onSubmit()">
-    <!-- Sélection de la fonctionnalité -->
-    <div class="form-group">
-      <label for="featureSelect">Sélectionner la fonctionnalité</label>
-      <select id="featureSelect" [(ngModel)]="contribution.featureId" name="featureId" required>
-        <option value="" disabled selected>Sélectionnez une fonctionnalité</option>
-        <option *ngFor="let feature of features" [value]="feature.id">{{ feature.name }}</option>
-      </select>
-    </div>
-
-    <!-- Description -->
-    <div class="form-group">
-      <label for="contributionDescription">Description</label>
-      <textarea id="contributionDescription"
-                [(ngModel)]="contribution.description"
-                name="description"
-                required
-                placeholder="Décrivez votre contribution..."></textarea>
-    </div>
-
-    <!-- Type de contribution -->
-    <div class="contribution-type">
-      <label>Type de contribution :</label>
-      <div class="radio-group">
-        <label>
-          <input type="radio"
-                 name="contributionType"
-                 [(ngModel)]="contributionType"
-                 value="file"
-                 (change)="resetLink()"
-                 checked>
-          Fichier
-        </label>
-        <label>
-          <input type="radio"
-                 name="contributionType"
-                 [(ngModel)]="contributionType"
-                 value="link"
-                 (change)="resetFile()">
-          Lien (Figma/GitHub)
-        </label>
-      </div>
-    </div>
-
-    <!-- Zone de fichier -->
-    <div class="file-upload-section" *ngIf="contributionType === 'file'">
-      <input #fileInput
-             type="file"
-             (change)="onFileSelected($event)"
-             style="display: none"
-             accept=".pdf,.doc,.docx,.zip,.rar,.png,.jpg,.jpeg">
-      <button type="button" class="upload-btn" (click)="fileInput.click()">
-        Sélectionner un fichier
-      </button>
-
-      <div *ngIf="contribution.fichier" class="file-upload-status">
-        <p class="file-info">
-          {{ contribution.fichier.name }}
-          ({{ (contribution.fichier.size / 1024 / 1024).toFixed(2) }} MB)
-        </p>
-        <button type="button"
-                class="upload-btn"
-                (click)="onFileUpload()"
-                [disabled]="isUploading">
-          <span *ngIf="!isUploading">Téléverser</span>
-          <span *ngIf="isUploading">Téléversement...</span>
-        </button>
-
-        <div *ngIf="isUploading" class="upload-progress">
-          <progress [value]="uploadProgress" max="100"></progress>
-          <span>{{ uploadProgress }}%</span>
-        </div>
-
-        <div *ngIf="uploadError" class="error-message">
-          {{ uploadError }}
-        </div>
-        <div *ngIf="uploadSuccess" class="success-message">
-          Téléversement réussi!
-        </div>
-      </div>
-    </div>
-
-    <!-- Zone de lien -->
-    <div class="link-section" *ngIf="contributionType === 'link'">
-      <label for="contributionLink">Lien (Figma/GitHub)</label>
-      <div class="link-input-group">
-        <input type="url"
-               id="contributionLink"
-               [(ngModel)]="contribution.lien"
-               name="contributionLink"
-               placeholder="https://..."
-               pattern="https?://.+"
-               required>
-        <span class="link-hint">
-          URL doit commencer par http:// ou https://
-        </span>
-      </div>
-    </div>
-
-    <!-- Boutons d'action -->
-    <div class="buttons">
-      <button type="button" class="cancel-btn" (click)="goBack()">
-        Annuler
-      </button>
-      <button type="submit" class="submit-btn" [disabled]="!isFormValid()">
-        Envoyer
-      </button>
-    </div>
-  </form>
 </div>

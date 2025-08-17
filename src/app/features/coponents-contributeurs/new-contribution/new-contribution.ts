@@ -1,178 +1,129 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { FileUploadService } from './file-upload.service';
-import {Location} from '@angular/common';
 import { CommonModule } from '@angular/common';
-import { HttpEventType, HttpEvent } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { HttpClient, HttpEventType } from '@angular/common/http';
+import { catchError, map, Observable, of } from 'rxjs';
+import { FileUploadService } from './file-upload.service';
 
-
-interface Feature {
-  id: string;
-  name: string;
-}
-
-interface Contribution {
-  icon: string;
-  title: string;
+interface ContributionPayload {
+  idFonctionnalite: number;
+  idProjet: number;
+  idContributeur: number;
+  urlCode: string;
+  titre: string;
+  type: string;
   description: string;
-  featureId: string;
-  fonctionnalite: string;
-  contenu: string;
-  fichier: File | null;
-  lien: string;
-  date: string;
-  status: string;
-  statusText: string;
-  auteur: string;
 }
+
 @Component({
   selector: 'app-new-contribution',
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './new-contribution.html',
-  styleUrl: './new-contribution.css'
+  styleUrls: ['./new-contribution.css']
 })
-export class NewContribution {
-  // Propriétés pour le suivi du téléversement
+export class NewContribution implements OnInit {
+  @Input() fonctionnaliteId!: number;
+  @Input() projetId!: number;
+
+ @Output() close = new EventEmitter<void>();
+
+  contributionType: 'file' | 'link' = 'file';
   uploadProgress: number | null = null;
   isUploading = false;
   uploadSuccess = false;
   uploadError: string | null = null;
-  contributionType: 'file' | 'link' = 'file';
-
-  features: Feature[] = [
-    { id: '1', name: 'Fonctionnalité 1' },
-    { id: '2', name: 'Fonctionnalité 2' },
-    { id: '3', name: 'Fonctionnalité 3' }
-  ];
 
   contribution = {
-    icon: 'fa-lock',
-    title: '',
     description: '',
-    featureId: '',
-    fonctionnalite: '',
-    contenu: '',
     fichier: null as File | null,
     lien: '',
-    date: new Date().toISOString().split('T')[0],
-    status: 'pending',
-    statusText: 'En attente',
-    auteur: ''
+    titre: ''
   };
 
-   constructor(
-   private router: Router,
-   private uploadService: FileUploadService,
-   private location: Location // Injection du service
-   ) {} // Injection du Router
+  constructor(
+    private router: Router,
+    private uploadService: FileUploadService,
+    private http: HttpClient
+  ) {}
 
-// Méthode pour réinitialiser le lien et le fichier
-   resetLink() {
-    this.contribution.lien = '';
+  ngOnInit(): void {
+    console.log("ngOnInit - fonctionnaliteId:", this.fonctionnaliteId);
+    console.log("ngOnInit - projetId:", this.projetId);
   }
 
-  resetFile() {
-    this.contribution.fichier = null;
+  isFormValid(): boolean {
+    if (!this.contribution.description) return false;
+    return this.contributionType === 'file' ? !!this.contribution.fichier : !!this.contribution.lien;
   }
 
-  // Méthode pour changer le type de contribution
-isFormValid(): boolean {
-    if (!this.contribution.featureId || !this.contribution.description) {
-      return false;
-    }
-
-    if (this.contributionType === 'file') {
-      return !!this.contribution.fichier;
-    } else {
-      return !!this.contribution.lien;
-    }
-  }
-
-    onFileSelected(event: Event) {
+  onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
-
-    if (input.files && input.files.length > 0) {
-      const file = input.files[0];
-
-      // Validation du fichier
-      if (file.size > 5 * 1024 * 1024) { // 5MB max
-        alert('Le fichier est trop volumineux (max 5MB)');
-        return;
-      }
-
-      this.contribution.fichier = file;
-      console.log('Fichier sélectionné:', file.name);
-    }
+    if (input.files && input.files.length > 0) this.contribution.fichier = input.files[0];
   }
 
-
-
-// Méthode pour gérer le téléversement du fichier
-  onFileUpload() {
-    if (!this.contribution.fichier) {
-       this.uploadError = 'Veuillez sélectionner un fichier';
-      return;
-    }
+  onFileUpload(): Observable<string> {
+    if (!this.contribution.fichier) return of('');
 
     this.isUploading = true;
-    this.uploadProgress = 0;
-    this.uploadSuccess = false;
-    this.uploadError = null;
-
- this.uploadService.uploadFile(this.contribution.fichier).subscribe({
-      next: (event) => {
-        if (event.type === HttpEventType.UploadProgress && event.total) {
-          this.uploadProgress = Math.round(100 * (event.loaded / event.total));
+    return this.uploadService.uploadFile(this.contribution.fichier).pipe(
+      map(event => {
+        if (event.type === HttpEventType.Response) {
+          this.isUploading = false;
+          this.uploadSuccess = true;
+          return (event.body as any)?.fileUrl ?? '';
         }
-      },
-      error: (err) => {
+        return '';
+      }),
+      catchError(err => {
         this.uploadError = err.message || 'Échec du téléversement';
         this.isUploading = false;
-        this.uploadProgress = null;
-      },
-      // Gestion des erreurs
-       complete: () => {
-        this.uploadSuccess = true;
-        this.isUploading = false;
-        this.uploadProgress = null;
-      }
-    });
+        return of('');
+      })
+    );
   }
 
-  goBack(): void {
-    //Logique de retour
-    this.location.back(); // Retour à la page précédente
-    console.log('Navigation retour');
+  onSubmit() {
+    if (!this.isFormValid()) { alert('Veuillez remplir tous les champs'); return; }
+    if (!this.fonctionnaliteId || !this.projetId) { alert('ID fonctionnalité ou projet manquant'); return; }
+    if (this.isUploading) { alert('Téléversement en cours, patientez'); return; }
+
+    const contributeurId = Number(localStorage.getItem('id'));
+    const createContribution = (urlCode: string) => {
+      const payload: ContributionPayload = {
+        idFonctionnalite: this.fonctionnaliteId!,
+        idProjet: this.projetId!,
+        idContributeur: contributeurId,
+        urlCode,
+        titre: this.contribution.titre,
+        type: this.contributionType === 'link' ? 'Lien' : 'Fichier',
+        description: this.contribution.description
+      };
+
+      console.log('Payload contribution:', payload);
+
+      this.http.post<any>('http://localhost:8080/api/contributions/deposer', payload).subscribe({
+        next: res => {
+          console.log('Contribution créée:', res);
+          this.router.navigate(['/MescontributionsContributeurs']);
+        },
+        error: err => {
+          console.error('Erreur création contribution', err);
+          if (err.error?.message?.includes('déjà déposé')) {
+            alert("Vous avez déjà déposé une contribution pour cette fonctionnalité.");
+          }
+        }
+      });
+    };
+
+    if (this.contributionType === 'file') {
+      this.onFileUpload().subscribe(fileUrl => createContribution(fileUrl));
+    } else {
+      createContribution(this.contribution.lien);
+    }
   }
 
-  closeModal() {
-    // Logique pour fermer la modal
-   this.location.back(); // Retour à la page précédente
-   this.uploadProgress = null;
-    console.log('Modal fermée');
-  }
-
-
-  // Méthode pour soumettre la contribution
-onSubmit() {
-  if (this.isUploading) {
-    this.uploadError = 'Veuillez attendre la fin du téléversement';
-    return;
-  }
-
-  if (!this.isFormValid()) {
-    alert('Veuillez remplir tous les champs requis');
-    return;
-  }
-
-  console.log('Données soumises:', {
-    ...this.contribution,
-    fichier: this.contribution.fichier?.name,
-    type: this.contributionType
-  });
-
-  this.router.navigate(['/MesContributionsContributeurs']);
-}
+  closeModal() { this.close.emit(); }
+  isModalOpen(): boolean { return this.uploadProgress !== null; }
 }
