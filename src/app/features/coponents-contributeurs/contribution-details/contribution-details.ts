@@ -3,8 +3,17 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Location } from '@angular/common';
-import { Contribution } from '../mes-contributions-contributeurs/mes-contributions-contributeurs';
 
+
+interface Contribution {
+  icon: string;
+  title: string;
+  date: string;
+  description: string;
+  status: string;
+  statusText: string;
+  auteur: string;
+}
 @Component({
   selector: 'app-contribution-details',
   standalone: true,

@@ -1,133 +1,88 @@
 <div class="top-bar">
   <div class="tabs">
-    <button
-      class="tab"
-      [class.active]="activeTab === 'contribution'"
-      (click)="switchTab('contribution')">
+    <button class="tab" [class.active]="activeTab === 'contribution'" (click)="switchTab('contribution')">
       Contribution
     </button>
-    <button
-      class="tab"
-      [class.active]="activeTab === 'features'"
-      (click)="switchTab('features')">
+    <button class="tab" [class.active]="activeTab === 'features'" (click)="switchTab('features')">
       Fonctionnalités
     </button>
-
-    <button routerLink="/ProjetsRejoints">
-      Retour
-    </button>
+    <button routerLink="/ProjetsRejoints">Retour</button>
   </div>
 </div>
 
 <div class="content">
-  <div class="add-container" *ngIf="activeTab === 'contribution'">
-    <button class="btn-ajouter" (click)="addNew()">
-      <i class="fa fa-plus"></i> Ajouter
-    </button>
-  </div>
+  <!-- Onglet Contributions -->
+  <div *ngIf="activeTab === 'contribution'" class="card-container">
+    
 
-  <!-- Onglet Contribution -->
-  <div *ngIf="activeTab === 'contribution'">
-    <!-- Contributions dynamiques -->
-    <div class="card-container">
-      <div class="card" *ngFor="let item of contributions">
-        <div class="card-header">
-          <div class="icon-circle">
-            <i class="fa {{item.icon}}"></i>
-          </div>
-          <div class="card-title">{{item.title}}</div>
-          <div class="card-date">
-            <i class="fa fa-calendar"></i> {{item.date | date:'short'}}
-          </div>
-        </div>
-
-        <div class="card-body">
-          <p><strong>Description :</strong> {{item.description}}</p>
-          <div class="card-status">
-            <span class="status"
-                  [ngClass]="{
-                    'en_cours': item.statutC === 'EN_COURS',
-                    'termine': item.statutC === 'TERMINE',
-                    'attente': item.statutC === 'EN_ATTENTE'}">
-              <strong>Statut :</strong> {{ item.statusText }}
-            </span>
-          </div>
-        </div>
-
-        <div class="card-footer">
-          <a class="details-link" (click)="openContributionDetails(item)">
-            Voir détails
-          </a>
+    <div class="card" *ngFor="let item of contributions">
+      <div class="card-header">
+        <div class="icon-circle"><i class="fa {{item.icon}}"></i></div>
+        <div class="card-title">{{item.title}}</div>
+        <div class="card-date"><i class="fa fa-calendar"></i> {{item.date | date:'short'}}</div>
+      </div>
+      <div class="card-body">
+        <p><strong>Description :</strong> {{item.description}}</p>
+        <div class="card-status">
+          <span class="status" [ngClass]="{
+            'en_cours': item.status === 'en_cours',
+            'termine': item.status === 'termine',
+            'attente': item.status === 'en_attente'}">
+            <strong>Statut :</strong> {{ item.statusText }}
+          </span>
         </div>
       </div>
+      <div class="card-footer">
+        <a class="details-link" (click)="openContributionDetails(item)">Voir détails</a>
+      </div>
     </div>
-
   </div>
 
-  <!-- Onglet Features -->
+  <!-- Onglet Fonctionnalités -->
   <div *ngIf="activeTab === 'features'" class="fonctionnalites-cards-container">
-
-    <!-- Mes fonctionnalités réservées (dans Contribution) -->
-    <div *ngFor="let fonc of fonctionnalitesReservees" class="fonctionnalite-card">
-      <h4>{{ fonc.fonctionnaliteDescription }}</h4>
-      <div class="fonctionnalite-info">
-        <span><strong>ID:</strong> {{ fonc.id }}</span>
-        <span><strong>Points:</strong> {{ fonc.pointFonctionnalite }}</span>
-        <span><strong>Statut:</strong> 
-          <span class="badge" [ngClass]="{
-            'disponible': fonc.statut === 'DISPONIBLE',
-            'en_cours': fonc.statut === 'RESERVEE',
-            'terminee': fonc.statut === 'TERMINEE'
-          }">{{ fonc.statut }}</span>
-        </span>
-      </div>
-
-     <button class="btn-faire" 
-        [disabled]="fonc.statut !== 'RESERVEE' || hasContributed(fonc.id)" 
-        (click)="openContributionModal(fonc.id, fonc.projet?.id)">
-  {{ hasContributed(fonc.id) ? 'Déjà fait' : 'Faire' }}
-</button>
- 
+    <div class="project-info" *ngIf="currentProjectId">
+      
     </div>
-
-
-
-
 
     <!-- Fonctionnalités disponibles -->
     <div *ngFor="let fonc of fonctionnalitesDisponibles" class="fonctionnalite-card">
       <h4>{{ fonc.fonctionnaliteDescription }}</h4>
       <div class="fonctionnalite-info">
-        <span><strong>ID:</strong> {{ fonc.id }}</span>
+        <span><strong>N:</strong> {{ fonc.id }}</span>
         <span><strong>Points:</strong> {{ fonc.pointFonctionnalite }}</span>
         <span><strong>Statut:</strong> <span class="badge disponible">DISPONIBLE</span></span>
       </div>
       <button class="btn-reserver" (click)="reserverFonctionnalite(fonc.id)">Réserver</button>
     </div>
 
-    <!-- Fonctionnalités réservées par d’autres -->
-    <div *ngFor="let fonc of fonctionnalitesReservees" class="fonctionnalite-card">
-      <h4>{{ fonc.fonctionnaliteDescription }}</h4>
-      <div class="fonctionnalite-info">
-        <span><strong>ID:</strong> {{ fonc.id }}</span>
-        <span><strong>Points:</strong> {{ fonc.pointFonctionnalite }}</span>
-        <span><strong>Statut:</strong> 
-          <span class="badge" [ngClass]="{
-            'disponible': fonc.statut === 'DISPONIBLE',
-            'en_cours': fonc.statut === 'RESERVEE',
-            'terminee': fonc.statut === 'TERMINEE'
-          }">{{ fonc.statut }}</span>
-        </span>
-        <span><strong>Réservé par:</strong> {{ fonc.contributeur?.email }}</span>
-      </div>
+    <!-- Fonctionnalités réservées -->
+<!-- Fonctionnalités réservées (toutes) -->
+  <div *ngFor="let fonc of fonctionnalitesReservees" class="fonctionnalite-card">
+    <h4>{{ fonc.fonctionnaliteDescription }}</h4>
+    <div class="fonctionnalite-info">
+      <span><strong>N:</strong> {{ fonc.id }}</span>
+      <span><strong>Points:</strong> {{ fonc.pointFonctionnalite }}</span>
+      <span><strong>Statut:</strong> 
+        <span class="badge en_cours">{{ fonc.statut }}</span>
+      </span>
+      <span *ngIf="fonc.contributeur"><strong>Réservé par:</strong> {{ fonc.contributeur?.email }}</span>
     </div>
+
+    <!-- Bouton Faire - Apparaît pour TOUTES les fonctionnalités réservées -->
+    <button class="btn-faire" (click)="openContributionModal(fonc.id)">
+      Faire
+    </button>
+  </div>
+
   </div>
 
   <!-- Modal Nouvelle Contribution -->
-<app-new-contribution 
-  *ngIf="isModalOpen"
-  [fonctionnaliteId]="selectedFonctionnaliteId!"
-  [projetId]="selectedProjetId!">
+  <app-new-contribution 
+  *ngIf="isModalOpen && currentProjectId && selectedFonctionnaliteId"
+  [fonctionnaliteId]="selectedFonctionnaliteId"
+  [projetId]="currentProjectId"
+  [idContributeur]="idContributeur" 
+  (close)="closeContributionModal()"
+  (submit)="onContributionSubmitted()">
 </app-new-contribution>
-
 </div>

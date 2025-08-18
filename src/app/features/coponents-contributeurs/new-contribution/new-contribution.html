@@ -1,55 +1,57 @@
-<div class="modal-backdrop" *ngIf="isModalOpen">
+<div class="modal-backdrop">
   <div class="modal-card">
     <div class="modal-header">
       <h2>Nouvelle Contribution</h2>
-      <button class="close-btn" (click)="closeModal()" routerLink="/MescontributionsContributeurs">✖</button>
+      <button class="close-btn" (click)="onCancel()">✖</button>
     </div>
 
     <div class="modal-body">
       <div class="form-group">
         <label for="titre">Titre</label>
-        <input id="titre" type="text" [(ngModel)]="contribution.titre" placeholder="Titre de la contribution" />
+        <input id="titre" type="text" [(ngModel)]="contribution.titre" placeholder="Titre de la contribution">
       </div>
 
       <div class="form-group">
         <label for="description">Description</label>
-        <textarea id="description" [(ngModel)]="contribution.description" placeholder="Décrivez votre contribution"></textarea>
+        <textarea id="description" [(ngModel)]="contribution.description" 
+                  placeholder="Décrivez votre contribution"></textarea>
       </div>
 
       <div class="form-group contribution-type">
         <label>
-          <input type="radio" name="type" value="file" [(ngModel)]="contributionType" /> Fichier
+          <input type="radio" name="type" value="file" [(ngModel)]="contributionType" checked> Fichier
         </label>
         <label>
-          <input type="radio" name="type" value="link" [(ngModel)]="contributionType" /> Lien
+          <input type="radio" name="type" value="link" [(ngModel)]="contributionType"> Lien
         </label>
       </div>
 
       <div *ngIf="contributionType === 'file'" class="file-upload-section">
         <label for="fichier">Fichier</label>
-        <input type="file" id="fichier" (change)="onFileSelected($event)" />
-        <p *ngIf="contribution.fichier">Fichier sélectionné : {{ contribution.fichier.name }}</p>
+        <input type="file" id="fichier" (change)="onFileSelected($event)">
+        <p *ngIf="contribution.fichier">Fichier sélectionné: {{ contribution.fichier.name }}</p>
       </div>
 
       <div *ngIf="contributionType === 'link'" class="link-section">
         <label for="lien">Lien</label>
-        <input id="lien" type="text" [(ngModel)]="contribution.lien" placeholder="https://..." />
+        <input id="lien" type="text" [(ngModel)]="contribution.lien" placeholder="https://...">
       </div>
 
-      <div *ngIf="uploadProgress">
-        <p>Progression : {{ uploadProgress }}%</p>
+      <div *ngIf="uploadProgress !== null">
+        <progress [value]="uploadProgress" max="100"></progress>
+        <span>{{ uploadProgress }}%</span>
       </div>
 
       <p class="error-msg" *ngIf="uploadError">{{ uploadError }}</p>
-      <p class="success-msg" *ngIf="uploadSuccess">Téléversement réussi !</p>
+      <p class="success-msg" *ngIf="uploadSuccess">Contribution envoyée avec succès!</p>
     </div>
 
     <div class="modal-footer form-actions">
-      <button class="cancel-btn" (click)="closeModal()">Annuler</button>
+      <button class="cancel-btn" (click)="onCancel()">Annuler</button>
       <button class="submit-btn" 
               (click)="onSubmit()" 
-              [disabled]="!fonctionnaliteId || !projetId || isUploading">
-        Soumettre
+              [disabled]="isUploading || !contribution.titre || !contribution.description">
+        {{ isUploading ? 'Envoi en cours...' : 'Soumettre' }}
       </button>
     </div>
   </div>

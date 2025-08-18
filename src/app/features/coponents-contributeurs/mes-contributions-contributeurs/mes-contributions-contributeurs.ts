@@ -3,17 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { NewContribution } from '../new-contribution/new-contribution';
-import { Fonctionnalite, FonctionnaliteService } from '../../../services/fonctionnalite';
-
-export interface Contribution {
-  icon: string;
-  title: string;
-  date: string;
-  description: string;
-  status: string;
-  statusText: string;
-  auteur: string;
-}
 
 @Component({
   selector: 'app-mes-contributions-contributeurs',
@@ -23,43 +12,43 @@ export interface Contribution {
   styleUrls: ['./mes-contributions-contributeurs.css']
 })
 export class MesContributionsContributeurs {
-
   activeTab: string = 'contribution';
   contributions: any[] = [];
-
   fonctionnalites: any[] = [];
-  mesFonctionnalites: any[] = [];         // réservées par moi
-  fonctionnalitesDisponibles: any[] = []; // libres
-  fonctionnalitesReservees: any[] = [];   // réservées par d’autres
+  fonctionnalitesDisponibles: any[] = [];
+  fonctionnalitesReservees: any[] = [];
+  idContributeur: number = Number(localStorage.getItem('id'));
+  currentProjectId: number | null = null;
 
-  idContributeur: number = Number(localStorage.getItem('id')); 
+  // Gestion de la modal
+  isModalOpen = false;
+  selectedFonctionnaliteId: number | null = null;
 
   constructor(
-    private http: HttpClient, 
-    private router: Router, 
-    private route: ActivatedRoute,
-    private fonctionnaliteservice : FonctionnaliteService
+    private http: HttpClient,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      const idProjet = params['projetId'];
-      if (idProjet) {
-        this.GetContributionsParProjet(Number(idProjet));
-        this.GetFonctionnalitesParProjet(Number(idProjet));
+      this.currentProjectId = params['projetId'] ? Number(params['projetId']) : null;
+      if (this.currentProjectId) {
+        this.loadData(this.currentProjectId);
       }
     });
+  }
+
+  private loadData(projectId: number): void {
+    this.GetContributionsParProjet(projectId);
+    this.GetFonctionnalitesParProjet(projectId);
   }
 
   switchTab(tab: string): void {
     this.activeTab = tab;
   }
 
-  addNew(): void {
-    this.router.navigate(['/new-contribution']);
-  }
-
-  openContributionDetails(contribution: Contribution): void {
+  openContributionDetails(contribution: any): void {
     this.router.navigate(['/contribution-details'], {
       state: { contributionData: contribution }
     });
@@ -67,121 +56,86 @@ export class MesContributionsContributeurs {
 
   GetContributionsParProjet(idProjet: number) {
     this.http.get<any[]>(`http://localhost:8080/api/contributions/projet/${idProjet}/contributeur/${this.idContributeur}`)
-      .subscribe(
-        (response) => {
-          console.log('Contributions brutes:', response);
+      .subscribe({
+        next: (response) => {
           this.contributions = response.map(item => ({
             icon: "fa-coins",
             title: item.titre,
             date: item.dateSoumission,
-            description: item.type,
-            status: item.statutC.toLowerCase(),
+            description: item.description || item.type,
+            status: item.statutC?.toLowerCase(),
             statusText: item.statutC,
-            auteur: item.contributeur.email
+            featureId: item.fonctionnalite?.id
           }));
-          console.log('Contributions formatées:', this.contributions);
         },
-        (error) => {
-          console.error('Erreur lors de la récupération des contributions:', error);
-        }
-      );
+        error: (error) => console.error('Erreur contributions:', error)
+      });
   }
 
-  GetFonctionnalitesParProjet(idProjet: number) {
-    this.http.get<any[]>(`http://localhost:8080/api/fonctionnalites/projet/${idProjet}`)
-      .subscribe(
-        (response) => {
-          console.log('Fonctionnalites brutes:', response);
-          this.fonctionnalites = response;
-
-          // Mes fonctionnalités réservées
-          this.mesFonctionnalites = this.fonctionnalites.filter(
-            f => f.contributeur?.id === this.idContributeur
-          );
-
-          // Fonctionnalités disponibles
-          this.fonctionnalitesDisponibles = this.fonctionnalites.filter(
-            f => f.statut === 'DISPONIBLE'
-          );
-
-          // Fonctionnalités réservées par d’autres
-          this.fonctionnalitesReservees = this.fonctionnalites.filter(
-            f => f.statut !== 'DISPONIBLE' && f.contributeur?.id !== this.idContributeur
-          );
-
-          console.log('Mes fonctionnalités:', this.mesFonctionnalites);
-          console.log('Fonctionnalités disponibles:', this.fonctionnalitesDisponibles);
-          console.log('Fonctionnalités réservées:', this.fonctionnalitesReservees);
-        },
-        (error) => {
-          console.error('Erreur lors de la récupération des fonctionnalites:', error);
-        }
-      );
-  }
-
-reserverFonctionnalite(idFonctionnalite: number) {
-  this.http.post(`http://localhost:8080/api/fonctionnalites/${idFonctionnalite}/reserver/${this.idContributeur}`, {})
-    .subscribe(
-      res => {
-        console.log('Réservation réussie', res);
-        const idProjet = this.route.snapshot.queryParams['projetId'];
-        this.GetFonctionnalitesParProjet(Number(idProjet));
+// Pas besoin de modifier la logique existante
+// Juste s'assurer que fonctionnalitesReservees contient bien toutes les fonctionnalités réservées
+GetFonctionnalitesParProjet(idProjet: number) {
+  this.http.get<any[]>(`http://localhost:8080/api/fonctionnalites/projet/${idProjet}`)
+    .subscribe({
+      next: (response) => {
+        this.fonctionnalites = response;
+        
+        // Fonctionnalités réservées (toutes, sans filtre supplémentaire)
+        this.fonctionnalitesReservees = this.fonctionnalites.filter(
+          f => f.statut === 'RESERVEE'
+        );
+        
+        // Fonctionnalités disponibles
+        this.fonctionnalitesDisponibles = this.fonctionnalites.filter(
+          f => f.statut === 'DISPONIBLE'
+        );
       },
-      err => {
-        if(err.status === 400) { // ou le code que tu renvoies côté backend
-          alert("Cette fonctionnalité est déjà réservée !");
-        } else {
-          console.error('Erreur réservation', err);
-        }
-      }
+      error: (error) => console.error('Erreur:', error)
+    });
+}
+
+  private updateFonctionnalitesLists(): void {
+    this.fonctionnalitesDisponibles = this.fonctionnalites.filter(
+      f => f.statut === 'DISPONIBLE'
     );
-}
-
-modalOuverte = false;
-fonctionnaliteCourante!: string;
-
-ouvrirModalContribution(idFonctionnalite: string) {
-  this.fonctionnaliteCourante = idFonctionnalite;
-  this.modalOuverte = true;
-}
-
-fermerModal() {
-  this.modalOuverte = false;
-}
-
- ouvrirContribution(fonctionnaliteId: string) {
-    // Redirection vers la page/modal de contribution en passant l'ID
-    this.router.navigate(['/nouvelle-contribution', fonctionnaliteId]);
+    this.fonctionnalitesReservees = this.fonctionnalites.filter(
+      f => f.statut !== 'DISPONIBLE'
+    );
   }
 
-  // parent.component.ts
-isModalOpen = false;
-selectedFonctionnaliteId: number | null = null;
-selectedProjetId: number | null = null;
+  reserverFonctionnalite(idFonctionnalite: number) {
+    this.http.post(`http://localhost:8080/api/fonctionnalites/${idFonctionnalite}/reserver/${this.idContributeur}`, {})
+      .subscribe({
+        next: () => this.currentProjectId && this.GetFonctionnalitesParProjet(this.currentProjectId),
+        error: (err) => {
+          if (err.status === 400) {
+            alert("Cette fonctionnalité est déjà réservée !");
+          } else {
+            console.error('Erreur réservation', err);
+          }
+        }
+      });
+  }
 
+  openContributionModal(fonctionnaliteId: number): void {
+    this.selectedFonctionnaliteId = fonctionnaliteId;
+    this.isModalOpen = true;
+  }
 
-
-
-openContributionModal(fonctionnaliteId: number, projetId: number) {
-  this.selectedFonctionnaliteId = fonctionnaliteId;
-  this.selectedProjetId = projetId;
-  this.isModalOpen = true;
-}
-
-  closeContributionModal() {
+  closeContributionModal(): void {
     this.isModalOpen = false;
     this.selectedFonctionnaliteId = null;
-    this.selectedProjetId = null;
   }
 
+  onContributionSubmitted(): void {
+    if (this.currentProjectId) {
+      this.loadData(this.currentProjectId);
+    }
+    this.closeContributionModal();
+  }
 
-
-
-hasContributed(foncId: string): boolean {
-  return this.contributions.some(c => c.featureId === foncId && c.statusText !== 'EN_ATTENTE');
-}
-
-
-
-
+  hasContributed(foncId: number): boolean {
+    return this.contributions.some(c => c.featureId === foncId);
+  }
+  
 }
