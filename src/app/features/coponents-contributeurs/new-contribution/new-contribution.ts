@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { catchError, map, Observable, of } from 'rxjs';
 import { FileUploadService } from './file-upload.service';
@@ -24,8 +24,8 @@ interface ContributionPayload {
   styleUrls: ['./new-contribution.css']
 })
 export class NewContribution implements OnInit {
-  @Input() fonctionnaliteId!: number;
-  @Input() projetId!: number;
+  fonctionnaliteId!: number;
+  projetId!: number;
 
  @Output() close = new EventEmitter<void>();
 
@@ -45,12 +45,18 @@ export class NewContribution implements OnInit {
   constructor(
     private router: Router,
     private uploadService: FileUploadService,
-    private http: HttpClient
+    private http: HttpClient,
+    private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {
-    console.log("ngOnInit - fonctionnaliteId:", this.fonctionnaliteId);
-    console.log("ngOnInit - projetId:", this.projetId);
+   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.fonctionnaliteId = +params['fonctionnaliteId'];
+      this.projetId = +params['projetId'];
+
+      console.log('ngOnInit - fonctionnaliteId:', this.fonctionnaliteId);
+      console.log('ngOnInit - projetId:', this.projetId);
+    });
   }
 
   isFormValid(): boolean {

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { NewContribution } from '../new-contribution/new-contribution';
-import { Fonctionnalite, FonctionnaliteService } from '../../../services/fonctionnalite';
+import { FonctionnaliteService } from '../../../services/fonctionnalite';
 
 export interface Contribution {
   icon: string;
@@ -13,6 +13,7 @@ export interface Contribution {
   status: string;
   statusText: string;
   auteur: string;
+  featureId?: number; // ⚡ pour faire le lien avec la fonctionnalité
 }
 
 @Component({
@@ -25,20 +26,58 @@ export interface Contribution {
 export class MesContributionsContributeurs {
 
   activeTab: string = 'contribution';
-  contributions: any[] = [];
+  contributions: Contribution[] = [];
 
   fonctionnalites: any[] = [];
   mesFonctionnalites: any[] = [];         // réservées par moi
   fonctionnalitesDisponibles: any[] = []; // libres
   fonctionnalitesReservees: any[] = [];   // réservées par d’autres
 
-  idContributeur: number = Number(localStorage.getItem('id')); 
+  isModalOpen = false;
+selectedFonctionnaliteId: number | null = null;
+nouvelleDescription: string = '';
+
+ouvrirModalAjouter() {
+  this.isModalOpen = true;
+  this.selectedFonctionnaliteId = null;
+  this.nouvelleDescription = '';
+}
+
+fermerModal() {
+  this.isModalOpen = false;
+}
+
+ajouterContribution() {
+  if (!this.selectedFonctionnaliteId) {
+    alert("Veuillez sélectionner une fonctionnalité !");
+    return;
+  }
+
+  this.http.post(`http://localhost:8080/api/contributions`, {
+    fonctionnaliteId: this.selectedFonctionnaliteId,
+    contributeurId: this.idContributeur,
+    description: this.nouvelleDescription
+  }).subscribe(res => {
+    console.log("Contribution ajoutée", res);
+    this.fermerModal();
+     // recharge la liste
+  }, err => {
+    console.error("Erreur lors de l'ajout", err);
+  });
+}
+
+  idContributeur: number = Number(localStorage.getItem('id'));
+
+
+  // Gestion du modal contribution
+  
+  selectedProjetId: number | null = null;
 
   constructor(
     private http: HttpClient, 
     private router: Router, 
     private route: ActivatedRoute,
-    private fonctionnaliteservice : FonctionnaliteService
+    private fonctionnaliteService: FonctionnaliteService
   ) {}
 
   ngOnInit(): void {
@@ -51,20 +90,16 @@ export class MesContributionsContributeurs {
     });
   }
 
+  // -------------------
+  // Onglets
+  // -------------------
   switchTab(tab: string): void {
     this.activeTab = tab;
   }
 
-  addNew(): void {
-    this.router.navigate(['/new-contribution']);
-  }
-
-  openContributionDetails(contribution: Contribution): void {
-    this.router.navigate(['/contribution-details'], {
-      state: { contributionData: contribution }
-    });
-  }
-
+  // -------------------
+  // Contributions
+  // -------------------
   GetContributionsParProjet(idProjet: number) {
     this.http.get<any[]>(`http://localhost:8080/api/contributions/projet/${idProjet}/contributeur/${this.idContributeur}`)
       .subscribe(
@@ -77,9 +112,9 @@ export class MesContributionsContributeurs {
             description: item.type,
             status: item.statutC.toLowerCase(),
             statusText: item.statutC,
-            auteur: item.contributeur.email
+            auteur: item.contributeur.email,
+            featureId: item.fonctionnalite?.id // ⚡ très utile pour savoir sur quelle fonctionnalité la contribution porte
           }));
-          console.log('Contributions formatées:', this.contributions);
         },
         (error) => {
           console.error('Erreur lors de la récupération des contributions:', error);
@@ -87,6 +122,15 @@ export class MesContributionsContributeurs {
       );
   }
 
+  openContributionDetails(contribution: Contribution): void {
+    this.router.navigate(['/contribution-details'], {
+      state: { contributionData: contribution }
+    });
+  }
+
+  // -------------------
+  // Fonctionnalités
+  // -------------------
   GetFonctionnalitesParProjet(idProjet: number) {
     this.http.get<any[]>(`http://localhost:8080/api/fonctionnalites/projet/${idProjet}`)
       .subscribe(
@@ -94,24 +138,19 @@ export class MesContributionsContributeurs {
           console.log('Fonctionnalites brutes:', response);
           this.fonctionnalites = response;
 
-          // Mes fonctionnalités réservées
           this.mesFonctionnalites = this.fonctionnalites.filter(
             f => f.contributeur?.id === this.idContributeur
           );
 
-          // Fonctionnalités disponibles
           this.fonctionnalitesDisponibles = this.fonctionnalites.filter(
             f => f.statut === 'DISPONIBLE'
           );
 
-          // Fonctionnalités réservées par d’autres
           this.fonctionnalitesReservees = this.fonctionnalites.filter(
             f => f.statut !== 'DISPONIBLE' && f.contributeur?.id !== this.idContributeur
           );
 
           console.log('Mes fonctionnalités:', this.mesFonctionnalites);
-          console.log('Fonctionnalités disponibles:', this.fonctionnalitesDisponibles);
-          console.log('Fonctionnalités réservées:', this.fonctionnalitesReservees);
         },
         (error) => {
           console.error('Erreur lors de la récupération des fonctionnalites:', error);
@@ -119,54 +158,32 @@ export class MesContributionsContributeurs {
       );
   }
 
-reserverFonctionnalite(idFonctionnalite: number) {
-  this.http.post(`http://localhost:8080/api/fonctionnalites/${idFonctionnalite}/reserver/${this.idContributeur}`, {})
-    .subscribe(
-      res => {
-        console.log('Réservation réussie', res);
-        const idProjet = this.route.snapshot.queryParams['projetId'];
-        this.GetFonctionnalitesParProjet(Number(idProjet));
-      },
-      err => {
-        if(err.status === 400) { // ou le code que tu renvoies côté backend
-          alert("Cette fonctionnalité est déjà réservée !");
-        } else {
-          console.error('Erreur réservation', err);
+  reserverFonctionnalite(idFonctionnalite: number) {
+    this.http.post(`http://localhost:8080/api/fonctionnalites/${idFonctionnalite}/reserver/${this.idContributeur}`, {})
+      .subscribe(
+        res => {
+          console.log('Réservation réussie', res);
+          const idProjet = this.route.snapshot.queryParams['projetId'];
+          this.GetFonctionnalitesParProjet(Number(idProjet));
+        },
+        err => {
+          if (err.status === 400) {
+            alert("Cette fonctionnalité est déjà réservée !");
+          } else {
+            console.error('Erreur réservation', err);
+          }
         }
-      }
-    );
-}
-
-modalOuverte = false;
-fonctionnaliteCourante!: string;
-
-ouvrirModalContribution(idFonctionnalite: string) {
-  this.fonctionnaliteCourante = idFonctionnalite;
-  this.modalOuverte = true;
-}
-
-fermerModal() {
-  this.modalOuverte = false;
-}
-
- ouvrirContribution(fonctionnaliteId: string) {
-    // Redirection vers la page/modal de contribution en passant l'ID
-    this.router.navigate(['/nouvelle-contribution', fonctionnaliteId]);
+      );
   }
 
-  // parent.component.ts
-isModalOpen = false;
-selectedFonctionnaliteId: number | null = null;
-selectedProjetId: number | null = null;
-
-
-
-
-openContributionModal(fonctionnaliteId: number, projetId: number) {
-  this.selectedFonctionnaliteId = fonctionnaliteId;
-  this.selectedProjetId = projetId;
-  this.isModalOpen = true;
-}
+  // -------------------
+  // Contribution Modal
+  // -------------------
+  openContributionModal(fonctionnaliteId: number, projetId: number) {
+    this.selectedFonctionnaliteId = fonctionnaliteId;
+    this.selectedProjetId = projetId;
+    this.isModalOpen = true;
+  }
 
   closeContributionModal() {
     this.isModalOpen = false;
@@ -174,14 +191,12 @@ openContributionModal(fonctionnaliteId: number, projetId: number) {
     this.selectedProjetId = null;
   }
 
-
-
-
-hasContributed(foncId: string): boolean {
+  // -------------------
+  // Utils
+  // -------------------
+hasContributed(foncId: number): boolean {
   return this.contributions.some(c => c.featureId === foncId && c.statusText !== 'EN_ATTENTE');
 }
-
-
 
 
 }
