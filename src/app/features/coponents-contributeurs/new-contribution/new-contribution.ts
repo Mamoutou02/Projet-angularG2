@@ -42,51 +42,54 @@ export class NewContribution implements OnInit {
   }
 
   onSubmit(): void {
-    if (!this.fonctionnaliteId || !this.projetId) {
-      this.uploadError = "IDs manquants";
-      return;
-    }
-
-    this.isUploading = true;
-    this.uploadError = null;
-    this.uploadSuccess = false;
-    
-    const formData = new FormData();
-    formData.append('idFonctionnalite', this.fonctionnaliteId.toString());
-    formData.append('idProjet', this.projetId.toString());
-    formData.append('idContributeur', this.idContributeur.toString());
-    formData.append('titre', this.contribution.titre);
-    formData.append('description', this.contribution.description);
-    formData.append('type', this.contributionType);
-
-    if (this.contributionType === 'file' && this.contribution.fichier) {
-      formData.append('fichier', this.contribution.fichier);
-      formData.append('contenu', this.contribution.fichier.name);
-    } else if (this.contributionType === 'link') {
-      formData.append('contenu', this.contribution.lien || '');
-    }
-
-    this.http.post('http://localhost:8080/api/contributions/deposer', formData, {
-      reportProgress: true,
-      observe: 'events'
-    }).subscribe({
-      next: (event: any) => {
-        if (event.type === HttpEventType.UploadProgress) {
-          this.uploadProgress = Math.round(100 * event.loaded / (event.total || 1));
-        } else if (event.type === HttpEventType.Response) {
-          this.uploadSuccess = true;
-          this.submit.emit();
-          setTimeout(() => this.close.emit(), 1500);
-        }
-      },
-      error: (error) => {
-        this.isUploading = false;
-        this.uploadError = error.error?.message || error.message || "Erreur lors du dépôt";
-        console.error('Erreur:', error);
-      }
-    });
+  if (!this.fonctionnaliteId || !this.projetId) {
+    this.uploadError = "IDs manquants";
+    return;
   }
 
+  this.isUploading = true;
+  this.uploadError = null;
+  this.uploadSuccess = false;
+
+  // ✅ Mapper contributionType vers enum backend
+  let typeContribution: string;
+  if (this.contributionType === 'link') {
+    typeContribution = 'DOCUMENT'; // backend accepte DOCUMENT
+  } else if (this.contributionType === 'file') {
+    typeContribution = 'EDITEUR'; // backend accepte EDITEUR
+  } else {
+    typeContribution = 'EDITEUR'; // valeur par défaut
+  }
+
+  // Construire l'objet JSON attendu par Spring
+  const contributionPayload = {
+    titre: this.contribution.titre,
+    description: this.contribution.description,
+    contenu: this.contributionType === 'file' ? this.contribution.fichier?.name : this.contribution.lien,
+    type: typeContribution,
+    projetId: this.projetId,
+    contributeurId: this.idContributeur,
+    motifRejet: null
+  };
+
+  this.http.post(
+    `http://localhost:8080/api/contributions/idFonctionnalites/${this.fonctionnaliteId}/ajoutcontribution/autres`,
+    contributionPayload,
+    { observe: 'response' }
+  ).subscribe({
+    next: (response) => {
+      this.uploadSuccess = true;
+      this.submit.emit();
+      setTimeout(() => this.close.emit(), 1500);
+      alert("Ajouter avec success")
+    },
+    error: (error) => {
+      this.isUploading = false;
+      this.uploadError = error.error?.message || error.message || "Erreur lors du dépôt";
+      console.error('Erreur:', error);
+    }
+  });
+}
   onCancel(): void {
     this.close.emit();
   }

@@ -17,31 +17,46 @@
                   placeholder="Décrivez votre contribution"></textarea>
       </div>
 
+      <!-- Choix du type de contribution -->
       <div class="form-group contribution-type">
         <label>
-          <input type="radio" name="type" value="file" [(ngModel)]="contributionType" checked> Fichier
+          <input type="radio" name="type" value="DOCUMENT" [(ngModel)]="contributionType" checked>
+          Document (fichier à téléverser)
         </label>
         <label>
-          <input type="radio" name="type" value="link" [(ngModel)]="contributionType"> Lien
+          <input type="radio" name="type" value="EDITEUR" [(ngModel)]="contributionType">
+          Éditeur (texte ou contenu)
+        </label>
+        <label>
+          <input type="radio" name="type" value="FIGMA" [(ngModel)]="contributionType">
+          Figma
+        </label>
+        <label>
+          <input type="radio" name="type" value="GITHUB" [(ngModel)]="contributionType">
+          GitHub
         </label>
       </div>
 
-      <div *ngIf="contributionType === 'file'" class="file-upload-section">
+      <!-- Section fichier -->
+      <div *ngIf="contributionType === 'DOCUMENT'" class="file-upload-section">
         <label for="fichier">Fichier</label>
         <input type="file" id="fichier" (change)="onFileSelected($event)">
         <p *ngIf="contribution.fichier">Fichier sélectionné: {{ contribution.fichier.name }}</p>
       </div>
 
-      <div *ngIf="contributionType === 'link'" class="link-section">
+      <!-- Section lien -->
+      <div *ngIf="contributionType === 'EDITEUR' || contributionType === 'FIGMA' || contributionType === 'GITHUB'" class="link-section">
         <label for="lien">Lien</label>
         <input id="lien" type="text" [(ngModel)]="contribution.lien" placeholder="https://...">
       </div>
 
+      <!-- Progression d'upload -->
       <div *ngIf="uploadProgress !== null">
         <progress [value]="uploadProgress" max="100"></progress>
         <span>{{ uploadProgress }}%</span>
       </div>
 
+      <!-- Messages -->
       <p class="error-msg" *ngIf="uploadError">{{ uploadError }}</p>
       <p class="success-msg" *ngIf="uploadSuccess">Contribution envoyée avec succès!</p>
     </div>
