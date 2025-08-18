@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { Contribution } from '../mes-contributions-contributeurs/mes-contributions-contributeurs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Location } from '@angular/common';
+import { Contribution } from '../mes-contributions-contributeurs/mes-contributions-contributeurs';
 
 @Component({
   selector: 'app-contribution-details',
