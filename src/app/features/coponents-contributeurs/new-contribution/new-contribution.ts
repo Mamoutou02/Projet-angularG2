@@ -87,6 +87,7 @@ export class NewContribution implements OnInit {
       this.isUploading = false;
       this.uploadError = error.error?.message || error.message || "Erreur lors du dépôt";
       console.error('Erreur:', error);
+      alert("envoyer avec success")
     }
   });
 }

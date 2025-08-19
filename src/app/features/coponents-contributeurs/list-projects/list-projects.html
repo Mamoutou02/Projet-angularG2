@@ -33,7 +33,7 @@
           <fa-icon 
             [icon]="isUserInvolved(projet) ? faLockOpen : faUnlock" 
             class="icon-lock" 
-            (click)="onUnlockClick(projet)"
+            (click)="DebloquerProjet(projet)"
             [class.disabled-icon]="isProjectBlocked(projet)"
             [title]="getBlockedReason(projet)">
           </fa-icon>

@@ -44,6 +44,7 @@ export class ListProjects {
   ngOnInit(): void {
     this.currentUserId = Number(localStorage.getItem('id'));
     this.loadAllData();
+    
   }
 
   loadAllData() {
@@ -165,4 +166,31 @@ export class ListProjects {
       this.userCoins -= this.selectedProject.coin;
     }
   }
+
+  
+
+  DebloquerProjet(projet: any) {
+  if (!projet || !projet.idProjet) {
+    console.error("Projet invalide :", projet);
+    return;
+  }
+
+  this.selectedProject = projet; // on définit le projet courant
+
+  this.http.post(
+    `http://localhost:8080/api/debloqueProjet/contributeur/${this.currentUserId}/projet/${projet.idProjet}`,
+    {}
+  ).subscribe({
+    next: (res) => {
+      console.log('Projet débloqué', res);
+      alert('Projet débloqué avec succès');
+    },
+    error: (err) => {
+      console.error('Erreur', err);
+      console.log("projetId", projet.idProjet, "userId", this.currentUserId);
+      alert('Une erreur est survenue');
+    }
+  });
+}
+
 }

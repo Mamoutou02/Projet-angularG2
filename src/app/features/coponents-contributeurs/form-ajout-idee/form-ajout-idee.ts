@@ -19,7 +19,7 @@ export class FormAjoutIdee {
     titre: '',
     description: '',
     domaine: '',
-    difficulte: '',
+    niveau: '',
     leguer: false,
   };
 
