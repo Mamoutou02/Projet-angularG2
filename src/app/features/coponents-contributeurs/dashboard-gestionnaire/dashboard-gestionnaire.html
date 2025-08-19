@@ -1,43 +1,52 @@
-<div class="container">
-  <header>
-    <nav class="navbar">
+<div class="dashboard">
+  <header class="dash-header">
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2L2 7v10l10 5 10-5V7z"/></svg>
+      <h1>Dashboard Gestionnaire</h1>
+    </div>
+
+    <nav class="navbar" role="navigation" aria-label="Navigation principale">
       <a href="#"
          class="nav-item"
          [class.active]="ongletActif === 'contributions'"
          (click)="changerOnglet('contributions'); $event.preventDefault()">
         Contributions
       </a>
+
       <a href="#"
          class="nav-item"
          [class.active]="ongletActif === 'fonctionnalites'"
          (click)="changerOnglet('fonctionnalites'); $event.preventDefault()">
         Fonctionnalités
       </a>
+
       <a href="#"
          class="nav-item"
          [class.active]="ongletActif === 'demandes'"
          (click)="changerOnglet('demandes'); $event.preventDefault()">
         Demandes
       </a>
-      <a class="btn-retour" (click)="fermerDashboard()" routerLink="/ProjetsContributeurs">Retour</a>
+
+      <a class="btn-retour" (click)="fermerDashboard()" routerLink="/ProjetsContributeurs" title="Retour aux projets">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10 19l-7-7 7-7v14zM12 5h8v14h-8V5z"/></svg>
+        Retour
+      </a>
     </nav>
   </header>
 
-  <main>
-    <!-- Onglet Contributions -->
+  <main class="dash-main">
     <section *ngIf="ongletActif === 'contributions'">
       <app-page-contributions-gestionnaires></app-page-contributions-gestionnaires>
     </section>
 
-    <!-- Onglet Fonctionnalités -->
     <section *ngIf="ongletActif === 'fonctionnalites'">
       <app-page-fonctionnalite-gestionnaire></app-page-fonctionnalite-gestionnaire>
     </section>
 
-    <!-- Onglets Demandes et Coins à compléter ... -->
     <section *ngIf="ongletActif === 'demandes'">
       <app-page-demandes-gestionnaires></app-page-demandes-gestionnaires>
     </section>
+
     <section *ngIf="ongletActif === 'coins'">
       <app-page-coins-gestionnaires></app-page-coins-gestionnaires>
     </section>

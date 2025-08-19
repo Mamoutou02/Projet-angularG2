@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faArrowLeft, faEye } from '@fortawesome/free-solid-svg-icons';
-import { Projets } from '../../components-administrateur/projets/projets';
 
 
 @Component({

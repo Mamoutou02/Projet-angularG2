@@ -20,8 +20,8 @@
 
 .section-title fa-icon {
   font-size: 1.8rem;
-  color: #fbbf24; /* Jaune doré pour trophées */
-  filter: drop-shadow(0 2px 4px rgba(251, 191, 36, 0.5));
+  color: #2417DF; /* Jaune doré pour trophées */
+  filter: drop-shadow(0 2px 4px rgba(0, 38, 255, 0.5));
 }
 
 .section-title h2 {
@@ -35,18 +35,18 @@
   display: flex;
   align-items: center;
   gap: 15px;
-  background: linear-gradient(135deg, #fcd34d, #f59e0b);
+  background: linear-gradient(135deg, #2417DF, #2417DF);
   padding: 18px 24px;
   border-radius: 14px;
   color: #fff;
-  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.3);
+  box-shadow: 0 6px 16px rgba(36, 23, 223, 0.3);
   margin-bottom: 25px;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .coins-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(245, 158, 11, 0.45);
+  box-shadow: 0 10px 24px rgba(0, 39, 211, 0.45);
 }
 
 .coin-icon {
@@ -83,8 +83,8 @@
 
 .badge-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
-  border-color: #6366f1; /* Violet moderne */
+  box-shadow: 0 8px 20px rgba(28, 31, 255, 0.25);
+  border-color: #2417DF; /* Violet moderne */
 }
 
 /* ===== Titre badge ===== */

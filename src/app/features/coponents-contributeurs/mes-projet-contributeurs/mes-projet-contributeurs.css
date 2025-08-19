@@ -12,7 +12,7 @@
 .container h1 {
   text-align: center;
   font-weight: 700;
-  color: #1e293b;
+  color: #2417DF;
   margin-bottom: 25px;
   font-size: 2rem;
   letter-spacing: 1px;
@@ -29,13 +29,13 @@
 
 /* En-tête */
 .data-table thead tr {
-  background: #3b82f6;
+  background: #2417DF;
   color: white;
   text-align: left;
   font-weight: 600;
   font-size: 1rem;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(13, 71, 161, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .data-table thead th {
@@ -56,13 +56,13 @@
 .data-table tbody tr:hover {
   background: #e3f2fd;
   transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(13, 71, 161, 0.25);
+  box-shadow: 0 6px 12px #000000;
 }
 
 /* Cellules */
 .data-table tbody td {
   padding: 16px 20px;
-  color: #334155;
+  color: #000000;
   font-size: 0.95rem;
   vertical-align: middle;
 }
@@ -71,13 +71,13 @@
 .container p {
   text-align: center;
   font-size: 1.2rem;
-  color: #64748b;
+  color:#BEBEBE;
   margin-top: 40px;
   font-style: italic;
 }
 
 button{
-  background-color: #3b82f6;
+  background-color: #2417DF;
   color: white;
   border: none;
   padding: 10px 15px;
@@ -88,7 +88,7 @@ button{
 }
 
 button:hover {
-  background-color: #3b82f6;
+  background-color: #2417DF;
 }
 
 
@@ -104,7 +104,7 @@ button:hover {
 }
 
 .btn-projets-rejoints {
-  background-color: #3b82f6; /* Bleu */
+  background-color: #2417DF; /* Bleu */
   color: white;
   border: none;
   padding: 10px 18px;
@@ -116,7 +116,7 @@ button:hover {
 }
 
 .btn-projets-rejoints:hover {
-  background-color: #3b82f6;
+  background-color: #2417DF;
 }
 
 /* Responsive */

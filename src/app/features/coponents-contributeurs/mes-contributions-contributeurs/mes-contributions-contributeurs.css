@@ -18,7 +18,7 @@
   font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
-  color: #4b5563;
+  color: #2417DF;
   transition: background 0.25s ease, color 0.25s ease;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .tab.active {
-  background: #3b82f6;
+  background: #2417DF;
   color: white;
   font-weight: 600;
 }
@@ -93,7 +93,7 @@
 
 .icon-circle {
   background: #e0f2fe;
-  color: #0284c7;
+  color: #2417DF;
   border-radius: 50%;
   width: 38px;
   height: 38px;
@@ -153,7 +153,7 @@
 
 .status.attente {
   background: #e0e7ff;
-  color: #3730a3;
+  color: #2417DF;
 }
 
 /* ===== Pied de carte ===== */
@@ -163,7 +163,7 @@
 
 .details-link {
   font-size: 0.85rem;
-  color: #3b82f6;
+  color: #2417DF;
   cursor: pointer;
   text-decoration: none;
 }
@@ -207,7 +207,7 @@
 
 /* ===== Bouton Retour ===== */
 .tabs button[routerLink] {
-  background: #3b82f6;       /* rouge */
+  background: #2417DF;       /* rouge */
   color: white;
   border: none;
   padding: 10px 18px;
@@ -219,7 +219,7 @@
 }
 
 .tabs button[routerLink]:hover {
-  background: #002c74;       /* rouge foncé au hover */
+  background: #2417DF;       /* rouge foncé au hover */
 }
 
 
@@ -285,8 +285,8 @@
   color: white;
 }
 
-.btn-reserver { background: #3b82f6; }
-.btn-reserver:hover { background: #1e40af; }
+.btn-reserver { background: #0028d8; }
+.btn-reserver:hover { background: #2417DF; }
 
 .btn-faire { background: #10b981; }
 .btn-faire:hover { background: #059669; }

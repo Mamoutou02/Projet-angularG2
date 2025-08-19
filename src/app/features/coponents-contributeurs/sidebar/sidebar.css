@@ -1,7 +1,7 @@
 /* ===== Sidebar Moderne ===== */
 .sidebar {
   width: 250px;
-  background: linear-gradient(180deg, #1e3a8a 0%, #312e81 100%);
+  background: linear-gradient(180deg, #2417DF 0%, #2417DF 100%);
   color: white;
   position: fixed;
   height: 100vh;
@@ -109,13 +109,13 @@
 
 .nav-link:hover {
   background-color: rgba(255, 255, 255, 0.12);
-  border-left-color: #3b82f6;
+  border-left-color: #2417DF;
   color: white;
 }
 
 .nav-link.active {
   background-color: rgba(255, 255, 255, 0.18);
-  border-left-color: #3b82f6;
+  border-left-color: #2417DF;
   font-weight: 600;
   color: white;
 }
@@ -128,7 +128,7 @@
 }
 
 .btn-logout {
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  background: linear-gradient(135deg, #2417DF, #2417DF);
   color: white;
   border: none;
   padding: 8px 18px;

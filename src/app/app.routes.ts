@@ -6,7 +6,6 @@ import {DasboardAdmin} from './features/components-administrateur/dasboard-admin
 import {DashboardSection} from './features/components-administrateur/dashboard-section/dashboard-section';
 import {Domaines} from './features/components-administrateur/domaines/domaines';
 import {ParametrerLesBadges} from './features/components-administrateur/parametrer-les-badges/parametrer-les-badges';
-import {Projets} from './features/components-administrateur/projets/projets';
 import {ParametrerNotifications} from './features/components-administrateur/parametrer-notifications/parametrer-notifications';
 import {IdeeDeProjet} from './features/components-administrateur/idee-de-projet/idee-de-projet';
 import { Sidebar } from './features/coponents-contributeurs/sidebar/sidebar';
@@ -29,6 +28,7 @@ import { EnsembleContributionsContributeurs } from './features/coponents-contrib
 import { DemandeGestionnaireAdministrateur } from './features/components-administrateur/demande-gestionnaire-administrateur/demande-gestionnaire-administrateur';
 import { ProjetRecents } from './features/coponents-contributeurs/projet-recents/projet-recents';
 import { MesContributionsContributeurs } from './features/coponents-contributeurs/mes-contributions-contributeurs/mes-contributions-contributeurs';
+import { Projets } from './features/components-administrateur/projets/projets';
 
 
 export const routes: Routes = [

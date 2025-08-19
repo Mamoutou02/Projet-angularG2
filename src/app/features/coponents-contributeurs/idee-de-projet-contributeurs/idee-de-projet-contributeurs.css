@@ -38,7 +38,7 @@
 .actions input[type="text"] {
   padding: 10px 15px;
   font-size: 1rem;
-  border: 2px solid #0d47a1;
+  border: 2px solid #2417DF;
   border-radius: 8px;
   outline: none;
   width: 280px;
@@ -46,12 +46,12 @@
 }
 
 .actions input[type="text"]:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+  border-color: #2417DF;
+  box-shadow: 0 0 8px rgba(36, 23, 223, 0.3);
 }
 
 .actions button {
-  background: #007bff;
+  background: #2417DF;
   border: none;
   color: white;
   padding: 0 20px;
@@ -63,7 +63,7 @@
 }
 
 .actions button:hover {
-  background: #0056b3;
+  background: #2417DF;
   transform: translateY(-1px);
 }
 
@@ -89,7 +89,7 @@
 
 .project-row:hover {
   background: #e3f2fd;
-  box-shadow: 0 6px 14px rgba(0, 123, 255, 0.3);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.568);
 }
 
 /* Colonnes */
@@ -97,7 +97,7 @@
 .project-niveau,
 .project-titre {
   font-size: 0.95rem;
-  color: #334155;
+  color: #000000;
   word-break: break-word;
 }
 
@@ -112,7 +112,7 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  color: #0d47a1;
+  color: #2417DF;
   font-size: 1.2rem;
   padding: 6px;
   border-radius: 6px;
@@ -120,7 +120,7 @@
 }
 
 .btn:hover {
-  background: #007bff;
+  background: #0308ff;
   color: white;
 }
 
