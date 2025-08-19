@@ -72,7 +72,7 @@ h3 {
 .form-group textarea:focus {
   outline: none;
   border-color: #80bdff;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(0, 44, 165, 0.25);
 }
 
 .form-actions {
@@ -84,7 +84,7 @@ h3 {
 
 /* Boutons principaux */
 .btn-primary {
-  background-color: #007bff;
+  background-color: #2417DF;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -95,7 +95,7 @@ h3 {
 }
 
 .btn-primary:hover {
-  background-color: #0069d9;
+  background-color: #1100ff;
 }
 
 .btn-primary:disabled {
@@ -185,12 +185,12 @@ h3 {
 }
 
 .btn-edit {
-  background-color: #17a2b8;
+  background-color: #2417DF;
   color: white;
 }
 
 .btn-edit:hover {
-  background-color: #138496;
+  background-color: rgb(0, 14, 211);
 }
 
 .btn-delete {

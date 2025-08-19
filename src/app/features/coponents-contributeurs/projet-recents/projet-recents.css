@@ -12,7 +12,7 @@
 .container h1 {
   text-align: center;
   font-weight: 700;
-  color: #1e293b;
+  color: #2417DF;
   margin-bottom: 25px;
   font-size: 2rem;
   letter-spacing: 1px;
@@ -28,13 +28,13 @@
 
 /* En-tête */
 .data-table thead tr {
-  background: #0d47a1;
+  background: #2417DF;
   color: white;
   text-align: left;
   font-weight: 600;
   font-size: 1rem;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(13, 71, 161, 0.3);
+  box-shadow: 0 2px 8px #2417DF;
 }
 
 .data-table thead th {
@@ -55,7 +55,7 @@
 .data-table tbody tr:hover {
   background: #e3f2fd;
   transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(13, 71, 161, 0.25);
+  box-shadow: 0 6px 12px rgba(0, 4, 226, 0.25);
 }
 
 /* Cellules */
@@ -68,7 +68,7 @@
 
 /* Bouton "Voir" */
 .detail-btn {
-  background-color: #0d47a1;
+  background-color: #2417DF;
   color: white;
   border: none;
   padding: 8px 12px;
@@ -79,7 +79,7 @@
 }
 
 .detail-btn:hover {
-  background-color: #07327a;
+  background-color: #2417DF;
 }
 
 /* Message "Aucun projet trouvé" */
@@ -92,7 +92,7 @@
 }
 
 .btn-retour {
-  background-color: #0d47a1;
+  background-color: #2417DF;
   color: white;
   border: none;
   padding: 8px 16px;
@@ -108,7 +108,7 @@
 }
 
 .btn-retour:hover {
-  background-color: #07327a;
+  background-color: #2417DF;
 }
 
 

@@ -54,7 +54,7 @@ export class Reconpenses {
     });
 
     // Charger les coins
-    const coinsApiUrl = `http://localhost:8080/api/coins`;  
+    const coinsApiUrl = `http://localhost:8080/api/coins/contributeur/${id_contributeurs}`;
     this.http.get<Coin[]>(coinsApiUrl).subscribe({
       next: (res) => {
         this.coins = res;

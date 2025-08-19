@@ -1,175 +1,229 @@
-/* Conteneur du dashboard centré */
-.container {
-  width: 80%;
-  max-width: 900px;
-  background-color: #fff;
-  border: 2px solid #a3b1c6;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  position: relative; /* pour placer des éléments internes si besoin */
-  margin-left: 90px;
-  margin-top: 50px;
+/* Variables CSS pour une maintenance facile */
+:root {
+  --primary-color: #2b395d;
+  --secondary-color: #a3b1c6;
+  --background-light: #f0f4f8;
+  --card-bg: #f9fbfd;
+  --text-dark: #2d3748;
+  --text-medium: #4a5568;
+  --text-light: #718096;
+  --success-color: #48bb78;
+  --success-hover: #38a169;
+  --error-color: #f56565;
+  --error-hover: #e53e3e;
+  --border-radius: 8px;
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --transition: all 0.3s ease;
 }
 
-/* --- Ton style original adapté --- */
-header {
-  background-color: #e0e9f1;
-  border-bottom: 2px solid #a3b1c6;
+/* Reset et styles de base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: var(--background-light);
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+/* Layout principal */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Header */
+.dash-header {
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+}
+
+h1 {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+/* Navigation */
 .navbar {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   align-items: center;
-  padding: 15px 25px;
 }
 
 .nav-item {
-  color: #4a5568;
+  color: var(--text-medium);
   text-decoration: none;
-  font-weight: bold;
-  padding: 10px 15px;
-  border-radius: 8px;
-  transition: background-color 0.3s;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+}
+
+.nav-item:hover {
+  background-color: rgba(199, 209, 227, 0.3);
 }
 
 .nav-item.active {
   background-color: #c7d1e3;
-  color: #2b395d;
+  color: var(--primary-color);
 }
 
 .btn-retour {
-  background-color: #cbd5e0;
-  color: #2d3748;
-  padding: 10px 20px;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: bold;
-}
-
-.title {
-  color: #2b395d;
-  text-align: center;
-  font-size: 1.5em;
-  padding: 20px 0;
-  background-color: #f7fafc;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-.contribution-list {
-  padding: 10px 25px 25px;
-}
-
-.contribution-item {
-  display: flex;
-  justify-content: space-between;
+  display: inline-flex;
   align-items: center;
-  padding: 15px;
-  border-bottom: 1px solid #e2e8f0;
+  gap: 0.5rem;
+  background-color: #cbd5e0;
+  color: var(--text-dark);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
 }
 
-.contribution-item:last-child {
-  border-bottom: none;
+.btn-retour:hover {
+  background-color: #b8c4d3;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Contenu principal */
+.dash-main {
+  flex: 1;
+  padding: 2rem;
+  background-color: white;
+}
+
+/* Cartes */
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  border: 1px solid #e2e8f0;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .user-info {
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 1rem;
 }
 
 .user-name {
-  font-weight: bold;
-  color: #2d3748;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
 }
 
 .contribution-type {
-  color: #718096;
-  font-size: 0.9em;
+  color: var(--text-light);
+  font-size: 0.9rem;
 }
 
-.actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.view-icon {
-  width: 24px;
-  height: 24px;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-}
-
+/* Boutons */
 .btn-action {
-  padding: 8px 15px;
+  padding: 0.5rem 1rem;
   border-radius: 50px;
   border: none;
-  color: #fff;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: var(--transition);
+  margin-right: 0.5rem;
 }
 
-.btn-valider {
-  background-color: #48bb78;
+.btn-accepter {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.btn-accepter:hover {
+  background-color: var(--success-hover);
 }
 
 .btn-refuser {
-  background-color: #f56565;
+  background-color: var(--error-color);
+  color: white;
 }
 
-/* Responsivité inchangée */
+.btn-refuser:hover {
+  background-color: var(--error-hover);
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-  .navbar {
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-  }
-
-  .nav-item,
-  .btn-retour {
-    flex: 1 1 auto;
-    text-align: center;
-  }
-}
-
-@media (max-width: 576px) {
-  .container {
-    width: 100%;
-    border-radius: 0;
-    border: none;
+  .dash-header {
+    padding: 1rem;
   }
 
   .navbar {
-    flex-direction: column;
-    padding: 10px;
-  }
-
-  .contribution-list {
-    padding: 10px;
-  }
-
-  .contribution-item {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
-    padding: 15px 10px;
+  }
+
+  .dash-main {
+    padding: 1rem;
+  }
+
+  .card {
+    flex-direction: column;
   }
 
   .actions {
-    width: 100%;
+    margin-top: 1rem;
+    justify-content: flex-end;
+  }
+}
+
+@media (min-width: 769px) {
+  .card {
+    flex-direction: row;
     justify-content: space-between;
+    align-items: center;
   }
 
-  .btn-action {
-    flex-grow: 1;
-    padding: 10px 15px;
+  .user-info {
+    margin-bottom: 0;
   }
+}
 
-  .view-icon {
-    order: -1;
-    margin-right: 10px;
-  }
+/* Animation pour les transitions */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+section {
+  animation: fadeIn 0.3s ease-out;
 }

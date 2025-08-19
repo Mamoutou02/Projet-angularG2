@@ -6,7 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(90deg, #0d47a1, #1976d2);
+  background: linear-gradient(90deg, #2417DF, #2417DF);
   padding: 10px 20px;
   border-radius: 6px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
@@ -30,7 +30,7 @@
 
 
 p {
-  background-color: #0088cc; /* même couleur que le 3ème bouton */
+  background-color: #2417DF; /* même couleur que le 3ème bouton */
   color: white;
   padding: 10px 20px;
   border-radius: 8px;

@@ -30,12 +30,12 @@
 
 /* En-tête */
 .data-table thead tr {
-  background: #2563eb; /* Bleu vif */
+  background: #2417DF; /* Bleu vif */
   color: white;
   font-weight: 600;
   font-size: 1rem;
   border-radius: 12px;
-  box-shadow: 0 3px 10px rgba(37, 99, 235, 0.4);
+  box-shadow: 0 3px 10px rgba(3, 8, 255, 0.4);
 }
 
 .data-table thead th {
@@ -56,7 +56,7 @@
 .data-table tbody tr:hover {
   background: #bfdbfe; /* Bleu clair */
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 17, 250, 0.3);
 }
 
 /* Cellules */

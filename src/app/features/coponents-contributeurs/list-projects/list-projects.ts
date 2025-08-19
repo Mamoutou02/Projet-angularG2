@@ -1,75 +1,119 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faArrowLeft, faEllipsisV, faEye, faLock, faLockOpen } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faEllipsisV, faEye, faLockOpen, faUnlock } from '@fortawesome/free-solid-svg-icons';
 import { PopupEye } from "./popup-eye/popup-eye";
-import { Projet } from '../../../models/projet';
 import { PopupActions } from './popup-actions/popup-actions';
 import { PopupComments } from './popup-comments/popup-comments';
 import { PopupAddComment } from './popup-add-comment/popup-add-comment';
-import { RouterLink, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { PopupUnlock } from './popup-unlock/popup-unlock';
-import { faUnlock } from '@fortawesome/free-solid-svg-icons/faUnlock';
 import { HttpClient } from '@angular/common/http';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-list-projects',
-  imports: [CommonModule, RouterModule, FontAwesomeModule, PopupUnlock, PopupComments,PopupAddComment, PopupEye, PopupActions],
+  imports: [CommonModule, RouterModule, FontAwesomeModule, PopupUnlock, PopupComments, PopupAddComment, PopupEye, PopupActions],
   templateUrl: './list-projects.html',
   styleUrls: ['./list-projects.css']
 })
 export class ListProjects {
-  
   protected readonly faEye = faEye;
   protected readonly faLockOpen = faLockOpen;
   protected readonly faUnlock = faUnlock;
   protected readonly faEllipsisV = faEllipsisV;
   protected readonly faArrowLeft = faArrowLeft;
+  
   chemin: string = '/dashboardContributeur';
-
-
-   projet : any[] = [];
+  projects: any[] = [];
+  involvedProjectIds: Set<number> = new Set();
+  currentUserId: number = 0;
 
   selectedProject: any = null;
   showModal: boolean = false;
-
   showActionMenu: boolean = false;
   projectForActions: any = null;
-  
+  showCommentsModal: boolean = false;
+  commentsForProject: any[] = [];
+  showAddCommentModal: boolean = false;
+  showUnlockPopup = false;
+  userCoins = 2000;
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.currentUserId = Number(localStorage.getItem('id'));
+    this.loadAllData();
+  }
+
+  loadAllData() {
+    forkJoin([
+      this.http.get<any[]>('http://localhost:8080/api/projets/allprojets'),
+      this.http.get<any[]>(`http://localhost:8080/api/projets/gestionnaire/${this.currentUserId}`),
+      this.http.get<any[]>(`http://localhost:8080/api/demandes/projets-acceptes/${this.currentUserId}`)
+    ]).subscribe({
+      next: ([allProjects, gestionnaireProjets, contributeurProjets]) => {
+        this.projects = allProjects;
+        gestionnaireProjets.forEach(p => this.involvedProjectIds.add(p.idProjet));
+        contributeurProjets.forEach(p => this.involvedProjectIds.add(p.idProjet));
+      },
+      error: (err) => console.error('Erreur lors du chargement des données', err)
+    });
+  }
+
+  isUserInvolved(projet: any): boolean {
+    return this.involvedProjectIds.has(projet.idProjet);
+  }
+
+  isProjectBlocked(projet: any): boolean {
+    return this.isUserInvolved(projet) || projet.statut === 'PAS_DEBUTER';
+  }
+
+  getBlockedReason(projet: any): string {
+    if (this.isUserInvolved(projet)) return 'Déjà impliqué';
+    if (projet.statut === 'PAS_DEBUTER') return 'Pas encore commencé';
+    return '';
+  }
+
+  getCoins(projet: any): number {
+    const statut = (projet.statut || '').toUpperCase();
+    if (statut === 'EN_COURS') return 0;
+    if (statut === 'PAS_DEBUTER') return 800;
+    if (statut === 'ANNULER') return 1500;
+    return 0;
+  }
 
   openPopupDetail(projet: any) {
-  this.selectedProject = projet;
-  this.showModal = true;
-  console.log('Projet sélectionné pour popup :', projet);
-}
+    if (this.isProjectBlocked(projet)) return;
+    this.selectedProject = projet;
+    this.showModal = true;
+  }
 
-
-  closePopup() {
-    this.showModal = false;
-    this.selectedProject = null;
+  onUnlockClick(projet: any) {
+    if (this.isProjectBlocked(projet)) return;
+    this.selectedProject = projet;
+    this.showUnlockPopup = true;
   }
 
   onMenuClick(projet: any) {
-  if (this.projectForActions === projet) {
-    // Fermer si déjà ouvert
-    this.projectForActions = null;
-    this.showActionMenu = false;
-  } else {
-    this.projectForActions = projet;
-    this.showActionMenu = true;
+    if (this.projectForActions === projet) {
+      this.projectForActions = null;
+      this.showActionMenu = false;
+    } else {
+      this.projectForActions = projet;
+      this.showActionMenu = true;
+    }
   }
-}
 
   onCloseActions() {
     this.showActionMenu = false;
     this.projectForActions = null;
   }
 
-
-
-
-  showCommentsModal: boolean = false;
-  commentsForProject: any[] = [];
+  closePopup() {
+    this.showModal = false;
+    this.selectedProject = null;
+  }
 
   onViewComments(projet: any) {
     this.commentsForProject = [
@@ -78,16 +122,7 @@ export class ListProjects {
         date: new Date('2025-07-31T18:45:00'),
         message: 'Cette idée est vraiment innovant système qui permet de faire recommandation',
       },
-      {
-        nom: 'Oumar Konaré',
-        date: new Date('2025-07-31T19:00:00'),
-        message: 'Cette idée n’est aussi innovante de nos jours cela n’as pas trop d’impact actuellement',
-      },
-      {
-        nom: 'Sidi Diallo',
-        date: new Date('2025-07-31T20:25:00'),
-        message: 'Je supporte cette idée car sa parait très important et c’est une solution d’actualité',
-      },
+      // ... autres commentaires
     ];
     this.showCommentsModal = true;
     this.onCloseActions();
@@ -97,8 +132,6 @@ export class ListProjects {
     this.showCommentsModal = false;
     this.commentsForProject = [];
   }
-
-  showAddCommentModal: boolean = false;
 
   onAddComment(projet: any) {
     this.selectedProject = projet;
@@ -112,26 +145,13 @@ export class ListProjects {
   }
 
   handleSendComment(commentaire: string) {
-    if (!this.commentsForProject) {
-      this.commentsForProject = [];
-    }
-
+    if (!this.commentsForProject) this.commentsForProject = [];
     this.commentsForProject.push({
       nom: 'Utilisateur anonyme',
       date: new Date(),
       message: commentaire,
     });
-
     this.closeAddCommentPopup();
-  }
-
-
-  showUnlockPopup = false;
-  userCoins = 2000; // Points actuels du joueur
-  
-  onUnlockClick(projet: any) {
-    this.selectedProject = projet;
-    this.showUnlockPopup = true;
   }
 
   closeUnlockPopup() {
@@ -142,48 +162,7 @@ export class ListProjects {
   onProjectUnlocked() {
     if (this.selectedProject) {
       this.selectedProject.debloque = true;
-      // Optionnel : mise à jour des points
       this.userCoins -= this.selectedProject.coin;
     }
   }
-
-
-    projects: any[] = [];
-  
-    constructor(private http: HttpClient) {}
-  
-   ngOnInit(): void {
-
-   this.getAllProjets();
-    
-  
-  }
-  
-  
-  
-  getAllProjets() {
-    this.http.get<any[]>('http://localhost:8080/api/projets/allprojets')
-      .subscribe({
-        next: (res) => {
-          this.projects = res;
-          console.log('Projets reçus :', res);
-          
-        },
-        error: (err) => {
-          console.error('Erreur lors du chargement des projets', err);
-        }
-      });
-  }
-
-
-
-  
-  
-  
- 
-
-
-
-
-
 }

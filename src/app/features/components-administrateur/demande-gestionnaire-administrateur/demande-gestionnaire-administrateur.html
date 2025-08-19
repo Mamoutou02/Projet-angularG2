@@ -1,67 +1,28 @@
 <div class="container">
     <div class="header">
-        <h1>La liste des demandes de Gestionnaires</h1>
+        <h1>La liste des demandes de Gestionnaires acceptées</h1>
     </div>
     <div class="card-grid">
-        <div class="card">
+        <!-- Boucle sur les demandes acceptées -->
+        <div class="card" *ngFor="let demande of AcceptedDemandes">
             <div class="card-header">
-                <span>Djeneba Haïdara</span>
-                <span class="date">16/08/2025</span>
+                <span>{{demande.contributeur?.nom}} {{demande.contributeur?.prenom}}</span>
+                <span class="date">{{demande.dateCreation}}</span>
             </div>
             <div class="card-body">
-                <h3>Titre de l'idée de projet :</h3>
+                <h3>Titre de l'idée de projet : {{demande.projet?.titre}}</h3>
                 <p>Motivation</p>
-                <p>J'aimerais gérer ce projet car j'en ai l'expérience et je suis technique dans ce domaine</p>
+                <p>{{demande.description}}</p>
             </div>
             <div class="card-footer">
-                <button class="btn btn-cancel">Annuler</button>
-                <button class="btn btn-validate">Valider</button>
+                 <button class="btn btn-cancel" (click)="annulerDemande(demande)">Annuler</button>
+                <button class="btn btn-validate" (click)="accepterDemande(demande)">Valider</button>
             </div>
         </div>
-        <div class="card">
-            <div class="card-header">
-                <span>Djeneba Haïdara</span>
-                <span class="date">16/08/2025</span>
-            </div>
-            <div class="card-body">
-                <h3>Titre de l'idée de projet :</h3>
-                <p>Motivation</p>
-                <p>J'aimerais gérer ce projet car j'en ai l'expérience et je suis technique dans ce domaine</p>
-            </div>
-            <div class="card-footer">
-                <button class="btn btn-cancel">Annuler</button>
-                <button class="btn btn-validate">Valider</button>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header">
-                <span>Djeneba Haïdara</span>
-                <span class="date">16/08/2025</span>
-            </div>
-            <div class="card-body">
-                <h3>Titre de l'idée de projet :</h3>
-                <p>Motivation</p>
-                <p>J'aimerais gérer ce projet car j'en ai l'expérience et je suis technique dans ce domaine</p>
-            </div>
-            <div class="card-footer">
-                <button class="btn btn-cancel">Annuler</button>
-                <button class="btn btn-validate">Valider</button>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header">
-                <span>Djeneba Haïdara</span>
-                <span class="date">16/08/2025</span>
-            </div>
-            <div class="card-body">
-                <h3>Titre de l'idée de projet :</h3>
-                <p>Motivation</p>
-                <p>J'aimerais gérer ce projet car j'en ai l'expérience et je suis technique dans ce domaine</p>
-            </div>
-            <div class="card-footer">
-                <button class="btn btn-cancel">Annuler</button>
-                <button class="btn btn-validate">Valider</button>
-            </div>
+        
+        <!-- Message si aucune demande acceptée -->
+        <div *ngIf="AcceptedDemandes.length === 0" class="no-results">
+            Aucune demande de gestionnaire acceptée pour le moment.
         </div>
     </div>
 </div>

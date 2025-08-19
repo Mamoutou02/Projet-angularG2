@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CommonModule, NgClass} from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 interface Contribution {
   projet: string;
@@ -22,42 +23,26 @@ interface Contribution {
 })
 export class EnsembleContributionsContributeurs implements OnInit {
 
-  contributions: Contribution[] = [];
+  contributionss: any[] = [];
 
   ngOnInit() {
-    // MOCK pour développement
-    //  Plus tard : appel API ici
-    this.contributions = [
-      {
-        projet: "CollabDev",
-        date: "15 Jul 2023",
-        fonctionnalite: "Fonctionnalités",
-        description: "Intégration de l'authentification OAuth avec GitHub pour synchroniser les issues et pull requests.",
-        statut: "Réglée",
-        active: true
-      },
-      {
-        projet: "CollabDev",
-        date: "15 Jul 2021",
-        fonctionnalite: "Fonctionnalités",
-        description: "Intégration de l'authentification OAuth avec GitHub pour synchroniser les issues et pull requests.",
-        statut: "Réglée"
-      },
-      {
-        projet: "CollabDev",
-        date: "15 Jul 2019",
-        fonctionnalite: "Fonctionnalités",
-        description: "Intégration de l'authentification OAuth avec GitHub pour synchroniser les issues et pull requests.",
-        statut: "Réglée"
-      },
-      {
-        projet: "CollabDev",
-        date: "15 Jul 2022",
-        fonctionnalite: "Fonctionnalités",
-        description: "Intégration de l'authentification OAuth avec GitHub pour synchroniser les issues et pull requests.",
-        statut: "Réglée"
-      }
-    ];
+    
+    this.getContributionsParProjet();
+  }
+
+  constructor(private http: HttpClient) {}
+
+  
+  getContributionsParProjet() {
+    const idContributeur = Number(localStorage.getItem('id'));
+    this.http.get<any[]>(`http://localhost:8080/api/contributions/contributeur/${idContributeur}`)
+      .subscribe({
+        next: (response) => {
+          this.contributionss = response;
+          console.log('Contributions:', this.contributionss);
+        },
+        error: (error) => console.error('Erreur:', error)
+      });
   }
 
 }

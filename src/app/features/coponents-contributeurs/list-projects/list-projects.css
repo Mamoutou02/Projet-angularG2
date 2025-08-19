@@ -1,157 +1,264 @@
-/* --- CONTAINER --- */
+/* Container principal */
 .container {
-  padding: 20px;
-  font-family: 'Inter', sans-serif;
-  max-width: 1300px;
-  margin: auto;
-  position: relative;
+  max-width: 1100px;
+  margin: 32px auto;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(18, 22, 30, 0.06);
+  font-family: "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #1f2937;
 }
 
-/* --- BOUTON RETOUR --- */
+/* Bouton retour */
 .btn-retour {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  background: linear-gradient(135deg, #3b82f6, #3b82f6);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: linear-gradient(180deg,#eef2ff 0%,#e0e7ff 100%);
+  color: #1e3a8a;
   border: none;
-  padding: 10px 18px;
-  color: white;
-  font-weight: 500;
-  border-radius: 12px;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 600;
   font-size: 14px;
-  box-shadow: 0 4px 20px rgba(53, 33, 238, 0.4);
-  transition: all 0.3s ease;
+  text-decoration: none;
+  transition: transform 0.14s ease, box-shadow 0.14s ease;
+  margin-bottom: 18px;
 }
 .btn-retour:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 6px 24px rgba(34, 10, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(30, 58, 138, 0.12);
 }
 
-/* --- TITRE --- */
+/* Titre */
 .title {
-  text-align: center;
-  font-size: 28px;
+  margin: 6px 0 20px;
+  font-size: 22px;
   font-weight: 700;
-  margin-top: 60px;
-  margin-bottom: 30px;
-  background: linear-gradient(90deg, #3b82f6, #1500fd);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #0f172a;
 }
 
-/* --- TABLEAU STYLE GLASSMORPHISM --- */
+/* Table */
 table {
   width: 100%;
   border-collapse: collapse;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-  border-radius: 14px;
+  background: transparent;
   overflow: hidden;
+  border-radius: 10px;
 }
 
-/* EN-TÊTE */
-th {
-  background: rgba(245, 245, 255, 0.9);
-  color: #3b82f6;
-  font-weight: 600;
-  padding: 16px;
-  text-transform: uppercase;
+/* En-tête */
+thead th {
+  text-align: left;
   font-size: 13px;
+  color: #475569;
+  padding: 14px 12px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e6edf3;
+  font-weight: 700;
 }
 
-/* CELLULES */
-td {
-  padding: 14px 16px;
-  padding-left: 100px; /* décalage à droite */
-  font-size: 14px;
-  color: #444;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-}
-
-/* SURVOL LIGNE */
+/* Lignes */
 tbody tr {
-  transition: all 0.3s ease;
+  transition: background 0.12s ease;
+  border-bottom: 1px solid #eef2f7;
+  position: relative;
 }
 tbody tr:hover {
-  background: rgba(106, 90, 249, 0.08);
-  transform: scale(1.002);
+  background: rgba(15, 23, 42, 0.03);
 }
 
-/* --- BADGE STATUT --- */
-.statut {
-  display: inline-block;
-  background: linear-gradient(135deg, #e6e3fa, #d8d4ff);
-  color: #3b82f6;
-  padding: 6px 12px;
-  border-radius: 20px;
+/* Lignes désactivées */
+.disabled-row {
+  opacity: 0.7;
+  background-color: #f8f9fa;
+  pointer-events: none;
+}
+.disabled-row::after {
+  content: attr(data-disabled-reason);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
   font-size: 12px;
+  z-index: 1;
+}
+
+/* Cellules */
+td {
+  padding: 14px 12px;
+  font-size: 14px;
+  vertical-align: middle;
+  color: #0f172a;
+  position: relative;
+}
+
+/* Colonnes spécifiques */
+td:first-child {
+  width: 48px;
   font-weight: 600;
-  letter-spacing: 0.3px;
+  color: #334155;
+}
+td:nth-child(2) {
+  color: #0b1220;
+  font-weight: 600;
+}
+td:nth-child(4) {
+  width: 90px;
+  font-weight: 700;
+  color: #111827;
 }
 
-/* --- ICONES --- */
-.icon-lock,
-.icon-eye,
-.icon-menu {
+/* Statuts */
+.statut {
+  text-transform: capitalize;
+  font-weight: 600;
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+.statut-en-cours {
+  background-color: #fff3cd;
+  color: #856404;
+}
+.statut-termine {
+  background-color: #d4edda;
+  color: #155724;
+}
+.statut-annule {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+.statut-pas-debute {
+  background-color: #e2e8f0;
+  color: #4a5568;
+}
+
+/* Icônes */
+.icon-lock, .icon-eye, .icon-menu {
   cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.icon-lock {
-  color: #3b82f6;
   font-size: 18px;
+  transition: all 0.12s ease;
+  position: relative;
+  z-index: 2;
+}
+.icon-lock {
+  color: #475569;
 }
 .icon-lock:hover {
-  transform: scale(1.15);
-  color: #3b82f6;
+  color: #0f172a;
+  transform: translateY(-2px);
+}
+.disabled-icon {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
-.icon-eye {
-  color: #333;
-  font-size: 17px;
-}
-.icon-eye:hover {
-  color: #3b82f6;
-  transform: scale(1.1);
-}
-
-.icon-menu {
-  color: #555;
-  font-size: 17px;
-}
-.icon-menu:hover {
-  color: #3b82f6;
-  transform: rotate(90deg);
-}
-
+/* Actions */
 .icon-actions {
   display: flex;
+  gap: 10px;
   align-items: center;
-  gap: 12px;
+}
+.icon-eye, .icon-menu {
+  color: #475569;
+  padding: 6px;
+  border-radius: 6px;
+}
+.icon-eye:hover {
+  background: rgba(99,102,241,0.08);
+  color: #4f46e5;
+  transform: translateY(-2px);
+}
+.icon-menu:hover {
+  background: rgba(15, 23, 42, 0.04);
+  color: #0f172a;
 }
 
-/* --- RESPONSIVE DESIGN --- */
+/* Message aucun projet */
+.no-projects {
+  text-align: center;
+  padding: 20px;
+  color: #6c757d;
+  font-style: italic;
+}
+
+/* Tooltip */
+[title] {
+  position: relative;
+}
+[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 100;
+}
+
+/* Responsive */
 @media (max-width: 900px) {
-  table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
+  .container {
+    margin: 18px;
+    padding: 18px;
   }
-}
-
-@media (max-width: 600px) {
-  .title {
-    font-size: 22px;
+  thead th {
+    font-size: 12px;
+    padding: 10px 8px;
   }
-  th, td {
-    padding-left: 20px;
-    padding-right: 10px;
+  td {
+    padding: 10px 8px;
     font-size: 13px;
   }
-  .btn-retour {
-    padding: 8px 12px;
-    font-size: 12px;
+  .title {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 520px) {
+  table {
+    display: block;
+  }
+  thead {
+    display: none;
+  }
+  tbody tr {
+    display: block;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 6px 18px rgba(2,6,23,0.04);
+    padding: 12px;
+  }
+  tbody tr td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 6px;
+  }
+  tbody tr td:nth-child(2) {
+    width: 60%;
+    padding-left: 0;
+  }
+  .icon-actions {
+    justify-content: flex-end;
+  }
+  
+  .disabled-row::after {
+    font-size: 10px;
+    padding: 2px 6px;
   }
 }

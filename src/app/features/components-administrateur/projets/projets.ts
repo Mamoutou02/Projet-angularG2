@@ -10,15 +10,16 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './projets.html',
   styleUrls: ['./projets.css'] 
 })
-export class Projets implements OnInit {
+export class Projets {
 
   projets: any[] = [];
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    const contributeurId = 2;  
-    const apiUrl = `http://localhost:8080/api/projets/recupère/id_contributeur/${contributeurId}`;
+    const contributeurId  = localStorage.getItem('id');
+    const contributeurIdNumber = Number(contributeurId);
+    const apiUrl = `http://localhost:8080/api/projets/recupère/id_contributeur/${contributeurIdNumber}`;
     this.http.get<any[]>(apiUrl).subscribe({
       next: (res) => {
         this.projets = res;
@@ -31,6 +32,8 @@ export class Projets implements OnInit {
 
     this.getAllProjets();
   }
+
+
 
 
 deleteProject(idProjet: number, idAdmin: number) {
@@ -53,18 +56,23 @@ deleteProject(idProjet: number, idAdmin: number) {
 
 
 
-getAllProjets() {
-  this.http.get<any[]>('http://localhost:8080/api/projets')
-    .subscribe({
-      next: (res) => {
-        this.projets = res;
-        console.log('Projets reçus :', res);
-      },
-      error: (err) => {
-        console.error('Erreur lors du chargement des projets', err);
-      }
-    });
-}
+ 
+  
+  
+  
+  getAllProjets() {
+    this.http.get<any[]>('http://localhost:8080/api/projets/allprojets')
+      .subscribe({
+        next: (res) => {
+          this.projets = res;
+          console.log('Projets reçus :', res);
+          
+        },
+        error: (err) => {
+          console.error('Erreur lors du chargement des projets', err);
+        }
+      });
+  }
 
 
 }
