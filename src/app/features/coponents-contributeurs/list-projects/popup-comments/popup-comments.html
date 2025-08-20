@@ -1,0 +1,19 @@
+<!-- popup-comments.html -->
+<div class="popup-comments">
+  <div class="popup-content">
+    <div class="popup-header">
+      <button class="close-button" (click)="closePopup()">X</button>
+    </div>
+
+    <div class="comment-card" *ngFor="let comment of comments">
+      <div class="comment-header">
+        <span class="author">{{ comment.nom }}</span>
+        <span class="date">{{ comment.date | date: 'HH:mm dd MMMM yyyy' }}</span>
+      </div>
+      <div class="comment-body">
+        {{ comment.message }}
+      </div>
+    </div>
+  </div>
+</div>
+

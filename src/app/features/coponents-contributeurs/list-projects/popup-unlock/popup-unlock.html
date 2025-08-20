@@ -1,0 +1,35 @@
+<div class="popup-overlay">
+  <div class="popup-content">
+    <!-- Étape confirmation -->
+    <ng-container *ngIf="step === 'confirm'">
+      <p class="popup-text">
+        Voulez-vous vraiment débloquer le projet <b>{{ projectTitle }}</b> ?
+      </p>
+      <div class="popup-buttons">
+        <button class="btn-yes" (click)="onConfirmUnlock()">Oui</button>
+        <button class="btn-cancel" (click)="onClose()">Annuler</button>
+      </div>
+    </ng-container>
+
+    <!-- Étape succès -->
+    <ng-container *ngIf="step === 'success'">
+      <p class="popup-text">Projet débloqué avec succès</p>
+      <div class="popup-icon success"></div>
+      <button class="btn-close" (click)="onClose()">Fermer</button>
+    </ng-container>
+
+    <!-- Étape pas assez de coins -->
+    <ng-container *ngIf="step === 'not-enough-coins'">
+      <p class="popup-text">Vous n’avez pas assez de points pour débloquer ce projet</p>
+      <div class="popup-icon error"></div>
+      <button class="btn-close" (click)="onClose()">Fermer</button>
+    </ng-container>
+
+    <!-- Étape pas accès -->
+    <ng-container *ngIf="step === 'no-access'">
+      <p class="popup-text">Vous n’avez pas accès aux projets de ce niveau</p>
+      <div class="popup-icon error"></div>
+      <button class="btn-close" (click)="onClose()">Fermer</button>
+    </ng-container>
+  </div>
+</div>

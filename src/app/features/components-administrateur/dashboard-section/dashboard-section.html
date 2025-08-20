@@ -1,0 +1,33 @@
+<!-- Dashboard Section -->
+<section id="dashboard" class="content-section active">
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <fa-icon [icon]="faCoins"></fa-icon>
+      </div>
+      <div class="stat-info">
+        <h3>Total Coins</h3>
+        <p class="stat-number" id="total-coins">{{coins.length}}</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">
+        <fa-icon [icon]="faMedal"></fa-icon>
+      </div>
+      <div class="stat-info">
+        <h3>Total Badges</h3>
+        <p class="stat-number" id="total-badges">{{badges.length}}</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">
+        <fa-icon [icon]="faUserGroup"></fa-icon>
+      </div>
+      <div class="stat-info">
+        <h3>Utilisateurs Actifs</h3>
+        <p class="stat-number">{{contributeurs.length}}</p>
+      </div>
+    </div>
+  </div>
+</section>
+

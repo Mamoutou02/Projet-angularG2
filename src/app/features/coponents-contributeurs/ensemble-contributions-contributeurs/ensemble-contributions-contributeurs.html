@@ -1,0 +1,16 @@
+<div class="tile-grid">
+  <div class="tile" *ngFor="let c of contributionss">
+    <div class="tile-header">
+      <h3 class="tile-title">{{ c.titre }}</h3>
+      <span class="tile-date">{{ c.date }}</span>
+    </div>
+    <div class="tile-body">
+      <h4 class="tile-subtitle">{{ c.fonctionnalite }}</h4>
+      <p class="tile-description">{{ c.contenu }}</p>
+      <div class="tile-status">
+        <span class="status-label">Statut :</span>
+        <span class="status-badge">{{ c.statutC }}</span>
+      </div>
+    </div>
+  </div>
+</div>

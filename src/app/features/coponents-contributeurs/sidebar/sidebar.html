@@ -1,0 +1,64 @@
+<aside class="sidebar">
+
+  <div class="sidebar-header">
+    <h2><fa-icon [icon]="githubIcon"></fa-icon> CollabDev</h2>
+  </div>
+
+  <div class="profile">
+    <!-- <fa-icon [icon]="faUserCircle" class="avatar"></fa-icon> -->
+     <img src="/assets/userFig.jpg" alt="" class="avatar">
+
+    <div class="role">{{nom}} {{prenom}}</div>
+    <div class="xp-bar">
+      <div class="xp-fill"></div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <ul>
+      <li>
+        <a routerLink="/TableauContributeur" 
+           routerLinkActive="active" 
+           [routerLinkActiveOptions]="{ exact: true }" 
+           class="nav-link" data-section="dashboard">
+          <fa-icon [icon]="faHome"></fa-icon> Tableau de bord
+        </a>
+      </li>
+      <li>
+        <a routerLink="/ProjetsContributeurs" 
+           routerLinkActive="active" 
+           class="nav-link" data-section="ideeProjet">
+          <fa-icon [icon]="githubIcon"></fa-icon> Mes projets
+        </a>
+      </li>
+      <li>
+        <a routerLink="/ideeProjetContributeur" 
+           routerLinkActive="active" 
+           class="nav-link" data-section="Parametrerbadges">
+          <fa-icon [icon]="faLightbulb"></fa-icon> Idee de projet
+        </a>
+      </li>
+      <li>
+        <a routerLink="/Ensemble" 
+           routerLinkActive="active" 
+           class="nav-link" data-section="EnsembleContributionsContributeurs">
+          <fa-icon [icon]="githubIcon" flip="horizontal"></fa-icon> Contributions
+        </a>
+      </li>
+      <li>
+        <a routerLink="/Recompenses" 
+           routerLinkActive="active" 
+           class="nav-link" data-section="Recompenses">
+          <fa-icon [icon]="faReward"></fa-icon> Récompenses
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="btn-center">
+    <button class="btn btn-logout" id="logout-btn" routerLink="/projects">
+      <span>Voir tous les projets</span>
+    </button>
+  </div>
+
+</aside>

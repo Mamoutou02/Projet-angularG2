@@ -1,0 +1,45 @@
+.comment-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.comment {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+}
+
+.comment h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+}
+
+.comment .date {
+  color: #666;
+  font-size: 0.9em;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.comment p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 480px) {
+  .comment-container {
+    padding: 10px;
+  }
+  .comment {
+    padding: 10px;
+  }
+  .comment h3 {
+    font-size: 1em;
+  }
+  .comment .date {
+    font-size: 0.8em;
+  }
+}

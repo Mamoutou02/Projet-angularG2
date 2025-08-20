@@ -1,0 +1,39 @@
+<!-- stats-cards.html -->
+<div class="cards-container">
+
+  <div class="card-frame white-front">
+    <div class="frame white-frame"></div>
+    <div class="frame blue-frame"></div>
+    <div class="card-content">
+      <div class="icon-bleue"><fa-icon [icon]="faProjectDiagram"></fa-icon></div>
+      <div class="number">{{ projetsActifs.length }}</div>
+      <div class="title">Projets actifs</div>
+      <div class="subtitle blue-text">+2 Cette semaine</div>
+    </div>
+  </div>
+
+
+
+  <div class="card-frame white-front">
+    <div class="frame white-frame"></div>
+    <div class="frame blue-frame"></div>
+    <div class="card-content">
+      <div class="icon-bleue"><fa-icon [icon]="faTrophy"></fa-icon></div>
+      <div class="number">{{badges.length}}</div>
+      <div class="title">Badges</div>
+      <div class="subtitle"></div>
+    </div>
+  </div>
+
+  <div class="card-frame blue-front">
+    <div class="frame blue-frame"></div>
+    <div class="frame white-frame"></div>
+    <div class="card-content white-text">
+      <div class="icon"><fa-icon [icon]="faDatabase"></fa-icon></div>
+      <div class="title">Total des Projets</div>
+      <div class="subtitle">{{projets.length}}</div>
+    </div>
+  </div>
+
+</div>
+

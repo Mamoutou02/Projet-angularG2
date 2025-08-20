@@ -1,0 +1,130 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #d3d3d3; /* Fond gris clair comme dans l'image */
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.comment-frame {
+  background-color: #ffffff;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  width: 400px; /* Largeur fixe pour correspondre à la taille de l'image */
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  position: relative;
+  max-width: 100%; /* Limite la largeur maximale à 100% du conteneur parent */
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+h2 {
+  color: #333;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.close-btn {
+  background-color: #007BFF; /* Bouton de fermeture bleu */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.close-btn:hover {
+  background-color: #0056b3;
+}
+
+.comment-input {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  resize: none; /* Empêche le redimensionnement manuel */
+  box-sizing: border-box;
+  margin-bottom: 15px;
+}
+
+.submit-btn {
+  background-color: #d8bfd8; /* Violet clair comme dans l'image */
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Rend le bouton circulaire */
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+}
+
+.submit-btn:hover {
+  background-color: #c0a0c0; /* Violet légèrement plus foncé au survol */
+}
+
+/* Responsive pour tablettes (max-width: 768px) */
+@media screen and (max-width: 768px) {
+  .comment-frame {
+    width: 350px;
+    padding: 12px;
+  }
+  .close-btn {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+  .comment-input {
+    height: 90px;
+    font-size: 13px;
+  }
+  .submit-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+    bottom: 12px;
+    right: 12px;
+  }
+}
+
+/* Responsive pour téléphones (max-width: 480px) */
+@media screen and (max-width: 480px) {
+  .comment-frame {
+    width: 300px;
+    padding: 10px;
+  }
+  .close-btn {
+    padding: 3px 6px;
+    font-size: 10px;
+  }
+  .comment-input {
+    height: 80px;
+    font-size: 12px;
+  }
+  .submit-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+    bottom: 10px;
+    right: 10px;
+  }
+}

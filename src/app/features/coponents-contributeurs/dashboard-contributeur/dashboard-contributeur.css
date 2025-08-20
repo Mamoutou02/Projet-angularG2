@@ -1,0 +1,6 @@
+/* Main Content */
+.main-content {
+  flex: 1;
+  margin-left: 250px;
+  background-color: #f8f9fa;
+}

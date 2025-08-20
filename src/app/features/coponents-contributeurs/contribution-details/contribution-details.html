@@ -1,0 +1,78 @@
+<div class="modal">
+  <div class="modal-header">
+    <div class="header-content">
+      <div class="icon-circle" [style.backgroundColor]="getStatusColor(contributionData?.status)">
+        <i class="fa {{contributionData?.icon}}"></i>
+      </div>
+      <div>
+        <h1>{{ contributionData?.title }}</h1>
+        <div class="status-badge {{contributionData?.status}}">
+          <i class="fa {{getStatusIcon(contributionData?.status)}}"></i>
+          {{ contributionData?.statusText }}
+        </div>
+      </div>
+    </div>
+    <button class="close-btn" (click)="goBack()">
+      <i class="fa fa-times"></i>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="info-grid">
+      <div class="info-item">
+        <i class="fa fa-calendar"></i>
+        <span>Date : {{ contributionData?.date }}</span>
+      </div>
+      <div class="info-item">
+        <i class="fa fa-user"></i>
+        <span>Auteur : {{ contributionData?.auteur }}</span>
+      </div>
+    </div>
+
+    <div class="description-section">
+      <h2><i class="fa fa-align-left"></i> Description</h2>
+      <p>{{ contributionData?.description }}</p>
+
+       <div *ngIf="contributionData && contributionData.title.includes('AUTHENTIFICATION')">
+        <p>Technologies utilisées :</p>
+        <ul class="tech-list">
+          <li><i class="fa fa-check"></i> Chiffrement AES-256</li>
+          <li><i class="fa fa-check"></i> Tokens JWT</li>
+          <li><i class="fa fa-check"></i> Protection CSRF</li>
+        </ul>
+      </div>
+
+ <div *ngIf="contributionData && contributionData.title.includes('RBAC')">
+        <p>Rôles implémentés :</p>
+        <div class="role-table">
+          <div class="role-header">
+            <span>Rôle</span>
+            <span>Permissions</span>
+          </div>
+          <div class="role-row">
+            <span>Admin</span>
+            <span>CRUD complet</span>
+          </div>
+          <div class="role-row">
+            <span>Éditeur</span>
+            <span>CRU (sans suppression)</span>
+          </div>
+          <div class="role-row">
+            <span>Lecteur</span>
+            <span>Lecture seule</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="additional-info" *ngIf="contributionData?.status === 'rejected'">
+      <h3><i class="fa fa-info-circle"></i> Commentaires</h3>
+      <p>Cette contribution nécessite des modifications pour respecter nos standards de sécurité.</p>
+    </div>
+
+    <div class="review-notes" *ngIf="contributionData?.status === 'pending'">
+      <h3><i class="fa fa-clipboard-check"></i> En revue</h3>
+      <p>En cours d'évaluation par l'équipe technique.</p>
+    </div>
+  </div>
+</div>

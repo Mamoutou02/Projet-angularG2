@@ -1,0 +1,16 @@
+<div class="popup-add-comment">
+  <div class="popup-content">
+    <div class="popup-header">
+      <button class="close-button" (click)="fermer()">X</button>
+    </div>
+    <h3>Ajouter un commentaire</h3>
+    <textarea
+      [(ngModel)]="commentaire"
+      placeholder="Écrivez votre commentaire ici..."
+    ></textarea>
+    <div class="actions">
+      <button class="btn-cancel" (click)="fermer()">Annuler</button>
+      <button class="btn-send" (click)="envoyer()">Envoyer</button>
+    </div>
+  </div>
+</div>

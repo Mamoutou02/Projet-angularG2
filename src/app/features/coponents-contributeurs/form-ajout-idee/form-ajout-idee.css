@@ -1,0 +1,278 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.modal {
+  background-color: #fff;
+  border: 2px solid #6c7ddb;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  background-color: #6c7ddb;
+  color: #fff;
+  padding: 15px 20px;
+  border-bottom: 2px solid #6c7ddb;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.modal-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.subtitle {
+  text-align: center;
+  color: #718096;
+  margin: 0 0 20px 0;
+  font-size: 0.95rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #2d3748;
+  font-size: 0.95rem;
+}
+
+.form-group input[type="text"],
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 5px;
+  font-size: 1em;
+  box-sizing: border-box;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #6c7ddb;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin: 25px 0;
+}
+
+.options-group {
+  width: 100%;
+}
+
+.options-group > label {
+  display: block;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.radio-item {
+  display: flex;
+  align-items: flex-start;
+}
+
+.radio-item input[type="radio"] {
+  margin-top: 3px;
+  margin-right: 10px;
+}
+
+.radio-item-content {
+  flex: 1;
+}
+
+.radio-item-content label {
+  display: block;
+  font-weight: 500;
+  color: #4a5568;
+  margin-bottom: 3px;
+  cursor: pointer;
+}
+
+.radio-item-content p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #718096;
+  line-height: 1.4;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.checkbox-group input[type="checkbox"] {
+  margin-top: 3px;
+}
+
+.checkbox-group label {
+  font-weight: 500;
+  color: #4a5568;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  padding: 15px 20px;
+  background-color: #f7fafc;
+  border-top: 1px solid #e2e8f0;
+  flex-shrink: 0;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+
+.btn-annuler {
+  background-color: #e2e8f0;
+  color: #4a5568;
+}
+
+.btn-annuler:hover {
+  background-color: #cbd5e0;
+}
+
+.btn-soumettre {
+  background-color: #6c7ddb;
+  color: #fff;
+}
+
+
+
+.btn-soumettre:hover {
+  background-color: #5a6bc7;
+}
+
+/* Media Queries pour la responsivité */
+@media (min-width: 768px) {
+  .options-container {
+    flex-direction: row;
+  }
+  
+  .options-group {
+    width: 50%;
+  }
+}
+
+@media (max-width: 576px) {
+  .modal-container {
+    padding: 10px;
+  }
+  
+  .modal {
+    max-height: 95vh;
+  }
+  
+  .modal-header h2 {
+    font-size: 1.3rem;
+  }
+  
+  .modal-body {
+    padding: 15px;
+  overflow-y: auto;
+  }
+  
+  .modal-footer {
+    flex-direction: column;
+    gap: 10px;
+  padding: 15px;
+  }
+  
+  .btn-action {
+    width: 100%;
+    padding: 12px;
+  }
+  
+  .options-container {
+    gap: 20px;
+  }
+}
+
+/* Améliorations d'accessibilité */
+input:focus-visible,
+textarea:focus-visible,
+button:focus-visible {
+  outline: 2px solid #6c7ddb;
+  outline-offset: 2px;
+}
+
+/* Animation pour l'apparition de la modal */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal {
+  animation: modalFadeIn 0.3s ease-out;
+}

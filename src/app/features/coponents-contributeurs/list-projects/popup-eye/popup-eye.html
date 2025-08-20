@@ -1,0 +1,47 @@
+<div class="modal-overlay">
+  <div class="modal">
+    <button class="close-button" (click)="fermerPopup()">×</button>
+
+    <h2 class="modal-title">{{ titreProjet }}</h2>
+    <hr class="divider" />
+
+    <p><strong>Niveau :</strong> {{ niveau }}</p>
+
+    <h3>Faire une demande de contribution</h3>
+
+    <form (ngSubmit)="onSubmit()" class="demande-form">
+  <div class="form-group">
+    <label for="type">Type :</label>
+    <select id="type" name="type" required [(ngModel)]="demandeForm.type_demande_participation">
+      <option value="" disabled selected>Choisir un type</option>
+
+      <!-- Affiche seulement si c'est un projet -->
+      <option *ngIf="projetId" value="CONTRIBUTEUR">Contributeur</option>
+
+      <!-- Affiche seulement si c'est une idée de projet -->
+      <option *ngIf="ideeProjetId" value="GESTIONNAIRE">Gestionnaire</option>
+    </select>
+  </div>
+
+
+
+      <div class="form-group">
+        <label for="description">Description :</label>
+        <textarea id="description" name="description" rows="4" required [(ngModel)]="demandeForm.description"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="datedemande">Date :</label>
+        <input type="text" id="datedemande" name="datedemande" [value]="demandeForm.datedemande | date:'short'" readonly />
+      </div>
+
+
+      <button type="submit" class="submit-button">Envoyer la demande</button>
+    </form>
+
+    <div class="project-description">
+      <p><strong>Description du projet :</strong></p>
+      <p>{{ description }}</p>
+    </div>
+  </div>
+</div>

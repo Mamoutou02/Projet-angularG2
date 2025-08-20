@@ -1,0 +1,7 @@
+<div class="detail-container" *ngIf="projet">
+  <h3>Détails du projet : {{ projet.nom }}</h3>
+  <p><strong>ID :</strong> {{ projet.id }}</p>
+  <p><strong>Description :</strong> {{ projet.description || 'Aucune description' }}</p>
+  <p><strong>Date de création :</strong> {{ projet.dateCreation | date }}</p>
+  <p><strong>Niveau :</strong> {{ projet.niveau }}</p>
+</div>

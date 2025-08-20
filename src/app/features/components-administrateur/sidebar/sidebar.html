@@ -1,0 +1,73 @@
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <img src="assets/image.png" alt="" id="img">
+    <h2> Admin Panel</h2>
+  </div>
+  <nav class="sidebar-nav">
+    <ul>
+      <li>
+        <a 
+          routerLink="/AdminDashboard" 
+          routerLinkActive="active" 
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-link"
+          data-section="dashboard"
+        >
+          <fa-icon [icon]="faHome"></fa-icon> Tableau de bord 
+        </a>
+      </li>
+      <li>
+        <a 
+          routerLink="/ideeProjet" 
+          routerLinkActive="active" 
+          class="nav-link"
+          data-section="ideeProjet"
+        >
+          <fa-icon [icon]="faLightbulb"></fa-icon> Idées de Projets
+        </a>
+      </li>
+      <li>
+        <a 
+          routerLink="/ParametrerBadge" 
+          routerLinkActive="active" 
+          class="nav-link"
+          data-section="Parametrerbadges"
+        >
+          <fa-icon [icon]="faMedal"></fa-icon> Paramétrer les Badges
+        </a>
+      </li>
+      <li>
+        <a 
+          routerLink="/Domaines" 
+          routerLinkActive="active" 
+          class="nav-link"
+          data-section="domaines"
+        >
+          <fa-icon [icon]="faLayerGroup"></fa-icon> Domaines
+        </a>
+      </li>
+      <li>
+        <a 
+          routerLink="/Projet" 
+          routerLinkActive="active" 
+          class="nav-link"
+          data-section="projets"
+        >
+          <fa-icon [icon]="faList"></fa-icon> Projets
+        </a>
+      </li>
+
+      <li>
+        <a 
+          routerLink="/Demandes-Gestionnaires" 
+          routerLinkActive="active" 
+          class="nav-link"
+          data-section="Demandes-Gestionnaires"
+        >
+          <fa-icon [icon]="faList"></fa-icon> Demandes-Gestionnaires
+        </a>
+      </li>
+     
+    </ul>
+  </nav>
+</aside>

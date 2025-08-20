@@ -1,0 +1,101 @@
+<div class="container">
+  <button class="btn-retour" [routerLink]="chemin">
+    <fa-icon [icon]="faArrowLeft"></fa-icon> Retour
+  </button>
+
+  <h2 class="title">La liste des Projets</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>N°</th>
+        <th>Titre</th>
+        <th>Statut</th>
+        <th>Coin</th>
+        <th>Débloqué</th>
+        <th>Voir</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let projet of projects; let i = index" 
+          [class.disabled-row]="isProjectBlocked(projet)"
+          [attr.data-disabled-reason]="getBlockedReason(projet)">
+        <td>{{ i + 1 }}</td>
+        <td>{{ projet.titre }}</td>
+        <td class="statut" [class.statut-en-cours]="projet.statut === 'EN_COURS'"
+                               [class.statut-termine]="projet.statut === 'TERMINE'"
+                               [class.statut-annule]="projet.statut === 'ANNULER'"
+                               [class.statut-pas-debute]="projet.statut === 'PAS_DEBUTER'">
+          {{ projet.statut }}
+        </td>
+        <td>
+          <fa-icon 
+            [icon]="isUserInvolved(projet) ? faLockOpen : faUnlock" 
+            class="icon-lock" 
+            (click)="DebloquerProjet(projet)"
+            [class.disabled-icon]="isProjectBlocked(projet)"
+            [title]="getBlockedReason(projet)">
+          </fa-icon>
+        </td>
+        <td>
+          <span class="icon-actions">
+            <fa-icon
+              [icon]="faEye"
+              class="icon-eye"
+              (click)="openPopupDetail(projet)"
+              [class.disabled-icon]="isProjectBlocked(projet)"
+            ></fa-icon>
+            <fa-icon
+              [icon]="faEllipsisV"
+              class="icon-menu"
+              (click)="onMenuClick(projet)"
+            ></fa-icon>
+          </span>
+
+          <app-popup-actions
+            *ngIf="showActionMenu && projectForActions === projet"
+            [project]="projet"
+            (viewComments)="onViewComments($event)"
+            (addComment)="onAddComment($event)"
+            (close)="onCloseActions()"
+          ></app-popup-actions>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="projects.length === 0" class="no-projects">
+    <p>Aucun projet disponible pour le moment.</p>
+  </div>
+
+  <app-popup-eye
+    *ngIf="showModal"
+    [titreProjet]="selectedProject?.titre"
+    [niveau]="selectedProject?.niveau"
+    [description]="selectedProject?.description"
+    [projetId]="selectedProject?.idProjet"
+    [ideeProjetId]="selectedProject?.ideeProjet?.idIdeeProjet"
+    (closeModal)="closePopup()">
+  </app-popup-eye>
+
+  <app-popup-comments
+    *ngIf="showCommentsModal"
+    [comments]="commentsForProject"
+    (close)="closeCommentsPopup()">
+  </app-popup-comments>
+
+  <app-popup-add-comment
+    *ngIf="showAddCommentModal"
+    (close)="closeAddCommentPopup()"
+    (sendComment)="handleSendComment($event)">
+  </app-popup-add-comment>
+
+  <app-popup-unlock
+    *ngIf="showUnlockPopup"
+    [projectTitle]="selectedProject?.titre"
+    [userCoins]="userCoins"
+    [hasAccessLevel]="selectedProject?.niveau === 'Débutant'"
+    (close)="closeUnlockPopup()"
+    (unlocked)="onProjectUnlocked()">
+  </app-popup-unlock>
+</div>

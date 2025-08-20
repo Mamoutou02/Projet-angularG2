@@ -1,0 +1,42 @@
+<!-- Conteneur principal -->
+<div class="recompense-container">
+
+  <!-- Titre section Récompenses -->
+  <div class="section-title">
+    <fa-icon [icon]="faTrophy"></fa-icon>
+    <h2>Mes Récompenses</h2>
+  </div>
+
+  <!-- Carte qui affiche le total de coins gagnés -->
+  <div class="coins-card">
+    <fa-icon [icon]="faCoins" class="coin-icon"></fa-icon>
+    <div>
+      <p class="label">Total Coins Gagné</p>
+      <p class="value">{{ this.totalCoins }}</p> <!-- Affiche la variable totalCoins -->
+    </div>
+  </div>
+
+  
+
+
+  <!-- Titre section Badges -->
+  <div class="section-title">
+    <fa-icon [icon]="faShield"></fa-icon>
+    <h2>Mes Badges</h2>
+  </div>
+
+
+
+
+    <div class="badge-list">
+    <div class="badge-card" *ngFor="let badge of badgess">
+      <img [src]="badge.image" [alt]="badge.nom" />
+      <div class="card-content">
+        <h2>{{badge.nom}}</h2>
+        <p>{{badge.description}}</p>
+        <div class="badge-number">{{badge.nombre}}</div>
+       
+      </div>
+    </div>
+  </div>
+  </div>

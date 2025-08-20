@@ -1,0 +1,8 @@
+<div class="comment-container">
+  <div class="comment" *ngFor="let commentaire of commentaires">
+    <h3>{{ commentaire.auteur }}</h3>
+    <span class="date">{{ commentaire.date }}</span>
+    <p>{{ commentaire.message }}</p>
+  </div>
+</div>
+

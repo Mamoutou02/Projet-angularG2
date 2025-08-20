@@ -1,0 +1,59 @@
+<div id="container">
+  <h1>{{ domaineEnEdition ? 'Modifier un domaine' : 'Ajouter un domaine' }}</h1>
+  <h3>Configurer les informations d'un {{ domaineEnEdition ? 'domaine à modifier' : 'nouveau domaine à ajouter' }}</h3>
+
+  <form id="domain-form" (ngSubmit)="onSubmit()" #domainForm="ngForm">
+    <div class="form-group">
+      <label for="titre">Titre du domaine</label>
+      <input
+        type="text"
+        id="titre"
+        name="titre"
+        [(ngModel)]="domaineFormData.titre"
+        required
+        #titre="ngModel"
+        placeholder="Entrez le titre du domaine"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="domaine">Description du domaine</label>
+      <textarea
+        id="domaine"
+        name="domaine"
+        [(ngModel)]="domaineFormData.description"
+        required
+        #description="ngModel"
+        placeholder="Entrez la description du domaine"
+        rows="3"
+      ></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button id="ajout" type="submit" [disabled]="domainForm.invalid" class="btn-primary">
+        {{ domaineEnEdition ? 'Valider la modification' : 'Ajouter' }}
+      </button>
+
+      <button *ngIf="domaineEnEdition" type="button" (click)="annulerEdition()" class="btn-secondary">
+        Annuler
+      </button>
+    </div>
+  </form>
+</div>
+
+<div id="cartes-container">
+  <div class="carte" *ngFor="let domaine of domaines">
+    <div class="carte-content">
+      <h3 class="carte-title">{{ domaine.titre }}</h3>
+      <p class="carte-description">{{ domaine.description }}</p>
+      <div class="carte-actions">
+        <button (click)="commencerEdition(domaine)" class="btn-edit">
+          <fa-icon [icon]="faPen"></fa-icon> Modifier
+        </button>
+        <button *ngIf="domaine.idDomaine" class="btn-delete" (click)="supprimerDomaine(domaine.idDomaine)">
+          <fa-icon [icon]="faTrash"></fa-icon> Supprimer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

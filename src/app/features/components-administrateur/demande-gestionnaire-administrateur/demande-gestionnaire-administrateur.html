@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="header">
+        <h1>La liste des demandes de Gestionnaires acceptées</h1>
+    </div>
+    <div class="card-grid">
+        <!-- Boucle sur les demandes acceptées -->
+        <div class="card" *ngFor="let demande of AcceptedDemandes">
+            <div class="card-header">
+                <span>{{demande.contributeur?.nom}} {{demande.contributeur?.prenom}}</span>
+                <span class="date">{{demande.dateCreation}}</span>
+            </div>
+            <div class="card-body">
+                <h3>Titre de l'idée de projet : {{demande.projet?.titre}}</h3>
+                <p>Motivation</p>
+                <p>{{demande.description}}</p>
+            </div>
+            <div class="card-footer">
+                 <button class="btn btn-cancel" (click)="annulerDemande(demande)">Annuler</button>
+                <button class="btn btn-validate" (click)="accepterDemande(demande)">Valider</button>
+            </div>
+        </div>
+        
+        <!-- Message si aucune demande acceptée -->
+        <div *ngIf="AcceptedDemandes.length === 0" class="no-results">
+            Aucune demande de gestionnaire acceptée pour le moment.
+        </div>
+    </div>
+</div>

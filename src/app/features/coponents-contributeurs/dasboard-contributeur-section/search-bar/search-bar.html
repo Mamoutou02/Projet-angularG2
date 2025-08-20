@@ -1,0 +1,16 @@
+<div class="search-container">
+  <fa-icon [icon]="faSearch"></fa-icon>
+  <input
+    type="text"
+    [(ngModel)]="searchText"
+    (input)="onSearch()"
+    (keydown.enter)="onSearchValidate()"
+    placeholder="Rechercher mes projets.."
+  />
+  <ul class="suggestions" *ngIf="filteredSuggestions.length > 0">
+    <li *ngFor="let suggestion of filteredSuggestions" (click)="selectSuggestion(suggestion)">
+      {{ suggestion }}
+    </li>
+  </ul>
+</div>
+

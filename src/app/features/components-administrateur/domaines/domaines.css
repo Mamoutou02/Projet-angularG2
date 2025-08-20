@@ -1,0 +1,247 @@
+/* Styles généraux */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  color: #212529;
+  line-height: 1.5;
+  padding: 20px;
+  margin: 0;
+}
+
+/* Conteneur du formulaire */
+#container {
+  background-color: #ffffff;
+  width: 90%;
+  max-width: 800px;
+  margin: 0 auto 30px;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
+  color: #2c3e50;
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+h3 {
+  color: #6c757d;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 25px;
+}
+
+/* Formulaire */
+#domain-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: #495057;
+  font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 10px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 44, 165, 0.25);
+}
+
+.form-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+/* Boutons principaux */
+.btn-primary {
+  background-color: #2417DF;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #1100ff;
+}
+
+.btn-primary:disabled {
+  background-color: #b8daff;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* Conteneur des cartes */
+#cartes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 0 15px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Cartes individuelles */
+.carte {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+}
+
+.carte:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.carte-content {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.carte-title {
+  color: #2c3e50;
+  font-size: 1.1rem;
+  margin: 0 0 12px 0;
+  font-weight: 600;
+}
+
+.carte-description {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin: 0 0 15px 0;
+  flex-grow: 1;
+}
+
+/* Boutons des cartes - Version optimisée */
+.carte-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.btn-edit, .btn-delete {
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  border-radius: 5px;
+  flex: 1;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-edit {
+  background-color: #2417DF;
+  color: white;
+}
+
+.btn-edit:hover {
+  background-color: rgb(0, 14, 211);
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #c82333;
+}
+
+/* Icônes */
+.btn-edit fa-icon, .btn-delete fa-icon {
+  margin-right: 6px;
+  font-size: 0.8rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #container {
+    width: 95%;
+    padding: 20px 15px;
+  }
+  
+  #cartes-container {
+    grid-template-columns: 1fr;
+    padding: 0 10px;
+  }
+  
+  .btn-edit, .btn-delete {
+    padding: 7px 10px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .btn-primary, .btn-secondary {
+    width: 100%;
+  }
+  
+  .carte-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .btn-edit, .btn-delete {
+    width: 100%;
+  }
+}

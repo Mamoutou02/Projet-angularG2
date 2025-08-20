@@ -1,0 +1,29 @@
+<div class="recent-projects-wrapper">
+
+  <h2 class="section-title">
+    <fa-icon [icon]="faFolderOpen"></fa-icon> Projets récents
+  </h2>
+
+  <div class="project-list-container" *ngIf="visibleProjects.length > 0">
+    <div class="project-card" *ngFor="let project of visibleProjects">
+      <div class="project-icon">
+        <fa-icon [icon]="project.icon"></fa-icon>
+      </div>
+
+      <div class="project-info">
+        <h3>{{ project.name }}</h3>
+        <p>{{ project.description }}</p>
+        <div class="progress-bar">
+          <div class="progress" [style.width.%]="project.completion"></div>
+        </div>
+        <span>{{ project.completion }}% complété</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="view-more-container" *ngIf="visibleProjects.length > 2">
+    <button class="view-more-btn" (click)="loadMore()">Voir tout ➔</button>
+  </div>
+
+</div>
+

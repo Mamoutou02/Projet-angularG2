@@ -1,0 +1,52 @@
+.notification-text {
+  margin: 1.5rem 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(90deg, #2417DF, #2417DF);
+  padding: 10px 20px;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  animation: fadeInDown 0.5s ease;
+  width: 50%;
+  margin-left: 25%;
+}
+
+.dashboard {
+  padding: 1rem;
+  background: #f7f7f9;
+  border-radius: 8px;
+}
+
+.parent-container {
+  display: flex;
+  justify-content: center; /* centre horizontalement */
+}
+
+
+p {
+  background-color: #2417DF; /* même couleur que le 3ème bouton */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  display: inline-block; /* empêche de prendre toute la largeur */
+  margin: 10px; /* espace autour */
+  font-size: 16px;
+}
+
+/* Animation d'apparition */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

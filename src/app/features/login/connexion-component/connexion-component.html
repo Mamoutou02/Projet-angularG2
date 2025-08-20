@@ -1,0 +1,30 @@
+<body>
+<div class="container">
+  <div class="image-section">
+    <img src="assets/T.png" alt="Image illustrative">
+    <div class="image-text">
+      <h3>Gagnez des récompenses et montez en compétences !</h3>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <img src="assets/image1.png" id="logo">
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" [(ngModel)]="formData.email" placeholder="Entrez votre email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" name="password" [(ngModel)]="formData.password" placeholder="Entrez votre mot de passe" required>
+      </div>
+
+      <button type="submit">Se connecter</button>
+
+      <p>Pas de compte?<span><a routerLink="/Inscription" id="ins">S'inscrire </a> </span></p>
+    </form>
+  </div>
+</div>
+</body>

@@ -1,0 +1,125 @@
+<div class="modal">
+  <div class="modal-header">
+    <h2 class="modal-title">Nouvelle Idée de Projet</h2>
+  </div>
+  <div class="modal-body">
+    <p class="modal-description">
+      Partager votre idée avec la communauté collabdev
+    </p>
+
+    <form (ngSubmit)="onSubmit()" class="project-form">
+      <div class="form-grid">
+        <!-- Colonne gauche -->
+        <div class="form-column">
+          <div class="form-group">
+            <label for="titre">Titre de l'idée de projet</label>
+            <input
+              type="text"
+              id="titre"
+              name="titre"
+              [(ngModel)]="nouveauProjet.titre"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="domaine">Domaine principal</label>
+            <select
+              id="domaine"
+              name="domaine"
+              [(ngModel)]="nouveauProjet.domaine"
+            >
+              <option value="" disabled selected></option>
+              <option value="mobile">Technologie</option>
+              <option value="web">Sante</option>
+              <option value="mobile">Education</option>
+              <option value="web">Agriculture</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Niveau de difficulté</label>
+            <div class="radio-group">
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="debutant"
+                  name="niveau"
+                  value="DEBUTANT"
+                  [(ngModel)]="nouveauProjet.niveau"
+                />
+                <label for="DEBUTANT">Débutant</label>
+              </div>
+
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="intermediaire"
+                  name="niveau"
+                  value="INTERMEDIAIRE"
+                  [(ngModel)]="nouveauProjet.niveau"
+                />
+                <label for="INTERMEDIAIRE">Intermédiaire</label>
+              </div>
+
+              <div class="radio-item">
+                <input
+                  type="radio"
+                  id="avance"
+                  name="niveau"
+                  value="AVANCE"
+                  [(ngModel)]="nouveauProjet.niveau"
+                />
+                <label for="AVANCE">Avancé</label>
+              </div>
+            </div>
+          </div>
+        </div> <!-- Fin colonne gauche -->
+
+        <!-- Colonne droite -->
+        <div class="form-column">
+          <div class="form-group">
+            <label for="description">Description détaillée</label>
+            <textarea
+              id="description"
+              name="description"
+              [(ngModel)]="nouveauProjet.description"
+            ></textarea>
+          </div>
+
+
+          <div class="options-group">
+            <label for="leguer">Léguer la gestion du projet</label>
+            <div class="checkbox-group">
+              <input
+                type="checkbox"
+                id="leguer"
+                name="leguer"
+                [(ngModel)]="nouveauProjet.leguer"
+              />
+              <label for="leguer">
+                Si activé, l'idée pourra être reprise par d'autres membres sans votre implication directe
+              </label>
+            </div>
+          </div>
+
+
+
+        </div> <!-- Fin colonne droite -->
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="annulerFormulaire()"
+        >
+          Annuler
+        </button>
+        <button type="submit" class="btn btn-primary">
+          Soumettre l'idée
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

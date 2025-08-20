@@ -1,0 +1,141 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f4f8;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  background-color: #fff;
+  border: 2px solid #a3b1c6;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+header {
+  background-color: #e0e9f1;
+  border-bottom: 2px solid #a3b1c6;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+}
+
+.nav-item {
+  color: #4a5568;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.nav-item.active {
+  background-color: #c7d1e3;
+  color: #2b395d;
+}
+
+.btn-retour {
+  background-color: #cbd5e0;
+  color: #2d3748;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.title {
+  color: #2b395d;
+  text-align: center;
+  font-size: 1.5em;
+  padding: 20px 0;
+  background-color: #f7fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.contribution-list {
+  padding: 10px 25px 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espace entre les cartes */
+}
+
+/* Style de la carte */
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #f9fbfd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+.card:hover {
+  background-color: #e6f0ff;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-weight: bold;
+  color: #2d3748;
+}
+
+.contribution-type {
+  color: #718096;
+  font-size: 0.9em;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.view-icon {
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  /* Ajoutez une icône d'œil ici, par exemple avec un background-image ou un SVG */
+}
+
+.btn-action {
+  padding: 8px 15px;
+  border-radius: 50px;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-valider {
+  background-color: #48bb78;
+}
+
+.btn-refuser {
+  background-color: #f56565;
+}
+
+
+.btn-validee {
+  background-color: gray;
+  cursor: not-allowed;
+}
+

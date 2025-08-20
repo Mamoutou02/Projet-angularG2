@@ -1,0 +1,125 @@
+.container {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Titre */
+.container h1 {
+  text-align: center;
+  font-weight: 700;
+  color: #2417DF;
+  margin-bottom: 25px;
+  font-size: 2rem;
+  letter-spacing: 1px;
+}
+
+/* Table */
+.data-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 12px; /* Espacement entre les lignes */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+}
+
+/* En-tête */
+.data-table thead tr {
+  background: #2417DF;
+  color: white;
+  text-align: left;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #2417DF;
+}
+
+.data-table thead th {
+  padding: 14px 20px;
+  user-select: none;
+}
+
+/* Corps de table */
+.data-table tbody tr {
+  background: #f9fafb;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+/* Effet survol */
+.data-table tbody tr:hover {
+  background: #e3f2fd;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 4, 226, 0.25);
+}
+
+/* Cellules */
+.data-table tbody td {
+  padding: 16px 20px;
+  color: #334155;
+  font-size: 0.95rem;
+  vertical-align: middle;
+}
+
+/* Bouton "Voir" */
+.detail-btn {
+  background-color: #2417DF;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s ease;
+}
+
+.detail-btn:hover {
+  background-color: #2417DF;
+}
+
+/* Message "Aucun projet trouvé" */
+.container p {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #64748b;
+  margin-top: 40px;
+  font-style: italic;
+}
+
+.btn-retour {
+  background-color: #2417DF;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: background 0.3s ease;
+}
+
+.btn-retour:hover {
+  background-color: #2417DF;
+}
+
+
+/* Responsive : scroll horizontal si petit écran */
+@media (max-width: 720px) {
+  .container {
+    padding: 15px;
+  }
+  .data-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}

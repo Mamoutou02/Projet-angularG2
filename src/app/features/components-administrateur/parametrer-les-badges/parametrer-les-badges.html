@@ -1,0 +1,28 @@
+<div class="container">
+  <h1>Gestion des Badges</h1>
+
+  <button class="add-button" (click)="addBadge()">Ajouter un Badge</button>
+
+  <div class="badge-list">
+    <div class="badge-card" *ngFor="let badge of badges">
+      <img [src]="badge.image" [alt]="badge.nom" />
+      <div class="card-content">
+        <h2>{{badge.nom}}</h2>
+        <p>{{badge.description}}</p>
+        <div class="badge-number">{{badge.nombre}}</div>
+        <div id="btn">
+            <button class="modify-button" (click)="editBadge(badge)">Modifier</button>
+            <button class="delete-button" (click)="deleteBadge(badge)">Supprimer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Affichage conditionnel du popup -->
+  <app-badges-popup
+    *ngIf="showPopup"
+    [badgeToEdit]="currentEditingBadge"
+    (closed)="closePopup()"
+    (submitted)="onBadgeSubmitted($event)">
+  </app-badges-popup>
+</div>

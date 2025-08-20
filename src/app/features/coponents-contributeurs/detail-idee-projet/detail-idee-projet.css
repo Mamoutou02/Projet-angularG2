@@ -1,0 +1,117 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #d3d3d3; /* Fond gris clair comme dans l'image */
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.detail-container {
+  background: #fff;
+  padding: 20px;
+  border: 2px solid #ccc; /* Bordure légèrement plus épaisse pour ressembler à l'image */
+  border-radius: 6px;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  max-width: 100%;
+  width: 400px; /* Largeur fixe pour correspondre à la taille de l'image */
+  box-sizing: border-box;
+  overflow-x: auto; /* Permet le défilement horizontal si nécessaire */
+  position: relative; /* Pour positionner le bouton de fermeture */
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+h2 {
+  color: #333;
+  font-size: 18px; /* Taille du titre augmentée pour correspondre à l'image */
+  font-weight: bold;
+  margin: 0;
+}
+
+.close-btn {
+  background-color: #007BFF; /* Bouton de fermeture bleu */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.close-btn:hover {
+  background-color: #0056b3;
+}
+
+.detail-content {
+  padding-top: 10px;
+  border-top: 1px solid #ddd; /* Ligne de séparation comme dans l'image */
+}
+
+.detail-item {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.detail-item strong {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Exemple de sous-élément dans .detail-container (facultatif) */
+.detail-column {
+  flex: 1;
+  min-width: 280px;
+  box-sizing: border-box;
+}
+
+/* Responsive pour tablettes (max-width: 768px) */
+@media screen and (max-width: 768px) {
+  .detail-container {
+    width: 350px; /* Réduit la largeur */
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 4px;
+  }
+  .close-btn {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+  h2 {
+    font-size: 16px;
+  }
+  .detail-item {
+    font-size: 13px;
+  }
+}
+
+/* Responsive pour téléphones (max-width: 480px) */
+@media screen and (max-width: 480px) {
+  .detail-container {
+    width: 300px; /* Réduit encore la largeur */
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  .close-btn {
+    padding: 3px 6px;
+    font-size: 10px;
+  }
+  h2 {
+    font-size: 14px;
+  }
+  .detail-item {
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,59 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body.dark-theme {
+  background-color: #121212;
+  color: #f0f0f0;
+}
+
+body.dark-theme .header,
+body.dark-theme .sidebar {
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+}
+
+body.dark-theme .btn-logout {
+  background: linear-gradient(135deg, #8b0000, #a71e2a);
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.custom-snackbar {
+  background: linear-gradient(135deg, #4CAF50, #2E7D32) !important;
+  color: #fff !important;
+  font-size: 1.1rem !important;
+  font-weight: bold !important;
+  letter-spacing: 0.5px;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  animation: slideIn 0.4s ease-out;
+}
+
+.error-snackbar {
+  background: linear-gradient(135deg, #D32F2F, #B71C1C) !important;
+  color: #fff !important;
+  font-size: 1.1rem !important;
+  font-weight: bold !important;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
